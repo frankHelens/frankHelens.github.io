@@ -141,7 +141,6 @@ window.onload=function(){
 		}		
 
 		if(l1>r2 && !obj.bol){
-			console.log(score);
 			audio[2].play();
 			score++; //+1
 			obj.bol = true;
