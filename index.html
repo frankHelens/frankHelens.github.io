@@ -1,185 +1,657 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
 <head>
-	<meta charset="UTF-8">
-	<title>贪吃蛇</title>
-	<style>
-	*{
-		margin: 0;
-		padding: 0;
-	}
-		.warp{
-			width: 330px;
-			height: 480px;
-			background:url(img/bg.png);
-			position: relative;
-			margin: 0 auto;
-			border: 5px solid #fc9;
-			overflow: hidden;
-		}
-		.warp div{
-			width: 15px;
-			height: 15px;
-			position: absolute;
-		}
-		.head{
-			background-color: black;
-		}
-		.food{
-			background-color: red; 
-		}
-		.body{
-			background-color: #f3c;
-		}
-	</style>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/"/>
+
+
+  <title> Hexo </title>
 </head>
-<body>
-	<div class="warp">
-		<div class="snake">
-			<div class="body"></div>
-			<div class="body"></div>
-			<div class="body"></div>
-			<div class="head"></div>	
-		</div>
-		<div class="food"></div>
-	</div>
-	<script>
-		var warp = document.querySelector('.warp');
-		// 获取蛇
-		var snake = document.querySelector(".snake");
-		var sMeat = snake.getElementsByTagName('div');
-		var food = document.querySelector('.food');
-		
-		foodFn();
-		//蛇的初始位置
-		for(var i =0;i<sMeat.length;i++){
-			sMeat[i].style.left=i*15+"px";
-		}
-		var x = sMeat[3].offsetLeft; //舌头的步数
-		var y = 0;
-		var vx = 0 ;
-		var vy = 0;
-		var moveBol = null;
-		var keyBol = false;
-		
-		// 创建键盘事件
-			document.onkeydown = function (e) {
 
-				switch(e.keyCode){
-		 		case 37: //左
-		 		 if(vx==0 && !keyBol){
-		 		 moveBol = true;
-		 		 vx = -15;
-		 		 vy = 0;
-		 		}
-		 		break;
-		 		case 38://下
-		 		 if(vy==0 && !keyBol){
-		 		 moveBol = true;
-		 		vy = -15;
-		 		vx = 0;
-		 		}
-		 		break;
-		 		case 39: //右
-		 		 if(vx==0 && !keyBol){
-		 		 moveBol = true; 	
-		 		vx = 15;
-		 		vy = 0;
-		 		}
-		 		break;
-		 		case 40: //上
-		 		 if(vy==0 && !keyBol){
-		 		 moveBol = true;
-		 		vy = 15;
-		 		vx = 0;
-		 		}
-		 		break;
-		 	}
-		 	keyBol = true;
-		 
-			}
-		// 创建时间定时器
-			var timer = setInterval(function(){
-			x+=vx;
-			y+=vy;	
-			//判断键盘按下执行
-			if(moveBol==true){
-				snake.insertBefore(snake.lastElementChild,snake.children[0]);
-				snake.children[0].style.background="#f3c";
-				snake.lastElementChild.style.background="black"
+<body itemscope itemtype="//schema.org/WebPage" lang="">
 
-			}
+  
 
-			
-			// 蛇碰到墙壁走
-			if(x<0){
-				x = warp.clientWidth-15;
-			}else if (x>=warp.clientWidth-15){
-				x = 0;
-			}
-			if(y<0){
-				y=warp.clientHeight-15;
-			}else if(y>warp.clientHeight-15){
-				y=0;
-			}
 
-			snake.lastElementChild.style.left=x+"px";
-			snake.lastElementChild.style.top=y+"px";
-			
-			check();
-			keyBol = false; //键盘按下没有效果
 
-			},100);
-		
-		// 创建一个随机函数
-		function rndFn(min,max){
-			return parseInt(Math.random()*(max-min))+min;
-		}
-			
-		//判断吃到食物或者迟到自己
-		function check(){
-			if(x==food.offsetLeft&&y==food.offsetTop){
-				foodFn();
-				creatSnake();
-			}
-			// 吃到自己
-			// console.log(sMeat)
-			for(var i = 0;i< sMeat.length-1; i++){
-				
-				if(x==sMeat[i].offsetLeft && y==sMeat[i].offsetTop){
-					gameover();
-				}
-			}
-		}
-		// 游戏结束
-		function gameover(){
-			clearInterval(timer);
-			alert("gameover!");
-		}
-		
-		//创建新的食物
-		function foodFn(){
-			// 创建一个随机位置的数
-			var rndX = rndFn(0,warp.clientWidth/15);
-			var rndY = rndFn(0,warp.clientHeight/15);
-			//食物的随机位置
-			food.style.left=rndX*15+"px";
-			food.style.top =rndY*15+"px";
 
-			for (var i = 0; i < sMeat.length; i++) {
-				if(rndX*15 == sMeat[i].offsetLeft&&rndY*15 == sMeat[i].offsetTop){
-					// 判断食物位置在蛇身上重新调用改变食物的位置函数
-					return foodFn();
-				}
-			}
-		}
-		// 创建蛇身
-		function creatSnake(){
-			var newBody= document.createElement("div");
-				newBody.style.left = "-20px";
-				snake.insertBefore(newBody,snake.children[snake.children.length-2])
-		}
-	
-	</script>
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left 
+   page-home 
+ ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Hexo</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            Archiv
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule" rel="section">
+            
+            Schedule
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/11/10/canvas/" itemprop="url">
+                  Unbenannt
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <time itemprop="dateCreated" datetime="2016-11-10T15:37:01+08:00" content="2016-11-10">
+              2016-11-10
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="canvas"><a href="#canvas" class="headerlink" title="canvas"></a>canvas</h1><h3 id="一、什么是canvas"><a href="#一、什么是canvas" class="headerlink" title="一、什么是canvas"></a>一、什么是canvas</h3><ul>
+<li>canvas 元素用于在网页上绘制图形。HTML5 的 canvas 元素使用 JavaScript 在网页上绘制2D图像。</li>
+<li>在矩形区域的画布上，控制其每一像素，JavaScript 来绘制 2D图形，逐像素进行渲染。可以通过多种方法使用canvas 元素绘制路径、矩形、圆形、字符以及添加图像。</li>
+<li>浏览器支持情况 IE9.0以前的版本不支持</li>
+<li>getContext(‘2d’)方法可返回一个对象，该对象提供了用于在画布上绘图的方法和属性。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var canvas = document.getElementsByTagName(&apos;canvas&apos;)[0];</div><div class="line">//创建文本形式</div><div class="line">var ctx = canvas.getContext(&quot;2d&quot;);</div><div class="line">ctx.beginPath(); //开写绘制路径</div><div class="line">ctx.moveTo(100,100);//移动画笔到坐标是100的位置</div><div class="line">ctx.lineTo(200,200);//画直线</div><div class="line">ctx.strokeStyle = &quot;blue&quot;;//描边之前设置颜色</div><div class="line">ctx.stroke();//描边 // 填充fill</div><div class="line">ctx.closePath();// 结束当前路径</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="二、文字绘制"><a href="#二、文字绘制" class="headerlink" title="二、文字绘制"></a>二、文字绘制</h3><ul>
+<li>font设置或返回文本内容的当前字体属性</li>
+<li>textAlign 设置或返回文本内容的当前对齐方式</li>
+<li>textBaseline 设置或者返回在绘制文本时使用的文本基线</li>
+<li>方法:</li>
+<li>fillText(text,x,y,maxWidth): text表示文字，x、y为坐标、maxWidth可选，为文字最大宽度，防止文字溢出；填充文字</li>
+<li>strokeText(text,x,y,maxWidth): text表示文字，x、y为坐标、maxWidth可选，为文字最大宽度，防止文字溢出；绘制文字<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">//纵中心线</div><div class="line">ctx.beginPath();</div><div class="line">ctx.moveTo(200,0);</div><div class="line">ctx.lineTo(200,400);</div><div class="line">ctx.strokeStyle = &apos;red&apos;;</div><div class="line">ctx.stroke();</div><div class="line"></div><div class="line">//横中心线</div><div class="line">ctx.beginPath();</div><div class="line">ctx.moveTo(0,200);</div><div class="line">ctx.lineTo(400,200);</div><div class="line">ctx.strokeStyle = &quot;blue&quot;;</div><div class="line">ctx.stroke();</div><div class="line">ctx.closePath();</div><div class="line"></div><div class="line">//字体</div><div class="line">ctx.font = &quot;50px 黑体&quot;;</div><div class="line">// ctx.textAlign = &quot;right&quot;;//左下边</div><div class="line">ctx.textAlign = &quot;center&quot;;</div><div class="line">ctx.textBaseline = &apos;top&apos;;</div><div class="line">//设置第四个参数设置文字的最大宽度,如果文字会超过大小的话会变形	ctx.strokeText(&quot;franksHelensSon-Ben&quot;,200,200,300); //空心</div><div class="line">// ctx.fillText(&quot;franks&quot;,200,200,500); //实心</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="三-阴影绘制"><a href="#三-阴影绘制" class="headerlink" title="三.阴影绘制"></a>三.阴影绘制</h3><ul>
+<li>shadowColor 阴影颜色</li>
+<li>shadowOffsetX 阴影的左右偏移值</li>
+<li>shadowOffsetY 阴影的上下偏移值</li>
+<li>shadowBlur 阴影模糊度</li>
+<li>save() 保存当前属性设置</li>
+<li>ctx.restore() 返回上一次保存的属性值,只能是保存一次返回一次</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">ctx.save()//保存当前属性设置 </div><div class="line">shadow(5,5,10,&quot;blue&quot;);</div><div class="line">ctx.font = &apos;50px 黑体&apos;;</div><div class="line">ctx.fillStyle = &quot;red&quot;;</div><div class="line">ctx.fillText(&apos;阴影1&apos;,60,60); </div><div class="line">ctx.restore()//返回上一次保存的属性值,只能是保存一次返回一次</div><div class="line"></div><div class="line">// shadow(5,5,5,&quot;yellow&quot;);</div><div class="line">ctx.strokeStyle = &quot;green&quot;;</div><div class="line">ctx.strokeText(&apos;阴影2&apos;,200,200);</div></pre></td></tr></table></figure>
+<p>将阴影绘制封成一个函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function shadow(x,y,blur,color)&#123;</div><div class="line">	ctx.shadowOffsetX = x;</div><div class="line">	ctx.shadowOffsetY = y;</div><div class="line">	ctx.shadowColor = color;</div><div class="line">	ctx.shadowBlur = blur;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="四-rect"><a href="#四-rect" class="headerlink" title="四.rect"></a>四.rect</h3><ul>
+<li>canvas自带的函数方法 ctx.fillRect()<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">//封装成一个函数</div><div class="line">	function rect(x,y,w,h,color)&#123;</div><div class="line">		ctx.moveTo(x,y);</div><div class="line">		ctx.lineTo(x+w,y);</div><div class="line">		ctx.lineTo(x+w,y+h);</div><div class="line">		ctx.lineTo(x,y+h);</div><div class="line">		ctx.lineTo(x,y);</div><div class="line">		ctx.fillStyle=color;</div><div class="line">		ctx.fill();</div><div class="line">		ctx.closePath();</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="五-arc-圆的绘制"><a href="#五-arc-圆的绘制" class="headerlink" title="五.arc 圆的绘制"></a>五.arc 圆的绘制</h3><ul>
+<li>参数: (开始的坐标x,y,半径,开始的角度,绘制多大的角度,逆时针);<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ctx.arc(200,200,50,-Math.PI/180*deg,Math.PI/180*deg,true);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="六-贝塞尔曲线"><a href="#六-贝塞尔曲线" class="headerlink" title="六.贝塞尔曲线"></a>六.贝塞尔曲线</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">	var canvas = document.getElementById(&apos;canvas&apos;);</div><div class="line">	var ctx = canvas.getContext(&apos;2d&apos;);</div><div class="line"></div><div class="line">	canvas.onmousedown = function(e)&#123;</div><div class="line">		var dx =canvas.offsetLeft;</div><div class="line">		var dy =canvas.offsetTop;</div><div class="line">		document.onmousemove = function(e)&#123;</div><div class="line">			var x = e.clientX-dx;</div><div class="line">			var y = e.clientY-dy;</div><div class="line">			ctx.clearRect(0,0,canvas.width,canvas.height);</div><div class="line">			draw(x,y);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	document.onmouseup = function()&#123;</div><div class="line">		document.onmousemove = &quot;&quot;;</div><div class="line">	&#125;</div><div class="line">	function draw(x,y)&#123;</div><div class="line">		// 二次贝塞尔曲线方法quadraticCurveTo</div><div class="line">		ctx.beginPath();</div><div class="line">		ctx.moveTo(100,100);</div><div class="line">		ctx.quadraticCurveTo(x,y,200,200);</div><div class="line">		ctx.strokeStyle = &quot;black&quot;;</div><div class="line">		ctx.stroke();</div><div class="line">		</div><div class="line">		ctx.beginPath();</div><div class="line">		ctx.moveTo(100,100);</div><div class="line">		ctx.lineTo(x,y);</div><div class="line">		ctx.strokeStyle=&quot;red&quot;;</div><div class="line">		ctx.stroke();</div><div class="line"></div><div class="line">		ctx.beginPath();</div><div class="line">		ctx.moveTo(200,200);</div><div class="line">		ctx.lineTo(x,y);</div><div class="line">		ctx.strokeStyle=&quot;red&quot;;</div><div class="line">		ctx.stroke();</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<p>三次贝塞尔曲线方法bezierCurveTo<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">	var canvas = document.getElementById(&apos;canvas&apos;);</div><div class="line">	var ctx = canvas.getContext(&apos;2d&apos;);</div><div class="line">	var x1 = 200;</div><div class="line">	var x2 = 100;</div><div class="line">	var y1 = 100;</div><div class="line">	var y2 = 200;</div><div class="line">	var num = 0 ;</div><div class="line">	draw(200,100,100,200);</div><div class="line">	function draw(x1,y1,x2,y2)&#123;</div><div class="line">		ctx.beginPath();</div><div class="line">		ctx.moveTo(100,100);</div><div class="line">		ctx.bezierCurveTo(x1,y1,x2,y2,200,200);</div><div class="line">		ctx.strokeStyle = &quot;black&quot;;</div><div class="line">		ctx.stroke();</div><div class="line"></div><div class="line">		ctx.strokeStyle = &quot;red&quot;;</div><div class="line">		//控制点一的线</div><div class="line">		ctx.beginPath();</div><div class="line">		ctx.moveTo(100,100);</div><div class="line">		ctx.lineTo(x1,y1);</div><div class="line">		ctx.stroke();</div><div class="line">		// 画控制的点</div><div class="line">		ctx.beginPath();</div><div class="line">		ctx.arc(x1,y1,10,0,Math.PI*2);</div><div class="line">		ctx.fillStyle = &apos;green&apos;;</div><div class="line">		ctx.fill();</div><div class="line">		//控制点二的线</div><div class="line">		ctx.beginPath();</div><div class="line">		ctx.moveTo(200,200);</div><div class="line">		ctx.lineTo(x2,y2);</div><div class="line">		ctx.stroke();</div><div class="line">		// 画控制的点</div><div class="line">		ctx.beginPath();</div><div class="line">		ctx.arc(x2,y2,10,0,Math.PI*2);</div><div class="line">		ctx.fillStyle = &apos;green&apos;;</div><div class="line">		ctx.fill();</div><div class="line">	&#125;</div><div class="line">	// 检测鼠标位置</div><div class="line">	function check(x,y)&#123;</div><div class="line">		var l1 = x1 - 10;</div><div class="line">		var r1 = x1 + 10;</div><div class="line">		var t1 = y1 - 10;</div><div class="line">		var b1 = y1 + 10;</div><div class="line">		</div><div class="line">		var l2 = x2 - 10;</div><div class="line">		var r2 = x2 + 10;</div><div class="line">		var t2 = y2 - 10;</div><div class="line">		var b2 = y2 + 10;</div><div class="line">		if(l2&lt;x &amp;&amp; r2&gt;x &amp;&amp; t2&lt;y &amp;&amp; b2&gt;y)&#123;</div><div class="line">			num = 2;</div><div class="line">		&#125;else if(l1&lt;x &amp;&amp; r1&gt;x &amp;&amp; t1&lt;y &amp;&amp; b1&gt;y)&#123;</div><div class="line">			num = 1;</div><div class="line">		&#125;else &#123;</div><div class="line">			num = 0;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	canvas.onmousedown = function (e) &#123;</div><div class="line">		var disX = canvas.offsetLeft;</div><div class="line">		var disY = canvas.offsetTop;</div><div class="line">		check(e.clientX-disX,e.clientY-disY);</div><div class="line">		document.onmousemove = function (e) &#123;</div><div class="line">			console.log(num);</div><div class="line">			if(num==1)&#123;</div><div class="line">				x1 = e.clientX-disX;</div><div class="line">				y1 = e.clientY-disY;</div><div class="line">			&#125;else if(num==2)&#123;</div><div class="line">				x2 = e.clientX-disX;</div><div class="line">				y2 = e.clientY-disY;</div><div class="line">			&#125;</div><div class="line">			// ctx.clearRect(0,0,canvas.width,canvas.height);</div><div class="line">			draw(x1,y1,x2,y2);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	document.onmouseup = function () &#123;</div><div class="line">			document.onmousemove = &apos;&apos;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="七-缩放-scale"><a href="#七-缩放-scale" class="headerlink" title="七.缩放 scale"></a>七.缩放 scale</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">	var canvas = document.getElementById(&apos;canvas&apos;);</div><div class="line">	var ctx = canvas.getContext(&quot;2d&quot;);</div><div class="line">	ctx.fillRect(10,10,100,100);</div><div class="line">	ctx.beginPath();</div><div class="line">	ctx.moveTo(400,0);</div><div class="line">	ctx.lineTo(400,800);</div><div class="line">	ctx.stroke();</div><div class="line"></div><div class="line">	ctx.save(); //保存当前状态</div><div class="line">	ctx.scale(2,2);</div><div class="line">	ctx.fillRect(200,50,100,100);</div><div class="line"></div><div class="line">	ctx.restore(); //导入</div><div class="line">	ctx.beginPath();</div><div class="line">	ctx.arc(200,200,50,0,Math.PI*2);</div><div class="line">	// ctx.fillStyle = &quot;rgb(23,454,66)&quot;;</div><div class="line">	ctx.fillStyle = &quot;#f3c&quot;;</div><div class="line">	ctx.fill();</div><div class="line">	// ctx.scale(1,3);</div><div class="line">	// ctx.fillRect(100,100,100,100);</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h3 id="八-旋转-rotate"><a href="#八-旋转-rotate" class="headerlink" title="八 旋转 rotate"></a>八 旋转 rotate</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">	var canvas = document.getElementById(&apos;canvas&apos;);</div><div class="line">	var ctx = canvas.getContext(&quot;2d&quot;);</div><div class="line"></div><div class="line">	var deg = 2;</div><div class="line">	 var timer = setInterval(function()&#123;</div><div class="line">		ctx.save(); //保存当前位置 0 </div><div class="line">	 	deg +=2;</div><div class="line">		ctx.clearRect(-200,-200,800,800);</div><div class="line">		ctx.rotate(Math.PI/180*deg);</div><div class="line">		ctx.fillRect(0,0,200,200);</div><div class="line">		ctx.restore();//放回保存角度</div><div class="line">		</div><div class="line">	&#125;,30);</div><div class="line">	 function rect()&#123;</div><div class="line">	 	ctx.fillRect(400,400,200,200);</div><div class="line">	 &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h3 id="九-画布移动"><a href="#九-画布移动" class="headerlink" title="九. 画布移动"></a>九. 画布移动</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">ctx.translate(400,400);</div><div class="line">var deg = 0;</div><div class="line">setInterval(function()&#123;</div><div class="line">	deg+=2;</div><div class="line">	// 清空画板</div><div class="line">	ctx.clearRect(-400,-400,canvas.width,canvas.height);</div><div class="line">	// 背景</div><div class="line">	ctx.fillRect(-100,-100,200,200);</div><div class="line">	ctx.save();</div><div class="line">	ctx.rotate(Math.PI/180*deg);</div><div class="line">	ctx.lineWidth = 5;//设置线的粗细</div><div class="line">	ctx.lineCap = &apos;round&apos;; //线的圆角 </div><div class="line">	ctx.beginPath();</div><div class="line">	ctx.moveTo(0,0);</div><div class="line">	ctx.lineTo(0,80);</div><div class="line">	ctx.strokeStyle = &apos;red&apos;;</div><div class="line">	ctx.stroke();</div><div class="line">	ctx.restore();</div><div class="line">&#125;,30)</div></pre></td></tr></table></figure>
+<h3 id="十-createLinearGradient-渐变"><a href="#十-createLinearGradient-渐变" class="headerlink" title="十.createLinearGradient 渐变"></a>十.createLinearGradient 渐变</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var c = ctx.createLinearGradient(0,0,800,800);</div><div class="line">c.addColorStop(0,&quot;red&quot;); </div><div class="line">c.addColorStop(0.5,&quot;blue&quot;); </div><div class="line">c.addColorStop(1,&quot;yellow&quot;); </div><div class="line">ctx.fillStyle = c;//设置填充颜色为渐变颜色</div><div class="line">ctx.fillRect(0,0,800,800);</div></pre></td></tr></table></figure>
+<h3 id="十一-createRadialGradient-径向渐变"><a href="#十一-createRadialGradient-径向渐变" class="headerlink" title="十一.createRadialGradient 径向渐变"></a>十一.createRadialGradient 径向渐变</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">	var canvas = document.getElementById(&apos;canvas&apos;);</div><div class="line">	var ctx = canvas.getContext(&quot;2d&quot;);</div><div class="line">	</div><div class="line">	// var c = ctx.createRadialGradient(400,400,0,400,400,200);</div><div class="line">	// c.addColorStop(0,&quot;red&quot;);</div><div class="line">	// c.addColorStop(0.5,&quot;blue&quot;);</div><div class="line">	// c.addColorStop(1,&quot;green&quot;);</div><div class="line">	// ctx.fillStyle = c;</div><div class="line">	// ctx.fillRect(0,0,800,800);</div><div class="line"></div><div class="line">	var x1 = 0;</div><div class="line">	var x2 = 0;</div><div class="line">	var y1 = 0;</div><div class="line">	var y2 = 0;</div><div class="line">	var movebol = false;</div><div class="line">	canvas.onmousedown = function (e) &#123;</div><div class="line">		var disX = canvas.offsetLeft;</div><div class="line">		var disY = canvas.offsetTop;</div><div class="line">		x1 = e.clientX-disX;</div><div class="line">		y1 = e.clientY-disY;		</div><div class="line">		document.onmousemove = function (e) &#123;</div><div class="line">			x2 = e.clientX - disX;</div><div class="line">			y2 = e.clientY - disY;</div><div class="line">			ctx.clearRect(0,0,800,800);</div><div class="line">			ctx.beginPath();</div><div class="line">			ctx.moveTo(x1,y1);</div><div class="line">			ctx.lineTo(x2,y2);</div><div class="line">			ctx.closePath();</div><div class="line">			ctx.stroke();</div><div class="line">			movebol = true;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	document.onmouseup = function () &#123;</div><div class="line">		document.onmousemove = &apos;&apos;;</div><div class="line">			var a = x1 - x2;</div><div class="line">			var b = y1 - y2;</div><div class="line">			var r = Math.sqrt(a*a+b*b);</div><div class="line">			if(movebol)&#123;</div><div class="line">			var c = ctx.createRadialGradient(x1,y1,0,x1,y1,r);</div><div class="line">			c.addColorStop(0,&quot;red&quot;);</div><div class="line">			c.addColorStop(0.5,&quot;blue&quot;);</div><div class="line">			c.addColorStop(1,&quot;green&quot;);</div><div class="line">			ctx.fillStyle = c;</div><div class="line">			ctx.fillRect(0,0,800,800);</div><div class="line"></div><div class="line">			&#125;</div><div class="line">			movebol = false;</div><div class="line">	&#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/11/10/hello-world/" itemprop="url">
+                  Hello World
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <time itemprop="dateCreated" datetime="2016-11-10T15:14:40+08:00" content="2016-11-10">
+              2016-11-10
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<div style="background:red;color:white;font-size:30px;height:40px;line-Height:40px;">黄锋锐</div>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+  </section>
+
+  
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="John Doe" />
+          <p class="site-author-name" itemprop="name">John Doe</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-name">Artikel</span>
+            </a>
+          </div>
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+
+<div class="powered-by">
+  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.2"></script>
+
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
 </body>
 </html>
