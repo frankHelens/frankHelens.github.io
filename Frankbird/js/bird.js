@@ -67,8 +67,7 @@ window.onload=function(){
 				}
 			}	
 		e.preventDefault(); //阻止手势
-		
-	}, true);
+	},true);
 
 	function chushihua(){
 		// 初始化3个管子的位置和高度
