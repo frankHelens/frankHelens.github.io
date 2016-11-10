@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta charset="utf-8" />
+	<title>选字游戏</title>
+	<style type="text/css">
+		.warp{
+			width: 350px;
+			height: 500px;
+			border: 2px solid ;
+			margin: 60px auto;
+			position: relative;
+			text-align: center;
+		}
+		.warp span{
+			display: inline-block;
+			margin-top:20px ;
+			font-size:20px; 
+		}
+		.warp span:nth-child(1){
+			margin-left:-60px; 
+		}
+		.warp span:nth-child(2){
+			margin-left:60px; 
+		}
+		.inner{
+			width: 200px; 
+			height: 200px;
+			border:1px solid ;
+			margin: 30px auto;
+			font-size: 180px;
+			line-height:200px;
+			text-align: center;
+		}
+		.under_inner{
+			width: 100%;
+			height: 100px;
+			position: absolute;
+			bottom: 0;
+		}
+		.under_inner ul{
+			list-style: none;
+			font-size: 60px;
+			margin:30px -30px; 
+
+
+		}
+		li{
+			float: left;
+			margin-right:8px;
+			cursor: pointer; 
+
+		}
+		.box{
+			width: 250px;
+			height: 150px;
+			position: absolute;
+			left: 50%;
+			top:50%;
+			transform: translateX(-50%) translateY(-50%);
+			background-color:white;
+			border: 1px solid;
+			border-radius: 20px; 
+			box-shadow: 10px 10px  10px #333  ;
+			/*display: none;*/
+
+		}
+		input{
+			width: 130px;
+			height: 35px;
+			background-color:#eee; 
+			outline:none;
+			font-size: 16px;
+
+		}
+
+
+
+	</style>
+</head>
+<body>
+	<div class="warp">
+		<span id="gameTime">游戏事件剩余20秒</span>
+		<span id="score">分数:0</span>
+		<div class="inner" id="inner">黄</div>
+		<h3>游戏规则</h3>
+		<p>根据上面的字体颜色,在下面选择对应的字</p>
+		<div class="under_inner">
+			<ul>
+			<li>黄</li>
+			<li>黑</li>
+			<li>红</li>
+			<li>绿</li>
+			<li>蓝</li>
+
+			</ul>
+		</div>
+		<div class="box" id="box">
+			<p>游戏规则:<br/>根据上面的字体颜色,在下面选择对应的字,请点击下面按钮开始游戏吧!!</p>
+			<p></p>
+			<input class="startBtn" type="button" value="开始游戏" id="startBtn" />
+			
+		</div>
+	</div>
+
+	<script type="text/javascript">
+
+		//页面加载后执行
+		window.onload=function(){
+// 
+
+		//获取元素
+		var box=document.getElementById("box"); //获取弹出框
+
+		var text=document.getElementsByTagName('p'); //游戏规则
+		 // console.log(p);
+		 var startBtn=document.getElementById('startBtn'); //开始游戏按钮
+
+		var gameTime=document.getElementById("gameTime"); //游戏时间
+
+		var score=document.getElementById("score"); //分数
+		 
+		var inner=document.getElementById("inner"); //最大的颜色字
+
+		var smallInner=document.getElementsByTagName('li');//下面的小颜色字
+
+
+		
+		 // 创建数组
+		var font=["黄","黑","红","绿","蓝"]; //字体
+		var color=["yellow","black","red","green","blue"];//颜色
+		var font1=["黄","黑","红","绿","蓝"];//固定的字符串
+		var color1=["yellow","black","red","green","blue"];
+
+		//创建随机数函数
+		function getRandoms(max,min){
+			return parseInt(Math.random()*(max-min))+min;
+		}
+		// 创建字体内容与颜色的随机函数
+		function randomFontColor(){
+			font.sort(function(){
+				return Math.random()-0.5;
+				});
+			color.sort(function(){
+				return Math.random()-0.5;
+			});
+		}
+		
+		// 显示颜色字的函数
+		
+		function showInner(){
+
+			randomFontColor();
+			 var s=getRandoms(0,4);
+			
+			// 中间字
+			inner.innerHTML=font[s];
+			inner.style.color=color[s];
+
+			for(var i=0;i<font.length;i++){
+				//下面的字
+				smallInner[i].innerHTML=font[i];	
+				smallInner[i].style.color=color[i];
+						
+				
+			}
+			
+		}
+
+
+		showInner();
+
+		//判断游戏进行状态
+		var isplaying=false; 
+		//点击开始游戏触发事件
+		startBtn.onclick=function(){
+
+				fraction=0;
+				text[2].innerHTML="游戏结束!! 最后得分是:"+fraction+"分";
+				box.style.display='none';
+				text[1].style.display='none';
+				GT();
+				startGame();
+		}
+
+
+
+
+		// 获取下面字体点击的函数
+
+		var  fraction=0; //申明分数
+		function startGame(){
+			for(var j=0;j<smallInner.length;j++){
+			//点击
+			smallInner[j].onclick=function(){
+				if(isplaying==true){
+			// 计算分数
+			if(font1.indexOf(this.innerHTML)==color1.indexOf(inner.style.color)){
+					fraction++;
+
+				}else{
+					fraction--;
+				} 
+				score.innerHTML="分数:"+fraction;
+				showInner();
+
+				}
+			
+			}}
+		}
+
+
+			// 游戏时间函数
+			function GT(){
+				isplaying=true;
+				var beginTime=20;//游戏时间 
+				var  timer=setInterval(function(){
+				
+				beginTime--;
+				gameTime.innerHTML="游戏时间剩余"+beginTime+"秒";
+			
+				if(beginTime<=0){
+					clearInterval(timer);
+					box.style.display='block';
+					text[2].innerHTML="游戏结束!! 最后得分是:"+fraction+"分";
+					startBtn.value="重新开始";	
+					isplaying=false;			
+			}
+				
+			
+
+			
+				},1000);
+			}
+			
+
+
+
+
+		
+
+					
+	
+
+
+
+
+
+		
+
+
+		
+
+
+		
+		
+
+	}
+
+		
+
+
+	 
+
+
+
+
+
+
+
+	</script>
+</body>
+</html>

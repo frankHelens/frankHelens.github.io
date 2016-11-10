@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta charset="utf-8" />
+		<title>flappyBrid</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+	
+		<script src="js/tween.js" type="text/javascript" charset="utf-8"></script>
+
+	</head>
+
+	<body>
+		<!--容器-->
+		<div id="warp">
+			<!-- 分数 -->
+			<div class="scope"><img src="" alt=""></div>	
+			<div id="head">
+				<div></div>
+				<div></div>
+			</div>
+			<!-- 结束信息 -->
+			<div id="overMessage">
+				<p>0</p>
+			</div>
+
+			<div class="startMenu">
+				<div id="start"></div>
+				<div id="ranking"></div>
+			</div>		
+			<!--鸟-->
+			<div id="bird"></div>
+			<div class="line"></div>
+			<!-- 开始提示 -->
+			<div id="getReady">
+				<div></div>
+				<div></div>
+			</div>
+			<!-- 管子 -->
+			<div class="pipe">
+				<div class="pipe_up">
+					<img src="img/up_pipe.png" />
+					
+				</div>
+				<div class="pipe_down">
+					<img src="img/down_pipe.png" alt="" />
+				</div>
+			</div>
+			<div class="pipe">
+				<div class="pipe_up">
+					<img src="img/up_pipe.png" />
+					
+				</div>
+				<div class="pipe_down">
+					<img src="img/down_pipe.png" alt="" />
+				</div>
+			</div>
+			<div class="pipe">
+				<div class="pipe_up">
+					<img src="img/up_pipe.png" />
+					
+				</div>
+				<div class="pipe_down">
+					<img src="img/down_pipe.png" alt="" />
+				</div>
+			</div>
+
+		</div>
+		<div class="audio">
+			<audio src="img/game_music.mp3" autoplay ></audio>
+			<audio src="img/Hit.wav"></audio>
+			<audio src="img/Point.wav"></audio>
+			<audio src="img/Swooshing.wav"></audio>
+			<audio src="img/Wing.wav"></audio>
+			<audio src="img/Die.wav"></audio>
+
+		</div> 
+		<script src="js/bird.js"></script>
+
+	</body>
+
+</html>

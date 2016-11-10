@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>贪吃蛇</title>
+	<style>
+	*{
+		margin: 0;
+		padding: 0;
+	}
+		.warp{
+			width: 330px;
+			height: 480px;
+			background:url(img/bg.png);
+			position: relative;
+			margin: 0 auto;
+			border: 5px solid #fc9;
+			overflow: hidden;
+		}
+		.warp div{
+			width: 15px;
+			height: 15px;
+			position: absolute;
+		}
+		.head{
+			background-color: black;
+		}
+		.food{
+			background-color: red; 
+		}
+		.body{
+			background-color: #f3c;
+		}
+	</style>
+</head>
+<body>
+	<div class="warp">
+		<div class="snake">
+			<div class="body"></div>
+			<div class="body"></div>
+			<div class="body"></div>
+			<div class="head"></div>	
+		</div>
+		<div class="food"></div>
+	</div>
+	<script>
+		var warp = document.querySelector('.warp');
+		// 获取蛇
+		var snake = document.querySelector(".snake");
+		var sMeat = snake.getElementsByTagName('div');
+		var food = document.querySelector('.food');
+		
+		foodFn();
+		//蛇的初始位置
+		for(var i =0;i<sMeat.length;i++){
+			sMeat[i].style.left=i*15+"px";
+		}
+		var x = sMeat[3].offsetLeft; //舌头的步数
+		var y = 0;
+		var vx = 0 ;
+		var vy = 0;
+		var moveBol = null;
+		var keyBol = false;
+		
+		// 创建键盘事件
+			document.onkeydown = function (e) {
+
+				switch(e.keyCode){
+		 		case 37: //左
+		 		 if(vx==0 && !keyBol){
+		 		 moveBol = true;
+		 		 vx = -15;
+		 		 vy = 0;
+		 		}
+		 		break;
+		 		case 38://下
+		 		 if(vy==0 && !keyBol){
+		 		 moveBol = true;
+		 		vy = -15;
+		 		vx = 0;
+		 		}
+		 		break;
+		 		case 39: //右
+		 		 if(vx==0 && !keyBol){
+		 		 moveBol = true; 	
+		 		vx = 15;
+		 		vy = 0;
+		 		}
+		 		break;
+		 		case 40: //上
+		 		 if(vy==0 && !keyBol){
+		 		 moveBol = true;
+		 		vy = 15;
+		 		vx = 0;
+		 		}
+		 		break;
+		 	}
+		 	keyBol = true;
+		 
+			}
+		// 创建时间定时器
+			var timer = setInterval(function(){
+			x+=vx;
+			y+=vy;	
+			//判断键盘按下执行
+			if(moveBol==true){
+				snake.insertBefore(snake.lastElementChild,snake.children[0]);
+				snake.children[0].style.background="#f3c";
+				snake.lastElementChild.style.background="black"
+
+			}
+
+			
+			// 蛇碰到墙壁走
+			if(x<0){
+				x = warp.clientWidth-15;
+			}else if (x>=warp.clientWidth-15){
+				x = 0;
+			}
+			if(y<0){
+				y=warp.clientHeight-15;
+			}else if(y>warp.clientHeight-15){
+				y=0;
+			}
+
+			snake.lastElementChild.style.left=x+"px";
+			snake.lastElementChild.style.top=y+"px";
+			
+			check();
+			keyBol = false; //键盘按下没有效果
+
+			},100);
+		
+		// 创建一个随机函数
+		function rndFn(min,max){
+			return parseInt(Math.random()*(max-min))+min;
+		}
+			
+		//判断吃到食物或者迟到自己
+		function check(){
+			if(x==food.offsetLeft&&y==food.offsetTop){
+				foodFn();
+				creatSnake();
+			}
+			// 吃到自己
+			// console.log(sMeat)
+			for(var i = 0;i< sMeat.length-1; i++){
+				
+				if(x==sMeat[i].offsetLeft && y==sMeat[i].offsetTop){
+					gameover();
+				}
+			}
+		}
+		// 游戏结束
+		function gameover(){
+			clearInterval(timer);
+			alert("gameover!");
+		}
+		
+		//创建新的食物
+		function foodFn(){
+			// 创建一个随机位置的数
+			var rndX = rndFn(0,warp.clientWidth/15);
+			var rndY = rndFn(0,warp.clientHeight/15);
+			//食物的随机位置
+			food.style.left=rndX*15+"px";
+			food.style.top =rndY*15+"px";
+
+			for (var i = 0; i < sMeat.length; i++) {
+				if(rndX*15 == sMeat[i].offsetLeft&&rndY*15 == sMeat[i].offsetTop){
+					// 判断食物位置在蛇身上重新调用改变食物的位置函数
+					return foodFn();
+				}
+			}
+		}
+		// 创建蛇身
+		function creatSnake(){
+			var newBody= document.createElement("div");
+				newBody.style.left = "-20px";
+				snake.insertBefore(newBody,snake.children[snake.children.length-2])
+		}
+	
+	</script>
+</body>
+</html>

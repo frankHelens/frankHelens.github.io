@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta charset="UTF-8">
+	<title>寻找郭富城</title>
+	<style>	
+		html,body{
+			padding: 0;
+			margin:0;
+			width: 100%;
+			height: 100%;
+		}
+		#warp{
+			width: 90%;
+			height: 80%;
+			border: 2px solid ;
+			margin: 20% auto;
+			position: relative;
+		}
+		.inner{
+			clear: both;
+			margin-top:25%;
+			width:100%;
+			height:80%;
+		}
+		#inner img{
+			width: 100%;
+			float: left;
+			position: relative;
+		}
+		
+		.message{
+			font-size: 30px;
+			margin-top: 10%;
+		}
+		#time{
+			float: left;
+			margin-left: 5%;
+		}
+		#score{
+			float: right;
+			margin-right: 5%;
+		}
+		#begin{
+			width: 78%;
+			height: 25%;
+			background: white;
+			border: 1px solid ;
+			border-radius: 10px;
+			position: absolute;
+			left: 10%;
+			bottom: 35%;
+			/*z-index: 1;*/
+			line-height: 50px;
+			font-size: 30px;
+
+
+		}
+		button{
+			width: 50%;
+			height: 40%;
+			/*position:absolute;*/
+		/*	bottom: 0;
+			left: 50%;
+			transform: translateX(-50%);*/
+			background: #eee;
+			outline: none;
+			font-size: 30px;
+			margin-left: 25%;
+
+		}
+		
+	</style>
+</head>
+<body>
+	<div id="warp">
+		<div class='message'>
+		<span id="time">时间只剩下60.0秒</span>
+		<span id="score">分数:0</span>
+		</div>
+		<div class="inner" id="inner"><img src="1.png" alt=""></div>
+		<div id="begin">
+			<button></button>
+		</div>
+		
+	</div>
+	<script>
+		var inner=document.getElementById("inner");
+		// console.log(inner);
+		var time=document.getElementById('time');//获取时间
+		var score=document.getElementById('score'); //获取分数
+
+
+		var begin=document.getElementById('begin'); 
+		var startBtn=document.createElement('button'); //开始按钮
+
+
+		var selectImg=null; //创建一个全局变量 (检查游戏时间结束启动的变量)
+
+		// 开始游戏
+		begin.innerHTML="点击下面开始游戏,找到房祖名~";	
+		begin.appendChild(startBtn);
+		startBtn.innerHTML="开始";
+		var startBol=true;
+		startBtn.onclick=function(){
+			begin.style.display="none";
+			if(startBol){	
+				addPic(); //游戏执行
+				gameTime();//游戏时间
+			}
+			startBol=false;
+			
+			
+		}
+
+
+
+
+		var imgSrc=["1.png","2.png"];
+		var num=1; //创建一个图片数量
+		function addPic(){
+			num++;	
+			if(num>=10){
+				num=10;
+			}
+			inner.innerHTML="";
+			var rndNum=rnd(0,num*num); 
+
+			for(var i=0;i<num*num;i++){
+				 var img= new Image;
+				 if(rndNum==i){
+				 	img.src=imgSrc[1];
+				 	selectImg=img;
+				 	img.onclick=function(){
+				 		addPic(); //递归
+				 		score.innerHTML="分数:"+(num-1);
+				 	}
+				 }else{
+				 	img.src=imgSrc[0];
+				 }
+				 img.style.width=100/num+"%";
+				 inner.appendChild(img);
+			}
+		}
+	
+		
+
+		// 创建一个随机函数
+		function rnd(min,max){
+			return parseInt(Math.random()*(max-min))+min;
+		}
+			
+
+		var timer=null;
+		var t=60.0;
+		function gameTime(){
+			timer=setInterval(function(){
+				t-=0.1;
+				t=t.toFixed(1);
+				if(t<=0){
+					clearInterval(timer);//时间结束
+					selectImg.onclick=null; //时间结束的时候不让他运行
+					begin.style.display="block";
+					begin.innerHTML="gameover!!你的分数是"+(num-2)+"分";
+				}
+			time.innerHTML="时间只剩下"+t+"秒";
+			},100);
+
+		}
+		
+
+
+		
+		
+
+
+
+	</script>
+</body>
+</html>
