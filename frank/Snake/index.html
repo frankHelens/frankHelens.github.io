@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>贪吃蛇</title>
+	<style>
+		canvas{
+			border: 1px solid;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+	</style>
+</head>
+<body>
+	<canvas width="600" height="600"></canvas>
+	<canvas width="600" height="600"></canvas>
+	<script src="json.js"></script>
+	<script>
+		var canvas = document.querySelectorAll('canvas');
+		var ctx = canvas[1].getContext('2d');
+		var ctxbg = canvas[0].getContext('2d');//背景
+		//创建一个图片数组
+		var aImg = ["snake.png","z.png","w.png","t.png","l.png"];
+		var oImgs = [];//存放图片的数组
+		var index = 0;//加载图片的步数
+		for (var i = 0; i < aImg.length; i++) {
+			var img = new Image();
+			img.src = "img/"+aImg[i];
+			oImgs.push(img);
+			img.onload=function(){
+				index++;
+				if(index==aImg.length){
+					start();
+				}
+			}
+		}
+		var stArr = [];//创建石头数组
+		function start(){//游戏开始
+			drawSt();//调用石头
+			step(); //蛇的移动
+			changefood();//食物的随机
+		}
+		function drawSt(){
+			//画背景
+			var bgimg = new Image();
+			bgimg.src="img/bg.png";
+			bgimg.onload= function(){
+				var c = ctxbg.createPattern(bgimg,"repeat");
+				ctxbg.fillStyle = c;
+				ctxbg.fillRect(0,0,canvas[0].width,canvas[0].height)
+		
+			var img = new Image();
+			img.src = "img/st.png"
+			// 石头图片的加载
+			img.onload=function(){
+				var x = 0;
+				var y = 0;
+			for (var i = 0; i < json.data.length; i++) {
+				if(json.data[i]>0){
+					ctxbg.drawImage(img,(json.data[i]-1)*15,0,15,15,x*15,y*15,15,15);
+					var st = {l:x*15,t:y*15}
+					stArr.push(st);
+				}
+				x++;
+				if(x>=json.width){
+					y++;
+					x=0;	
+				}
+			}
+			changefood();//食物的随机
+		}
+	}
+	
+}
+		var box = 15;
+		var div = {l:0,t:0,delay:10,di:0,key:2}//定义蛇头 延迟定时器\
+		div.draw = function(){
+			// ctx.fillRect(div.l,div.t,box,box);
+			//改成图片数组[0](头部)的图片,
+		ctx.drawImage(oImgs[0],0,15*this.key,15,15,this.l,this.t,15,15);
+		}
+		var food = {l:0,t:0}//定义食物
+
+		food.draw = function(){
+			var img = new Image();
+			img.src ="img/f1.png";
+			ctx.drawImage(img,0,0,15,15,this.l,this.t,15,15);
+		}
+				
+		
+
+		var aSanke = [div];
+		var vx = box;//x轴的方向
+		var vy = 0 ;//y轴的方向
+		var x = 0;
+		var y = 0;
+		var moveBol = false;
+	
+		function step(){
+			aSanke[0].di++;//设置延迟30帧
+			if(aSanke[0].di>aSanke[0].delay){
+				x+=vx;
+				y+=vy;
+				// 蛇的身体跟蛇头的那个位置一样
+				aSanke[aSanke.length-1].l=aSanke[0].l;
+				aSanke[aSanke.length-1].t=aSanke[0].t;
+				aSanke[aSanke.length-1].key=aSanke[0].key;
+
+
+				aSanke[0].l = x;
+				aSanke[0].t = y;
+				//把数组最后一个数删除,然后插入数组第二个
+				var del =aSanke.pop();
+				//如果moveBol是true就是转了
+				del.type =moveBol?"turn":"none";
+				if(del.type == 'turn'){
+					var key2 = aSanke[0].key;//下
+					if(aSanke.length>1){ //如果蛇身的长度大于一
+						var key1 = aSanke[1].key;//左
+					}else{
+						key1 = key2; //蛇头的位置一样就可以
+					}
+					if((key1==2&&key2==3)||(key1==1&&key2==0)){
+						del.turn =0;//右下或上左
+					}else if((key1==3&&key2==0)||(key1==2&&key2==1)){
+						del.turn =1;//下左或者右上
+					}else if((key1==3&&key2==2)||(key1==0&&key2==1)){
+						del.turn =2;//下右或者左上
+					}else if((key1==0&&key2==3)||(key1==1&&key2==2)){
+						del.turn =3;//左下或者上右
+					}
+				}
+				aSanke.splice(1,0,del);
+				aSanke[aSanke.length-1].type="last"
+
+				//画
+				ctx.clearRect(0,0,canvas[0].width,canvas[0].height);
+				draw();
+				div.di =speed;
+				moveBol = false;
+				check();
+			}
+			requestAnimationFrame(step);
+		}
+		//创建蛇身体函数
+		// createBody()
+		//turn 转弯的,要判断8个角
+		createBody()
+		function createBody(){
+			var div ={l:0,t:0,key:0,type:"last",turn:0}
+			div.draw=function(){
+				if(this.type =="last"){
+					ctx.drawImage(oImgs[2],0,15*this.key,15,15,this.l,this.t,15,15);
+				}else if(this.type == 'none'){
+										//左右
+					var n = (this.key==0||this.key==2)?4:3;
+					ctx.save();
+					var c = ctx.createPattern(oImgs[n],'repeat');
+					ctx.fillStyle = c;
+					ctx.fillRect(this.l,this.t,15,15);
+					ctx.restore();
+				}else if(this.type == 'turn'){
+					ctx.drawImage(oImgs[1],0,15*this.turn,15,15,this.l,this.t,15,15);
+				}else{
+					ctx.fillRect(div.l,div.t,box,box);
+				}
+			}
+			aSanke.push(div);
+		}
+		//绘制所有内容
+		function draw(){
+			food.draw();//绘制食物
+			for (var i = 0; i < aSanke.length; i++) {
+				aSanke[i].draw();
+			}
+		}
+		
+		//随机食物
+		function changefood(){
+			var numx = parseInt(canvas[0].width/box);
+			var rndx=Math.floor(Math.random()*numx)*box;
+			var numy = parseInt(canvas[0].height/box);
+			var rndy=Math.floor(Math.random()*numy)*box;
+			for (var i = 0; i < aSanke.length; i++) {
+				// 判断如果食物随机到蛇身上 重新随机
+				if(aSanke[i].l ==rndx && aSanke[i].t ==rndy){
+					return changefood();
+				}
+			}
+				
+			for (var i = 0; i <	stArr.length; i++) {
+				// 判断如果食物随机到石头身上 重新随机
+				if(stArr[i].l ==rndx && stArr[i].t == rndy){
+					return changefood();
+				}
+			}
+			food.l =rndx;
+			food.t =rndy;
+		}
+		var speed = div.di;//速度 
+		//碰撞检测
+		function check(){
+			if(aSanke[0].l==food.l&&aSanke[0].t==food.t){
+				// 吃到食物 速度+0.5
+				speed+=0.5;
+				if(speed>10){
+					speed = 10;//谁玩到10就变态了
+				}
+				createBody();
+				changefood();
+			}
+			//判断碰到石头
+			for (var i = 0; i < stArr.length; i++) {
+				if(stArr[i].l==aSanke[0].l&&stArr[i].t==aSanke[0].t){
+					alert('死了?狂按Enter可以继续~')
+				}
+			}
+		}
+		document.onkeydown = function(e){
+			var code = e.keyCode-37;
+			switch(code){
+				case 0:
+					if(vx==0&&!moveBol){vx= -box; vy = 0;aSanke[0].key = 0,moveBol=true}
+				break;
+				case 1:
+					if(vy==0&&!moveBol){vy= -box; vx = 0;aSanke[0].key = 1,moveBol=true}
+				break;
+				case 2:
+					if(vx==0&&!moveBol){vx= box; vy = 0;aSanke[0].key = 2,moveBol=true}
+				break;
+				case 3:
+					if(vy==0&&!moveBol){vy= box; vx = 0;aSanke[0].key = 3,moveBol=true}
+				break;
+			}
+		}
+		
+	</script>
+</body>
+</html>
