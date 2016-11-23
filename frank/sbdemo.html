@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>Document</title>
+	<style>
+		html,body{
+			font-size: 20px;
+			width: 100%;
+			height: 100%;
+		}
+		canvas{
+			vertical-align:top;
+			border: 1px solid;
+		}
+	</style>
+</head>
+<body>
+	<canvas width="300" height="500"></canvas>
+	<p></p>
+
+</body>
+	<script>
+		var canvas = document.querySelector("canvas");
+		var ctx = canvas.getContext("2d");
+		var p = document.querySelector('p');
+		function Sb(){
+			this.x = 50;
+			this.y = 50;
+			this.r = 30;
+		}
+		Sb.prototype.draw=function(){
+			ctx.beginPath();
+			ctx.arc(this.x,this.y,this.r,0,2*Math.PI);
+			ctx.fillStyle = "red";
+			ctx.fill();
+			ctx.closePath();
+		}
+		var sb =new Sb();
+		
+		console.log(sb.x,sb.y);
+		window.addEventListener('deviceorientation',function(e){
+			// alpha-对应CSS3的rotateZ
+		// beta-对应CSS3的rotateX
+		// gamma-对应CSS3的rotateY
+			p.innerHTML = "alpha(Z):"+parseInt(e.alpha)+"<br>beta(X):"+parseInt(e.beta)+"<br>gamma(Y):"+parseInt(e.gamma);
+			move(e.beta,e.gamma);
+		})
+		function move(x,y){
+			ctx.clearRect(0,0,canvas.width,canvas.height);
+			sb.x =x+canvas.width/2;
+			sb.y =y+canvas.height/2;
+			sb.draw();
+			var timer = window.requestAnimateFrame();
+		}
+	</script>
+</html>
