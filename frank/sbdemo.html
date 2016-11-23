@@ -17,7 +17,7 @@
 	</style>
 </head>
 <body>
-	<canvas width="300" height="500"></canvas>
+	<canvas width="300" height="400"></canvas>
 	<p></p>
 
 </body>
@@ -41,10 +41,6 @@
 		
 		console.log(sb.x,sb.y);
 		window.addEventListener('deviceorientation',function(e){
-			// alpha-对应CSS3的rotateZ
-		// beta-对应CSS3的rotateX
-		// gamma-对应CSS3的rotateY
-			p.innerHTML = "<br>beta(X):"+parseInt(e.beta)+"<br>gamma(Y):"+parseInt(e.gamma)+"<br>x"+sb.x+"<br>y"+sb.y;
 			sb.x +=e.gamma; 
 			sb.y +=e.beta;
 			if(sb.x+sb.r>=canvas.width){
