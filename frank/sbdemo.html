@@ -45,7 +45,7 @@
 		// beta-对应CSS3的rotateX
 		// gamma-对应CSS3的rotateY
 			p.innerHTML = "alpha(Z):"+parseInt(e.alpha)+"<br>beta(X):"+parseInt(e.beta)+"<br>gamma(Y):"+parseInt(e.gamma);
-			move(e.beta,e.gamma);
+			move(e.gamma,e.beta);
 		})
 		function move(x,y){
 			ctx.clearRect(0,0,canvas.width,canvas.height);
