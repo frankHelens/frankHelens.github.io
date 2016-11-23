@@ -12,19 +12,15 @@
 		}
 		canvas{
 			vertical-align:top;
-			border: 1px solid;
 		}
 	</style>
 </head>
 <body>
-	<canvas width="300" height="400"></canvas>
-	<p></p>
-
+	<canvas></canvas>
 </body>
 	<script>
 		var canvas = document.querySelector("canvas");
 		var ctx = canvas.getContext("2d");
-		var p = document.querySelector('p');
 		function Sb(){
 			this.x = canvas.width/2;
 			this.y = canvas.height/2;
@@ -40,8 +36,8 @@
 		var sb =new Sb();
 		console.log(sb.x,sb.y);
 		window.addEventListener('deviceorientation',function(e){
-			sb.x +=(e.gamma/10); 
-			sb.y +=(e.beta/10);
+			sb.x +=(e.gamma/100); 
+			sb.y +=(e.beta/100);
 			if(sb.x+sb.r>=canvas.width){
 				sb.x=canvas.width-sb.r;
 			}
