@@ -38,11 +38,10 @@
 			ctx.closePath();
 		}
 		var sb =new Sb();
-		
 		console.log(sb.x,sb.y);
 		window.addEventListener('deviceorientation',function(e){
-			sb.x +=e.gamma; 
-			sb.y +=e.beta;
+			sb.x +=(e.gamma/10); 
+			sb.y +=(e.beta/10);
 			if(sb.x+sb.r>=canvas.width){
 				sb.x=canvas.width-sb.r;
 			}
