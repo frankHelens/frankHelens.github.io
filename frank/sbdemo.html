@@ -47,6 +47,18 @@
 			p.innerHTML = "<br>beta(X):"+parseInt(e.beta)+"<br>gamma(Y):"+parseInt(e.gamma)+"<br>x"+sb.x+"<br>y"+sb.y;
 			sb.x +=e.gamma; 
 			sb.y +=e.beta;
+			if(sb.x+sb.r>=canvas.width){
+				sb.x=canvas.width-sb.r;
+			}
+			if(sb.x-sb.r<=0){
+				sb.x = sb.r;
+			}
+			if(sb.y+sb.r>=canvas.height){
+				sb.y=canvas.height-sb.r;
+			}
+			if(sb.y-sb.r<=0){
+				sb.y = sb.r;
+			}
 		}) 
 		move();
 		function move(){
