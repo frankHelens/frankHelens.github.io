@@ -36,8 +36,8 @@
 		var sb =new Sb();
 		console.log(sb.x,sb.y);
 		window.addEventListener('deviceorientation',function(e){
-			sb.x +=(e.gamma/100); 
-			sb.y +=(e.beta/100);
+			sb.x +=(e.gamma/30); 
+			sb.y +=(e.beta/30);
 			if(sb.x+sb.r>=canvas.width){
 				sb.x=canvas.width-sb.r;
 			}
