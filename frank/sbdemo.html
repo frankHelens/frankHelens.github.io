@@ -26,8 +26,8 @@
 		var ctx = canvas.getContext("2d");
 		var p = document.querySelector('p');
 		function Sb(){
-			this.x = 50;
-			this.y = 50;
+			this.x = canvas.width/2;
+			this.y = canvas.height/2;
 			this.r = 30;
 		}
 		Sb.prototype.draw=function(){
@@ -45,12 +45,12 @@
 		// beta-对应CSS3的rotateX
 		// gamma-对应CSS3的rotateY
 			p.innerHTML = "<br>beta(X):"+parseInt(e.beta)+"<br>gamma(Y):"+parseInt(e.gamma)+"<br>x"+sb.x+"<br>y"+sb.y;
-			move(e.gamma,e.beta);
-		})
-		function move(x,y){
+			sb.x +=e.gamma; 
+			sb.y +=e.beta;
+		}) 
+		move();
+		function move(){
 			ctx.clearRect(0,0,canvas.width,canvas.height);
-			sb.x =x+canvas.width/2;
-			sb.y =y+canvas.height/2;
 			sb.draw();
 			var timer = window.requestAnimationFrame(move);
 		}
