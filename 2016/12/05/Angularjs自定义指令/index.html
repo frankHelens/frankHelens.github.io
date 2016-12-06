@@ -1,0 +1,602 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="Angularjs自定义指令directive自定义指令1.restrict
+
+E： 表示该directive仅能以element方式使用，即：
+A： 表示该directive仅能以attribute方式使用，即：
+EA: 表示该directive既能以element方式使用，也能以attribute方式使用
+
+
+template 内部设置你的directive里的html内容
+templateU">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Angularjs自定义指令">
+<meta property="og:url" content="http://yoursite.com/2016/12/05/Angularjs自定义指令/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Angularjs自定义指令directive自定义指令1.restrict
+
+E： 表示该directive仅能以element方式使用，即：
+A： 表示该directive仅能以attribute方式使用，即：
+EA: 表示该directive既能以element方式使用，也能以attribute方式使用
+
+
+template 内部设置你的directive里的html内容
+templateU">
+<meta property="og:updated_time" content="2016-12-05T02:41:55.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Angularjs自定义指令">
+<meta name="twitter:description" content="Angularjs自定义指令directive自定义指令1.restrict
+
+E： 表示该directive仅能以element方式使用，即：
+A： 表示该directive仅能以attribute方式使用，即：
+EA: 表示该directive既能以element方式使用，也能以attribute方式使用
+
+
+template 内部设置你的directive里的html内容
+templateU">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/12/05/Angularjs自定义指令/"/>
+
+
+  <title> Angularjs自定义指令 | Hexo </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Hexo</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule" rel="section">
+            
+            Schedule
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Angularjs自定义指令
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-12-05T10:39:45+08:00" content="2016-12-05">
+              2016-12-05
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Angularjs自定义指令"><a href="#Angularjs自定义指令" class="headerlink" title="Angularjs自定义指令"></a>Angularjs自定义指令</h2><h4 id="directive自定义指令"><a href="#directive自定义指令" class="headerlink" title="directive自定义指令"></a>directive自定义指令</h4><p>1.restrict</p>
+<ul>
+<li>E： 表示该directive仅能以element方式使用，即：<my-dialog></my-dialog></li>
+<li>A： 表示该directive仅能以attribute方式使用，即：<div my-dialog=""></div></li>
+<li>EA: 表示该directive既能以element方式使用，也能以attribute方式使用</li>
+</ul>
+<ol>
+<li>template 内部设置<br>你的directive里的html内容</li>
+<li>templateUrl 外部引入文件<br>你的directive里的html内容</li>
+<li>scope<br>选项与绑定策略 绑定策略的三种形式：<br>@:它将本地作用域和DOM中的属性值绑定起来<br>=:与@的不同点在于，@是针对字符串而用，但=是针对某个对象的引用<br>&amp;:对父级作用域进行绑定</li>
+<li>link<br>可以简单理解为，当directive被angular 编译后，执行该方法<br>这里你说的没错，link中的第一个参数scope基本上就是你说的上面写的那个scope。<br>html<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;body ng-app=&quot;myApp&quot; ng-controller=&quot;myCtrl&quot;&gt;</div><div class="line">    &#123;&#123;name&#125;&#125;</div><div class="line">    &lt;div ng-bind=&quot;frank&quot;&gt;&lt;/div&gt;</div><div class="line">    &lt;div class=&quot;frank&quot;&gt;&lt;/div&gt;</div><div class="line">    &lt;frank&gt;&lt;/frank&gt;   </div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>script<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">var app = angular.module(&quot;myApp&quot;,[])&#123;</div><div class="line">    app.controller(&quot;myCtrl&quot;,function($scope)&#123;</div><div class="line">        $scope.name = &quot;张三&quot;;</div><div class="line">    &#125;)</div><div class="line">    app.directive(&quot;frank&quot;,function()&#123;</div><div class="line">        return &#123;</div><div class="line">            restrict:&quot;ECMA&quot;,</div><div class="line">            //引入其他html文件</div><div class="line">            //templateUrl:&quot;template.html&quot;,</div><div class="line">           template:&quot;&lt;h1&gt;&#123;&#123;name&#125;&#125;&lt;/h1&gt;&quot;,</div><div class="line">           link:function(scope,element,attrs)&#123;</div><div class="line">                scope.name = &quot;frank&quot;;</div><div class="line">           &#125;</div><div class="line">        &#125;</div><div class="line">    </div><div class="line">    &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这时候网页显示就是全部变成自定义的frank,包括name,<br>但如果name不想被影响,则可以加scope:@<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">    var app = angular.module(&quot;myApp&quot;,[])&#123;</div><div class="line">    app.controller(&quot;myCtrl&quot;,function($scope)&#123;</div><div class="line">        $scope.name = &quot;张三&quot;;</div><div class="line">    &#125;)</div><div class="line">    app.directive(&quot;frank&quot;,function()&#123;</div><div class="line">        return &#123;</div><div class="line">            restrict:&quot;ECMA&quot;,</div><div class="line">            //引入其他html文件</div><div class="line">            //templateUrl:&quot;template.html&quot;,</div><div class="line">            scope:&#123;title:&quot;@&quot;&#125;,</div><div class="line">           template:&quot;&lt;h1&gt;&#123;&#123;name&#125;&#125;&lt;/h1&gt;&quot;,</div><div class="line">           link:function(scope,element,attrs)&#123;</div><div class="line">                scope.name = &quot;frank&quot;;</div><div class="line">           &#125;</div><div class="line">        &#125;</div><div class="line">    </div><div class="line">    &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这样上面的name就不会被影响</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;div maopao for-title=&quot;&#123;&#123;title&#125;&#125;&quot;&gt;&lt;/div&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">  var app = angular.module(&quot;myApp&quot;,[]);</div><div class="line"></div><div class="line">    app.controller(&quot;myCtrl&quot;,function($scope)&#123;</div><div class="line">        $scope.name = &quot;张三&quot;;</div><div class="line">        $scope.title = &quot;标题&quot;;</div><div class="line">    &#125;)</div><div class="line">    app.directive(&quot;maopao&quot;,function()&#123;</div><div class="line">        return &#123;</div><div class="line">            restrict:&quot;ECMA&quot;,</div><div class="line">            scope:&#123;title:&quot;@forTitle&quot;&#125;,</div><div class="line">            template:&quot;&lt;h1&gt;&#123;&#123;name&#125;&#125;&#123;&#123;title&#125;&#125;&lt;/h1&gt;&quot;,</div><div class="line">            link:function(scope,element,attrs)&#123;</div><div class="line">                scope.name = &quot;frank&quot;;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>=:针对整个对象(这里运用点击三下 让name发生改变)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;body ng-app=&quot;myApp&quot; ng-controller=&quot;myCtrl&quot;&gt;</div><div class="line">    &#123;&#123;name&#125;&#125;</div><div class="line">&lt;maopao arr=&quot;arr&quot; get-name=&quot;name&quot; change=&quot;change&quot; show=&quot;change()&quot;&gt;&lt;/maopao&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">var app = angular.module(&quot;myApp&quot;,[]);</div><div class="line"> app.controller(&quot;myCtrl&quot;,function($scope)&#123;</div><div class="line">     $scope.name = &quot;张三&quot;;</div><div class="line">     $scope.title = &quot;标题&quot;;</div><div class="line">     $scope.arr = [&#123;name:&quot;a1&quot;&#125;,&#123;name:&quot;a2&quot;&#125;];</div><div class="line">      $scope.change = function()&#123;</div><div class="line">         $scope.name = &quot;abc&quot;;</div><div class="line">     &#125;</div><div class="line"> &#125;)</div><div class="line"> app.directive(&quot;maopao&quot;,function()&#123;</div><div class="line">     return &#123;</div><div class="line">         restrict:&quot;ECMA&quot;,</div><div class="line">         scope:&#123;</div><div class="line">             arr:&apos;=&apos;,</div><div class="line">             change:&apos;=&apos;</div><div class="line">         &#125;,</div><div class="line">         template:&quot;&lt;h1&gt;&#123;&#123;name&#125;&#125;&#123;&#123;arr[1].name&#125;&#125;&#123;&#123;title&#125;&#125;&lt;/h1&gt;&quot;,</div><div class="line">         link:function(scope,element,attrs)&#123;</div><div class="line">             scope.i = 0;</div><div class="line">             element[0].onclick = function()&#123;</div><div class="line">                 console.log(attrs.show)</div><div class="line">                 scope.i++;</div><div class="line">                 console.log(scope.i)</div><div class="line">                 if (scope.i&gt;=3)&#123;</div><div class="line">                     scope.$apply(attrs.show)</div><div class="line">                 &#125;</div><div class="line"></div><div class="line">             &#125;</div><div class="line">         &#125;</div><div class="line">     &#125;</div><div class="line"> &#125;)</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/03/利用Angularjs制作tab切换/" rel="next" title="利用Angularjs制作tab切换">
+                <i class="fa fa-chevron-left"></i> 利用Angularjs制作tab切换
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/05/NodeJs/" rel="prev" title="NodeJS">
+                NodeJS <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="John Doe" />
+          <p class="site-author-name" itemprop="name">John Doe</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Angularjs自定义指令"><span class="nav-number">1.</span> <span class="nav-text">Angularjs自定义指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#directive自定义指令"><span class="nav-number">1.0.1.</span> <span class="nav-text">directive自定义指令</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

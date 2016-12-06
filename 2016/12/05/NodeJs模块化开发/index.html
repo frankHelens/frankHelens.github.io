@@ -1,0 +1,636 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="NodeJs模块开发一. 模块的规范    目前，通行的Javascript模块规范共有两种：CMD和AMD。
+
+AMD 是 RequireJS 在推广过程中对模块定义的规范化产出。
+CMD 是 SeaJS 在推广过程中对模块定义的规范化产出。
+这些规范的目的都是为了 JavaScript 的模块化开发，特别是在浏览器端的。目前这些规范的实现都能达成浏览器端模块化开发的目的。
+
+
+对于依赖的模块，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NodeJs模块开发">
+<meta property="og:url" content="http://yoursite.com/2016/12/05/NodeJs模块化开发/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="NodeJs模块开发一. 模块的规范    目前，通行的Javascript模块规范共有两种：CMD和AMD。
+
+AMD 是 RequireJS 在推广过程中对模块定义的规范化产出。
+CMD 是 SeaJS 在推广过程中对模块定义的规范化产出。
+这些规范的目的都是为了 JavaScript 的模块化开发，特别是在浏览器端的。目前这些规范的实现都能达成浏览器端模块化开发的目的。
+
+
+对于依赖的模块，">
+<meta property="og:updated_time" content="2016-12-05T09:23:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NodeJs模块开发">
+<meta name="twitter:description" content="NodeJs模块开发一. 模块的规范    目前，通行的Javascript模块规范共有两种：CMD和AMD。
+
+AMD 是 RequireJS 在推广过程中对模块定义的规范化产出。
+CMD 是 SeaJS 在推广过程中对模块定义的规范化产出。
+这些规范的目的都是为了 JavaScript 的模块化开发，特别是在浏览器端的。目前这些规范的实现都能达成浏览器端模块化开发的目的。
+
+
+对于依赖的模块，">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/12/05/NodeJs模块化开发/"/>
+
+
+  <title> NodeJs模块开发 | Hexo </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Hexo</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule" rel="section">
+            
+            Schedule
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                NodeJs模块开发
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-12-05T17:23:06+08:00" content="2016-12-05">
+              2016-12-05
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="NodeJs模块开发"><a href="#NodeJs模块开发" class="headerlink" title="NodeJs模块开发"></a>NodeJs模块开发</h1><p>一. 模块的规范<br>    目前，通行的Javascript模块规范共有两种：CMD和AMD。</p>
+<ul>
+<li>AMD 是 RequireJS 在推广过程中对模块定义的规范化产出。</li>
+<li>CMD 是 SeaJS 在推广过程中对模块定义的规范化产出。</li>
+<li>这些规范的目的都是为了 JavaScript 的模块化开发，特别是在浏览器端的。目前这些规范的实现都能达成浏览器端模块化开发的目的。</li>
+</ul>
+<ol>
+<li><p>对于依赖的模块，AMD 是提前执行，CMD 是延迟执行。不过 RequireJS 从 2.0 开始，也改成可以延迟执行（根据写法不同，处理方式不同）。CMD 推崇 as lazy as possible.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">// CMD</div><div class="line">define(function(require, exports, module) &#123;</div><div class="line">var a = require(&apos;./a&apos;)</div><div class="line">a.doSomething()</div><div class="line">// 此处略去 100 行</div><div class="line">var b = require(&apos;./b&apos;) // 依赖可以就近书写</div><div class="line">b.doSomething()</div><div class="line">// ... </div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<ol>
+<li>CMD 推崇依赖就近，AMD 推崇依赖前置。看代码：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"> // AMD 默认推荐的是</div><div class="line">define([&apos;./a&apos;, &apos;./b&apos;], function(a, b) &#123; // 依赖必须一开始就写好</div><div class="line">a.doSomething()</div><div class="line">// 此处略去 100 行</div><div class="line">b.doSomething()</div><div class="line">...</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>虽然 AMD 也支持 CMD 的写法，同时还支持将 require 作为依赖项传递，<br>但 RequireJS 的作者默认是最喜欢上面的写法，也是官方文档里默认的模块定义写法。</p>
+</li>
+</ol>
+<h3 id="Sea-js"><a href="#Sea-js" class="headerlink" title="Sea.js"></a>Sea.js</h3><p>Sea.js提供了一个全局方法——define，用来定义一个CMD模块。</p>
+<ol>
+<li>define(factory)：factory是这样一个函数function (require?, exports?, module?) {}，如果模块本身既不依赖其他模块，也不提供接口，require、exports和module都可以省略。</li>
+<li><p>所有模块都通过 define 来定义</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">define(function(require, exports, module) &#123;</div><div class="line"></div><div class="line">  // 通过 require 引入依赖</div><div class="line">  var $ = require(&apos;jquery&apos;);</div><div class="line">  var test= require(&apos;./test);</div><div class="line"></div><div class="line">  // 通过 exports 对外提供接口</div><div class="line">  exports.test = test</div><div class="line"></div><div class="line">  // 或者通过 module.exports 提供整个接口</div><div class="line">  module.exports = ...</div><div class="line"></div><div class="line">&#125;);</div><div class="line">obj = require(&quot;a&quot;)</div></pre></td></tr></table></figure>
+</li>
+<li><p>seajs 的简单配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">seajs.config(&#123;</div><div class="line">  base: &quot;../sea-modules/&quot;,</div><div class="line">  alias: &#123;</div><div class="line">    &quot;jquery&quot;: &quot;jquery/jquery/1.10.1/jquery-3.0.0.min.js&quot;</div><div class="line">  &#125;</div><div class="line">&#125;)</div><div class="line"></div><div class="line"></div><div class="line">// 加载入口模块</div><div class="line">seajs.use(&quot;../static/hello/src/main&quot;)</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="requirejs的使用"><a href="#requirejs的使用" class="headerlink" title="requirejs的使用"></a>requirejs的使用</h3><ol>
+<li><p>在html中引入requirejs</p>
+</li>
+<li><p>在HTML中，添加这样的 <script> 标签：</p>
+</li>
+</ol>
+<script src="js/require.js" data-main="js/config.js"></script>
+
+<ol>
+<li><p>通常使用requirejs的话，我们只需要导入requirejs即可，不需要显式导入其它的js库，因为这个工作会交给requirejs来做。</p>
+</li>
+<li><p>属性 data-main 是告诉requirejs：你下载完以后，马上去载入真正的入口文件。它一般用来对requirejs进行配置，并且载入真正的程序模块。</p>
+</li>
+<li><p>在config.js中配置requirejs</p>
+</li>
+</ol>
+<ul>
+<li>配置requirejs 比如项目中用到哪些模块，文件路径是什么</li>
+<li>载入程序主模块<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">requirejs.config(&#123;</div><div class="line">  baseUrl: &apos;/js&apos;,</div><div class="line">  paths: &#123;</div><div class="line">    jq: &apos;jquery.1.12.1&apos;</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">requirejs([&apos;jq&apos;], function($) &#123;</div><div class="line">  $(&quot;div&quot;).css();</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol>
+<li><p>在 paths 中，我们声明了一个名为 app 的模块，以及它对应的js文件地址。在最理想的情况下， app.js 的内容，应该使用requirejs的方式来定义模块</p>
+</li>
+<li><p>define: 定义一个模块;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">define([&quot;jquery&quot;,&quot;show&quot;], function($,show) &#123;</div><div class="line">  return &#123;</div><div class="line">    hello: function() &#123;</div><div class="line">        show()</div><div class="line">      alert(&quot;hello, app~&quot;);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+</li>
+<li><p>shim将某个依赖中的某个全局变量暴露给requirejs，当作这个模块本身的引用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">requirejs.config(&#123;</div><div class="line">  baseUrl: &apos;/public/js&apos;,</div><div class="line">  paths: &#123;</div><div class="line">    hello: &apos;hello&apos;</div><div class="line">  &#125;,</div><div class="line">  shim: &#123;</div><div class="line">    hello: &#123; exports: &apos;hello&apos; &#125;</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">requirejs([&apos;hello&apos;], function(hello) &#123;</div><div class="line">  hello();</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+</li>
+</ol>
+</p></li></ol>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/05/NodeJs/" rel="next" title="NodeJS">
+                <i class="fa fa-chevron-left"></i> NodeJS
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/05/MongoDB介绍及下载与安装/" rel="prev" title="MongoDB介绍及下载与安装">
+                MongoDB介绍及下载与安装 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="John Doe" />
+          <p class="site-author-name" itemprop="name">John Doe</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#NodeJs模块开发"><span class="nav-number">1.</span> <span class="nav-text">NodeJs模块开发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Sea-js"><span class="nav-number">1.0.1.</span> <span class="nav-text">Sea.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#requirejs的使用"><span class="nav-number">1.0.2.</span> <span class="nav-text">requirejs的使用</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

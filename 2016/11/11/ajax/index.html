@@ -1,0 +1,671 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="Ajax一.json的两种方法方法1:将json字符串转换成javaScript原声值:parse().
+12var json = JSON.parse(str);var json = eval(str);//这种方法既不安全,可能会执行一些恶意代码
+方法2:将原生JavaScript值转换为JSON字符串：stringify();
+
+stringify()方法第一个参数是一个数组，第二个参数是一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ajax">
+<meta property="og:url" content="http://yoursite.com/2016/11/11/ajax/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Ajax一.json的两种方法方法1:将json字符串转换成javaScript原声值:parse().
+12var json = JSON.parse(str);var json = eval(str);//这种方法既不安全,可能会执行一些恶意代码
+方法2:将原生JavaScript值转换为JSON字符串：stringify();
+
+stringify()方法第一个参数是一个数组，第二个参数是一">
+<meta property="og:updated_time" content="2016-12-03T12:03:23.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ajax">
+<meta name="twitter:description" content="Ajax一.json的两种方法方法1:将json字符串转换成javaScript原声值:parse().
+12var json = JSON.parse(str);var json = eval(str);//这种方法既不安全,可能会执行一些恶意代码
+方法2:将原生JavaScript值转换为JSON字符串：stringify();
+
+stringify()方法第一个参数是一个数组，第二个参数是一">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/11/11/ajax/"/>
+
+
+  <title> Ajax | Hexo </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Hexo</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule" rel="section">
+            
+            Schedule
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Ajax
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-11-11T20:09:55+08:00" content="2016-11-11">
+              2016-11-11
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Ajax"><a href="#Ajax" class="headerlink" title="Ajax"></a>Ajax</h1><h2 id="一-json的两种方法"><a href="#一-json的两种方法" class="headerlink" title="一.json的两种方法"></a>一.json的两种方法</h2><p>方法1:将json字符串转换成javaScript原声值:parse().</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var json = JSON.parse(str);</div><div class="line">var json = eval(str);//这种方法既不安全,可能会执行一些恶意代码</div></pre></td></tr></table></figure>
+<p>方法2:将原生JavaScript值转换为JSON字符串：stringify();</p>
+<ul>
+<li>stringify()方法第一个参数是一个数组，第二个参数是一个函数，第三个参数则表示是否在JSON字符串中保留缩进</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var str = JSON.stringify(arr,function,num);</div></pre></td></tr></table></figure>
+<ul>
+<li>特别注意，键要用双引号 //不是双引号，会报错</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var str= &apos;[</div><div class="line">	&#123;&quot;name&quot; : &quot;a&quot;,&quot;age&quot; : 1&#125;,</div><div class="line">	&#123;&quot;name&quot; : &quot;b&quot;,&quot;age&quot; : 2&#125;</div><div class="line">    ]</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>示例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">var str=&apos;&#123;&quot;name&quot;:&quot;abc&quot;,&quot;age&quot;:&quot;18&quot;&#125;&apos;;</div><div class="line">	//将字符串转成js语句</div><div class="line">	var json =JSON.parse(str);</div><div class="line">	console.log(json.name);</div><div class="line">	//将json转成字符串</div><div class="line">	var str2 =JSON.stringify(json,function(key,value)&#123;</div><div class="line">		switch(key)&#123;</div><div class="line">			case &apos;name&apos;:return &quot;姓名:&quot;+value;</div><div class="line">			case &apos;age&apos;:return &quot;年龄:&quot;+value+&quot;岁&quot;;</div><div class="line">			default:return value;</div><div class="line">		&#125;</div><div class="line">	&#125;,2);</div><div class="line">	console.log(str2);</div></pre></td></tr></table></figure>
+<h2 id="二-XML"><a href="#二-XML" class="headerlink" title="二.XML"></a>二.XML</h2><ul>
+<li>XML 被设计用来传输和存储数据。</li>
+<li>HTML 被设计用来显示数据。</li>
+<li>XML和JSON都使用结构化方法来标记数据.</li>
+<li>XML 指可扩展标记语言（EXtensible Markup Language)</li>
+<li>XML 是一种标记语言，很类似 HTML</li>
+<li>XML 的设计宗旨是传输数据，而非显示数据</li>
+<li>XML 标签没有被预定义。您需要自行定义标签。</li>
+<li>XML 被设计为具有自我描述性。</li>
+<li>XML 是 W3C 的推荐标准</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">XML:</div><div class="line"> 	&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">	&lt;province&gt;</div><div class="line">	        &lt;name&gt;广东&lt;/name&gt;</div><div class="line">	        &lt;cities&gt;</div><div class="line">	            &lt;city&gt;广州&lt;/city&gt;</div><div class="line">	            &lt;city&gt;深圳&lt;/city&gt;</div><div class="line">	            &lt;city&gt;珠海&lt;/city&gt;</div><div class="line">	        &lt;/cities&gt;</div><div class="line">	        </div><div class="line">	&lt;/province&gt; </div><div class="line">	</div><div class="line">JSON:</div><div class="line">		province = &#123;</div><div class="line">		&quot;name&quot;: &quot;广东&quot;,</div><div class="line">		&quot;cities&quot;: &#123;</div><div class="line">		&quot;city&quot;: [&quot;广州&quot;, &quot;深圳&quot;, &quot;珠海&quot;]</div><div class="line">		&#125;</div></pre></td></tr></table></figure>
+<h3 id="三-ajax的使用"><a href="#三-ajax的使用" class="headerlink" title="三.ajax的使用"></a>三.ajax的使用</h3><h4 id="AJAX是什么"><a href="#AJAX是什么" class="headerlink" title="AJAX是什么"></a>AJAX是什么</h4><ul>
+<li>AJAX ： 异步 JavaScript and XML</li>
+<li>通俗的讲，AJAX就是JS通过一个网址去加载数据，这个过程通常是用户不可见的。</li>
+<li>传统的网页（不使用 AJAX）如果需要更新内容，必需重载整个网页面。</li>
+<li>AJAX加载过来的数据，哪些是JS能直接处理的？</li>
+</ul>
+<h4 id="AJAX的优势"><a href="#AJAX的优势" class="headerlink" title="AJAX的优势"></a>AJAX的优势</h4><ul>
+<li>异步加载数据，无需切换页面</li>
+<li>更佳的用户体验：局部刷新、及时验证、操作步骤简化等</li>
+<li>节省流量</li>
+<li>JS控制数据的加载，更加灵活多用</li>
+</ul>
+<h4 id="那么AJAX到底如何使用？"><a href="#那么AJAX到底如何使用？" class="headerlink" title="那么AJAX到底如何使用？"></a>那么AJAX到底如何使用？</h4><ul>
+<li>XMLHttpRequest()可扩展超文本传输请求<h5 id="1-创建一个对象"><a href="#1-创建一个对象" class="headerlink" title="1.创建一个对象"></a>1.创建一个对象</h5>所有现代浏览器均支持 XMLHttpRequest 对象<br>（IE5 和 IE6 使用 ActiveXObject(“Microsoft.XMLHTTP”)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">// 创建一个ajax对象</div><div class="line">var xmlhttp = new XMLHttpRequest();</div></pre></td></tr></table></figure>
+<h5 id="2-open-method-url-bol"><a href="#2-open-method-url-bol" class="headerlink" title="2.open(method,url,bol)"></a>2.open(method,url,bol)</h5><ul>
+<li>method 参数是用于请求的 HTTP 方法。</li>
+<li>GET、POST</li>
+<li>POST：用”POST”方式发送数据,可以大到4MB<pre><code>用POST需要设置编码格式
+xmlhttp.setRequestHeader(&apos;Content-type&apos;,&apos;application/x-www-form-urlencoded&apos;);
+</code></pre></li>
+<li>GET：用”GET”方式发送数据,只能256KB</li>
+<li>url 参数是请求的主体。大多数浏览器实施了一个同源安全策略，并且要求这个 URL与包含脚本的文本具有相同的主机名和端口。<br>bol 如果这个参数是 false，请求是同步的如果这个参数是 true 或省略，请求是异步的</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xmlhttp.open(&quot;GET&quot;,&quot;xml.xml&quot;);//打开了这个页面</div></pre></td></tr></table></figure>
+<h5 id="3-send-data-发送请求"><a href="#3-send-data-发送请求" class="headerlink" title="3.send(data)发送请求"></a>3.send(data)发送请求</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xmlhttp.send();//加载完成了</div></pre></td></tr></table></figure>
+<h5 id="4-onreadystatechange事件-服务器响应"><a href="#4-onreadystatechange事件-服务器响应" class="headerlink" title="4.onreadystatechange事件 服务器响应"></a>4.onreadystatechange事件 服务器响应</h5><ul>
+<li><p>readyState与status:</p>
+</li>
+<li><p>readyState有五种状态：</p>
+</li>
+<li>0 (未初始化)：                 (XMLHttpRequest)对象已经创建，但还没有调用open()方法；</li>
+<li>1(载入)：已经调用open() 方法，但尚未发送请求；</li>
+<li>2(载入完成)：请求已经发送完成；</li>
+<li>3(交互)：可以接收到部分响应数据；</li>
+<li>4(完成):已经接收到了全部数据，并且连接已经关闭。<br>如此一来，你应该就能明白readyState的功能，而status实际是一种辅状态判断，只是status更多是服务器方的状态判断。关于status，由于它的状态有几十种，我只列出平时常用的几种：</li>
+<li>100——客户必须继续发出请求</li>
+<li>101——客户要求服务器根据请求转换HTTP协议版本</li>
+<li>200——成功</li>
+<li>201——提示知道新文件的URL</li>
+<li>300——请求的资源可在多处得到</li>
+<li>301——删除请求数据</li>
+<li>404——没有发现文件、查询或URl</li>
+<li>500——服务器产生内部错误</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">xmlhttp.onreadystatechange=function()&#123;</div><div class="line">    if(xmlhttp.readyState==4&amp;&amp;xmlhttp.status==200)&#123;</div><div class="line">    //判断加载成功了</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="5-获取数据"><a href="#5-获取数据" class="headerlink" title="5.获取数据"></a>5.获取数据</h5><ul>
+<li>responseText    获得字符串形式的响应数据。</li>
+<li>responseXML    获得 XML 形式的响应数据。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var xml = xmlhttp.responseXML;</div></pre></td></tr></table></figure>
+<p>示例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;!--html里面的--&gt;</div><div class="line">&lt;body&gt;</div><div class="line">	&lt;h3&gt;1&lt;/h3&gt;</div><div class="line">	&lt;ul&gt;</div><div class="line">		&lt;li&gt;2&lt;/li&gt;</div><div class="line">		&lt;li&gt;3&lt;/li&gt;</div><div class="line">		&lt;li&gt;4&lt;/li&gt;</div><div class="line">	&lt;/ul&gt;</div><div class="line">	&lt;button&gt;获取数据&lt;/button&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure>
+<p>js里面的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">var btn = document.querySelector(&quot;button&quot;);</div><div class="line">var h3 = document.querySelector(&apos;h3&apos;);</div><div class="line">var li = document.querySelectorAll(&apos;li&apos;);</div><div class="line">// 创建一个ajax对象</div><div class="line">var xmlhttp = new XMLHttpRequest();</div><div class="line">//点击按钮式执行ajax请求</div><div class="line">btn.onclick =function()&#123;</div><div class="line">	xmlhttp.open(&quot;GET&quot;,&quot;xml.xml&quot;);//打开了这个页面</div><div class="line">	xmlhttp.send();//加载完成了</div><div class="line">&#125;</div><div class="line">	</div><div class="line">// 用这个:根据状态码检测请求的数据是否加载完成</div><div class="line">xmlhttp.onreadystatechange = function()&#123;</div><div class="line">	console.log(xmlhttp.readyState);</div><div class="line">	if(xmlhttp.readyState==4&amp;&amp;xmlhttp.status==200)&#123;//判断加载成功了</div><div class="line">	// console.log(xmlhttp.responseXML);</div><div class="line">var xml = xmlhttp.responseXML;</div><div class="line">var name = xml.querySelector(&apos;name&apos;);</div><div class="line">var citys = xml.querySelectorAll(&apos;city&apos;);</div><div class="line">h3.innerHTML = name.innerHTML;</div><div class="line">for (var i = 0; i &lt; li.length; i++) &#123;</div><div class="line">	li[i].innerHTML =citys[i].innerHTML;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">&lt;script/&gt;</div></pre></td></tr></table></figure>
+<h2 id="四-ajax的使用–-gt-get"><a href="#四-ajax的使用–-gt-get" class="headerlink" title="四.ajax的使用–&gt;get"></a>四.ajax的使用–&gt;get</h2><ul>
+<li>get方法是在open里面传入改变的数据</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var xmlhttp =new XMLHttpRequest();</div><div class="line">xmlhttp.open(&quot;GET&quot;,&quot;get.php&quot;?name=frank&amp;age=666);</div><div class="line">xmlhttp.send();</div></pre></td></tr></table></figure>
+<h2 id="五-ajax的使用–-gt-post"><a href="#五-ajax的使用–-gt-post" class="headerlink" title="五.ajax的使用–&gt;post"></a>五.ajax的使用–&gt;post</h2><ul>
+<li>post方法是在send里面传入改变的数据</li>
+<li>post在send()之前要添加表头代码setRequestHeader()</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var xmlhttp =new XMLHttpRequest();</div><div class="line">xmlhttp.open(&quot;POST&quot;,&quot;post.php&quot;);</div><div class="line">//中间加入这句代码</div><div class="line">xmlhttp.setRequestHeader(&apos;Content-type&apos;,&apos;application/x-www-form-urlencoded&apos;);</div><div class="line">xmlhttp.send(&quot;name=frank&amp;age=666&quot;);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="六-ajax函数的封装"><a href="#六-ajax函数的封装" class="headerlink" title="六.ajax函数的封装"></a>六.ajax函数的封装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">//创建一个函数,传入 提交方式,地址,对象,回调函数 这四个参数</div><div class="line">function ajax(method,url,json,cb)&#123;</div><div class="line">    //测试兼容</div><div class="line">    if(window.XMLHttpRequest)&#123;</div><div class="line">        var xmlhttp = new XMLHttpRequest();</div><div class="line">    &#125;else&#123;//IE5,6才能用</div><div class="line">    var xmlhttp = new ActiveXObject(&quot;Microsoft.XMLHTTP&quot;);</div><div class="line"></div><div class="line">    &#125;</div><div class="line">  //将json转换成字符串</div><div class="line">  var arr = [];//定义一个空的数组</div><div class="line">  for(var key in json)&#123;//遍历对象的所有key</div><div class="line">  var str = key+&quot;=&quot;+json[key];//定义字符串将其拼接起来</div><div class="line">  arr.push(str);//插入数组里面</div><div class="line">  &#125;</div><div class="line">  //数组显示的就是</div><div class="line">  //[&quot;name=abc&quot;,&quot;age=18&quot;];</div><div class="line">  var str = arr.join(&quot;&amp;&quot;);//将数组拼接成字符串</div><div class="line">  //判断是get还是用post</div><div class="line">  if(method==&quot;GET&quot;)&#123;</div><div class="line">    xmlhttp.open(&quot;GET&quot;,url+&quot;?&quot;+str);</div><div class="line">    xmlhttp.send();</div><div class="line">  &#125;else&#123;</div><div class="line">    xmlhttp.open(&quot;POST&quot;,url);</div><div class="line">    //post要加求头</div><div class="line">   xmlhttp.setRequestHeader(&apos;Content-type&apos;,&apos;application/x-www-form-urlencoded&apos;);</div><div class="line">    xmlhttp.send(str);</div><div class="line">  &#125;</div><div class="line">  //判断数据加载</div><div class="line">  xmlhttp.onreadystatechange=function()&#123;</div><div class="line">    if(xmlhttp.readyState==4&amp;&amp;xmlhttp.status==200)&#123;</div><div class="line">    //数据加载成功后执行执行回调函数</div><div class="line">    cb(xmlhttp.responseText);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>封装好了之后,就开始调用]</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">ajax(&quot;POST&quot;,&quot;post.php&quot;,&#123;name:&quot;frank&quot;,age:20&#125;,function(data)&#123;</div><div class="line">    //字符创的数据转成json对象</div><div class="line">    var json = JSON.parse(data);</div><div class="line">    h3.innerHTML = json.name;</div><div class="line">    p.innerHTML = json.age;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h2 id="七-ajax获取数据库的内容"><a href="#七-ajax获取数据库的内容" class="headerlink" title="七.ajax获取数据库的内容"></a>七.ajax获取数据库的内容</h2><p>1.引入封装好的ajax.js插件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&quot;text/javascript&quot; src=&apos;ajax.js&apos;&gt;&lt;/script&gt;</div></pre></td></tr></table></figure>
+<p>2.新建一个叫get_sql.php文件,并接通数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$conn =@mysqli_connect(&quot;localhost&quot;,&quot;root&quot;,&quot;&quot;,&quot;xinlang&quot;);</div><div class="line">    if(!$conn)&#123;</div><div class="line">        del(&apos;链接失败&apos;);</div><div class="line">    &#125;</div><div class="line">$conn-&gt;query(&quot;set names utf8&quot;);</div><div class="line">$sql = &quot;SELECT * FROM user&quot;;</div><div class="line">$reslut =$conn-&gt;query($sql);</div><div class="line">$arr = array();//创建一个新的数组</div><div class="line">while($row=$result-&gt;fetch_assoc())&#123;</div><div class="line">    $arr[]=$row;</div><div class="line">&#125;</div><div class="line">//数组或者json对象转为json格式的字符串</div><div class="line">$json = json_encode($arr);</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p>3.调用函数,地址填另外新建的一个php文件(这里采用表格的形式)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">ajax(&quot;GET&quot;,&quot;get_sql.php&quot;,&#123;&#125;,function(data)&#123;</div><div class="line">    //将数据转换为数组形式</div><div class="line">    var arr = JSON.parse(data);</div><div class="line">    //定义一个字符串用来显示</div><div class="line">    var str = &apos;&apos;;</div><div class="line">    for(var i=0;i&lt;arr.length;i++)&#123;</div><div class="line">    str +=&quot;&lt;tr&gt;&lt;td&gt;&quot;+arr[i].id+&quot;&lt;/td&gt;&lt;td&gt;&quot;+arr[i].name+&quot;&lt;/td&gt;&lt;td&gt;&quot;+arr[i].con+&quot;&lt;/td&gt;&lt;/tr&gt;&quot;;</div><div class="line">    //将数据插入表格中</div><div class="line">    table.innerHTML= str;</div><div class="line">    &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/10/canvas/" rel="next" title="Canvas">
+                <i class="fa fa-chevron-left"></i> Canvas
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/03/Angularjs/" rel="prev" title="AngularJS">
+                AngularJS <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="John Doe" />
+          <p class="site-author-name" itemprop="name">John Doe</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Ajax"><span class="nav-number">1.</span> <span class="nav-text">Ajax</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-json的两种方法"><span class="nav-number">1.1.</span> <span class="nav-text">一.json的两种方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二-XML"><span class="nav-number">1.2.</span> <span class="nav-text">二.XML</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#三-ajax的使用"><span class="nav-number">1.2.1.</span> <span class="nav-text">三.ajax的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AJAX是什么"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">AJAX是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AJAX的优势"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">AJAX的优势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#那么AJAX到底如何使用？"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">那么AJAX到底如何使用？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-创建一个对象"><span class="nav-number">1.2.1.3.1.</span> <span class="nav-text">1.创建一个对象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-open-method-url-bol"><span class="nav-number">1.2.1.3.2.</span> <span class="nav-text">2.open(method,url,bol)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-send-data-发送请求"><span class="nav-number">1.2.1.3.3.</span> <span class="nav-text">3.send(data)发送请求</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-onreadystatechange事件-服务器响应"><span class="nav-number">1.2.1.3.4.</span> <span class="nav-text">4.onreadystatechange事件 服务器响应</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-获取数据"><span class="nav-number">1.2.1.3.5.</span> <span class="nav-text">5.获取数据</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四-ajax的使用–-gt-get"><span class="nav-number">1.3.</span> <span class="nav-text">四.ajax的使用–>get</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五-ajax的使用–-gt-post"><span class="nav-number">1.4.</span> <span class="nav-text">五.ajax的使用–>post</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六-ajax函数的封装"><span class="nav-number">1.5.</span> <span class="nav-text">六.ajax函数的封装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七-ajax获取数据库的内容"><span class="nav-number">1.6.</span> <span class="nav-text">七.ajax获取数据库的内容</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
