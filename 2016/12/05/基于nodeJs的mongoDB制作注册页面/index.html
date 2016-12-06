@@ -1,0 +1,676 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="ajax制作nodeJS注册页面原理:
+注册用户名跟密码提交到nodeJS的mongoDB数据库里面
+当用户在注册的时候输入为空则无法提交
+当mongoDB里面的表用户名已存在的时候,则无法提交,并会在用户名输入框旁提示用户名是否存在准备:
+webstrom开发工具
+jQuery —- ajax会用到
+node环境要配置好(不懂怎么配置node环境可以参考NodeJs那篇文章)
+mongoDB数据">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于nodeJs的mongoDB制作注册页面(ajax版)">
+<meta property="og:url" content="http://yoursite.com/2016/12/05/基于nodeJs的mongoDB制作注册页面/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="ajax制作nodeJS注册页面原理:
+注册用户名跟密码提交到nodeJS的mongoDB数据库里面
+当用户在注册的时候输入为空则无法提交
+当mongoDB里面的表用户名已存在的时候,则无法提交,并会在用户名输入框旁提示用户名是否存在准备:
+webstrom开发工具
+jQuery —- ajax会用到
+node环境要配置好(不懂怎么配置node环境可以参考NodeJs那篇文章)
+mongoDB数据">
+<meta property="og:updated_time" content="2016-12-05T14:34:05.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于nodeJs的mongoDB制作注册页面(ajax版)">
+<meta name="twitter:description" content="ajax制作nodeJS注册页面原理:
+注册用户名跟密码提交到nodeJS的mongoDB数据库里面
+当用户在注册的时候输入为空则无法提交
+当mongoDB里面的表用户名已存在的时候,则无法提交,并会在用户名输入框旁提示用户名是否存在准备:
+webstrom开发工具
+jQuery —- ajax会用到
+node环境要配置好(不懂怎么配置node环境可以参考NodeJs那篇文章)
+mongoDB数据">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/12/05/基于nodeJs的mongoDB制作注册页面/"/>
+
+
+  <title> 基于nodeJs的mongoDB制作注册页面(ajax版) | Hexo </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Hexo</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule" rel="section">
+            
+            Schedule
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                基于nodeJs的mongoDB制作注册页面(ajax版)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-12-05T22:34:05+08:00" content="2016-12-05">
+              2016-12-05
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="ajax制作nodeJS注册页面"><a href="#ajax制作nodeJS注册页面" class="headerlink" title="ajax制作nodeJS注册页面"></a>ajax制作nodeJS注册页面</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理:"></a>原理:</h3><ol>
+<li>注册用户名跟密码提交到nodeJS的mongoDB数据库里面</li>
+<li>当用户在注册的时候输入为空则无法提交</li>
+<li>当mongoDB里面的表用户名已存在的时候,则无法提交,并会在用户名输入框旁提示用户名是否存在<h3 id="准备"><a href="#准备" class="headerlink" title="准备:"></a>准备:</h3></li>
+<li>webstrom开发工具</li>
+<li>jQuery —- ajax会用到</li>
+<li>node环境要配置好(不懂怎么配置node环境可以参考NodeJs那篇文章)</li>
+<li>mongoDB数据库,包括可视化工具(这样方便使用)</li>
+</ol>
+<h3 id="开始"><a href="#开始" class="headerlink" title="开始:"></a>开始:</h3><ol>
+<li>在webStrom里 创建一个叫login文件 将jq文件放入其中</li>
+<li>创建一个index.html文件,并布好局(这里是个小demo就不写css样式)</li>
+</ol>
+<p>index.html</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html lang=&quot;en&quot;&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</div><div class="line">    &lt;title&gt;注册页面&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">    用户名&lt;input type=&quot;text&quot; value=&quot;&quot; name=&quot;user&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;br&gt;</div><div class="line">    密码&lt;input type=&quot;password&quot; value=&quot;&quot; name=&quot;pwd&quot;&gt;&lt;br&gt;</div><div class="line">    确认密码&lt;input type=&quot;password&quot; value=&quot;&quot;&gt;&lt;br&gt;</div><div class="line">    &lt;button&gt;注册&lt;/button&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">    &lt;script src=&quot;jquery.js&quot;&gt;&lt;/script&gt;</div><div class="line">    &lt;script&gt;</div><div class="line">        </div><div class="line">    &lt;/script&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>页面的基本机构就这么简单</p>
+<ol>
+<li>创建一个交server的js文件用于开启服务器使用,包括后台处理</li>
+<li>创建好之后,打开控制台输入一下代码安装express模块(这个需要配置好nodeJS环境才可以)</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo cnpm install express</div></pre></td></tr></table></figure>
+<ol>
+<li>安装成功后,这时候主目录会出现多出一个叫node_modules的文件夹,这个文件夹是用于存放node模块(详细请参考nodeJS模块化开发的文章)<br>6.接下来就可以搭建服务器,在server创建express模块</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var express = require(&quot;express&quot;);//创建一个express模块</div><div class="line">var app = express();</div></pre></td></tr></table></figure>
+<p>7.创建一个url模块</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var url = require(&quot;url&quot;);</div></pre></td></tr></table></figure>
+<ol>
+<li>将服务器地址传给主页index</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">app.get(&quot;/zhuce&quot;,function(req,res)&#123;</div><div class="line">    res.sendFile(__dirname+&quot;/index.html&quot;);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<ol>
+<li>设置端口,开始服务器,如果控制台显示”ok”的话就表示开启成功</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">app.listen(8080,function()&#123;</div><div class="line">    console.log(&quot;ok&quot;);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<ol>
+<li><p>在网页上输入<a href="http://localhost:8080/zhuce就可以看到已经跳转到主页了" target="_blank" rel="external">http://localhost:8080/zhuce就可以看到已经跳转到主页了</a></p>
+</li>
+<li><p>重点来了,我发现了这里有个报错,是说jq没有找到,是因为这里是我使用get的方式,这样只是跳转至这个index页面,并没有加载jq文件,所以我们需要把第8点的那段代码给静态设置</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">app.use(express.static(&quot;./&quot;));//加载静态页面</div></pre></td></tr></table></figure>
+<p>这样就可以获取整块页面的内容包括jq,当然地址也会相应的改了,直接输入<a href="http://localhost:8080/就可以访问了" target="_blank" rel="external">http://localhost:8080/就可以访问了</a></p>
+<ol>
+<li>创建数据库.首先先在控制台安装mongoose模块</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo cnpm install mongoose</div></pre></td></tr></table></figure>
+<ol>
+<li>安装完成就可以加载mongoose模块,这句代码写在最上面</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var mongoose = require(&quot;mongoose&quot;);//加载mongoose模块</div></pre></td></tr></table></figure>
+<ol>
+<li>我们可以开启mongoDB数据库(不懂开启请看前两篇MongoDB的文章),开启之后就可以链接到数据库了</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var db = mongoose.connect(&quot;mongodb://localhost:27017/mydb&quot;);</div></pre></td></tr></table></figure>
+<p>注意:链接到mongodb - 默认链接test数据路库,可在地址后加上需要连接的数据库名字例:/myDb<br>这里默认链接到mydb</p>
+<ol>
+<li>测试是否链接成功</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">db.connection.on(&quot;error&quot;,function(err)&#123;</div><div class="line">    console.log(&quot;链接失败&quot;,err);</div><div class="line">&#125;)</div><div class="line">db.connection.on(&quot;open&quot;,function()&#123;</div><div class="line">    console.log(&quot;链接成功&quot;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<ol>
+<li>重新运行server,如果控制显示链接成功,则ok</li>
+<li>开始数据库的搭建(这个写在加载主页下面)</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">//数据库的规模设定</div><div class="line">var Schema = new mongoose.Schema(&#123;</div><div class="line">    name:&#123;type:String&#125;,</div><div class="line">    pwd:&#123;type:String&#125;</div><div class="line">&#125;,&#123;</div><div class="line">    collection:&quot;sub&quot;//指定表</div><div class="line">&#125;)</div><div class="line">//构造model对象用于操作数据库,类似thinkphp实例化</div><div class="line">var user = db.model(&quot;sub&quot;,Schema);</div></pre></td></tr></table></figure>
+<p>上面已经指定在哪个表,包括创建数据的类型</p>
+<ol>
+<li>开始添加数据,这里使用post的方法添加数据<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">    //用post方法添加数据</div><div class="line">app.post(&quot;/add&quot;,function(req,res)&#123;</div><div class="line">    var data = &quot;&quot;;//创建一个data字符串</div><div class="line">    req.on(&quot;data&quot;,function(con)&#123;</div><div class="line">        data+=con; //将index里面的name的内容(con)传到data里面</div><div class="line">    &#125;)</div><div class="line">    console.log(data);</div><div class="line">    req.on(&quot;end&quot;,function()&#123;//数据读取完执行的函数</div><div class="line">        //此时的data: name=frank123&amp;pwd=123</div><div class="line">        var arr = data.split(&quot;&amp;&quot;);//将获取的data劈开装进数组</div><div class="line">        //此时的arr:[ &apos;name=frank123&apos;, &apos;pwd=123&apos; ]</div><div class="line">        var json = &#123;&#125;;//创建一个对象</div><div class="line">        for (var i = 0;i&lt;arr.length;i++) &#123;</div><div class="line">            var a = arr[i].split(&quot;=&quot;); //将arr里面的数据劈开装进数组a</div><div class="line">            //此时的a : [&apos;name&apos;,&apos;frank&apos;][&apos;&apos;pwd&apos;,&apos;123&apos;]</div><div class="line">            json[a[0]] = a[1];//这样就得到了json对象</div><div class="line">        &#125;</div><div class="line">        //json:&#123; name: &apos;frank&apos;, pwd: &apos;123&apos; &#125;获取到了用户名跟密码就可以填入数据库里面了</div><div class="line">        //将数据添加到数据库里面</div><div class="line">        user.create([json],function(err,doc)&#123;</div><div class="line">            if(err)&#123;</div><div class="line">                console.log(err);</div><div class="line">                return;</div><div class="line">            &#125;else&#123;</div><div class="line">                res.send(doc);</div><div class="line">            &#125;</div><div class="line">        &#125;)</div><div class="line">    &#125;)</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>上面判断将数据添加到数据库里面,如果添加失败则打印错误,成功的话返回一个添加的内容,这样的话,<br>ajax只要判断有没有内容数据就可以了</p>
+<ol>
+<li>在index.html文件里面写js</li>
+<li>获取元素,并给注册按钮添加点击事件</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var inp = $(&quot;input&quot;);</div><div class="line">var btn = $(&quot;button&quot;);</div><div class="line">var span = $(&quot;span&quot;); </div><div class="line">btn.on(&quot;click&quot;,function()&#123;</div><div class="line">//填写下面内容的</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ol>
+<li>判断内容是否为空,以及密码是不一致,如果是则不给提交</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">if(inp.eq(0).val()==&quot;&quot;||inp.eq(1).val()==&quot;&quot;)&#123;</div><div class="line">    alert(&quot;输入的内容为空&quot;);</div><div class="line">    return;</div><div class="line">&#125;</div><div class="line">if(inp.eq(1).val()!=inp.eq(2).val())&#123;</div><div class="line">    alert(&quot;密码不一致&quot;);</div><div class="line">    return;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<ol>
+<li>运用jq提供的ajax获取后台接口的数据</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">$.ajax(&#123;</div><div class="line">    url:&quot;/add&quot;,</div><div class="line">    type:&quot;post&quot;,</div><div class="line">    data:&#123;</div><div class="line">        name:inp.eq(0).val(),</div><div class="line">        pwd:inp.eq(1).val(),</div><div class="line">    &#125;,</div><div class="line">    dataType:&quot;json&quot;,</div><div class="line">    success:function(data)&#123;</div><div class="line">//      console.log(data);</div><div class="line">        if(data.length&gt;0)&#123;</div><div class="line">            alert(&quot;注册成功&quot;)</div><div class="line">        &#125;else&#123;</div><div class="line">             alert(&quot;注册失败&quot;)</div><div class="line">            &#125;</div><div class="line">    &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<ol>
+<li>注册无论成功是否,点击之后都要将val()清空</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">inp.each(function(i)&#123;</div><div class="line">    inp.eq(i).val(&quot;&quot;);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<ol>
+<li>这样就成功将数据添加到后台数据库了,接下来就要写检测,如果数据库存在这些数据的话,就不可以注册,所以在server里面写检测数据</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">app.post(&quot;/check&quot;,function(req,res) &#123;</div><div class="line">    var data = &quot;&quot;;</div><div class="line">    req.on(&quot;data&quot;, function (con) &#123;</div><div class="line">        data += con;</div><div class="line">    &#125;)</div><div class="line">    req.on(&quot;end&quot;, function () &#123;</div><div class="line">        var arr = data.split(&quot;&amp;&quot;);</div><div class="line">        var json = &#123;&#125;;</div><div class="line">        for (var i = 0; i &lt; arr.length; i++) &#123;</div><div class="line">            var a = arr[i].split(&quot;=&quot;);</div><div class="line">            json[a[0]] = a[1];</div><div class="line">        &#125;</div><div class="line">        user.find(json,function(err,doc)&#123;</div><div class="line">            console.log(doc);</div><div class="line">            if(err)&#123;console.log(err);return&#125;;</div><div class="line">            if(doc.length&gt;0)&#123;</div><div class="line">                res.send(&apos;&#123;&quot;error&quot;:0,&quot;msg&quot;:&quot;用户名已注册&quot;&#125;&apos;)</div><div class="line">            &#125;else&#123;</div><div class="line">                res.send(&apos;&#123;&quot;error&quot;:1,&quot;msg&quot;:&quot;可以注册&quot;&#125;&apos;)</div><div class="line">            &#125;</div><div class="line">        &#125;)</div><div class="line">    &#125;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<ol>
+<li><p>检测的接口就做好了,接下来就开始在index.html里面用ajax获取数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">var bol = false;</div><div class="line">  inp.eq(0).on(&quot;blur&quot;,function()&#123;</div><div class="line">      $.ajax(&#123;</div><div class="line">      url:&quot;/check&quot;,</div><div class="line">          type:&quot;post&quot;,</div><div class="line">          data:&#123;&quot;name&quot;:inp.eq(0).val()&#125;,</div><div class="line">          dataType:&quot;json&quot;,</div><div class="line">          success:function(data)&#123;</div><div class="line">          if(data.error==0)&#123;</div><div class="line">              bol=false;</div><div class="line">              span.css(&quot;color&quot;,&apos;red&apos;);</div><div class="line">          &#125;else&#123;</div><div class="line">              bol=true;</div><div class="line">              span.css(&quot;color&quot;,&apos;green&apos;);</div><div class="line">          &#125;</div><div class="line">              span.html(data.msg);</div><div class="line">          &#125;</div><div class="line">      &#125;)</div><div class="line">  &#125;)</div></pre></td></tr></table></figure>
+</li>
+<li><p>上面我们创建了一个bol值是用来判断数据,如果有的话就咬阻止注册,所以在点击事件那里判断</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">btn.on(&quot;click&quot;,function()&#123;</div><div class="line">   //在这里判断</div><div class="line">   if(!bol)&#123;</div><div class="line">       alert(&quot;用户名已存在&quot;);</div><div class="line">           return;</div><div class="line">   &#125;</div><div class="line">   if(inp.eq(0).val()==&quot;&quot;||inp.eq(1).val()==&quot;&quot;)&#123;</div><div class="line">       alert(&quot;输入的内容为空&quot;);</div><div class="line">       return;</div><div class="line">   &#125;</div><div class="line">   //.....最后面还要将span的内容清空</div><div class="line">   span.val(&quot;&quot;);</div></pre></td></tr></table></figure>
+<p>这样的效果就出来了</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/05/可视化工具Robomongo/" rel="next" title="MongoDB可视化工具Robomongo">
+                <i class="fa fa-chevron-left"></i> MongoDB可视化工具Robomongo
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="John Doe" />
+          <p class="site-author-name" itemprop="name">John Doe</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ajax制作nodeJS注册页面"><span class="nav-number">1.</span> <span class="nav-text">ajax制作nodeJS注册页面</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">1.1.</span> <span class="nav-text">原理:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#准备"><span class="nav-number">1.2.</span> <span class="nav-text">准备:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开始"><span class="nav-number">1.3.</span> <span class="nav-text">开始:</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
