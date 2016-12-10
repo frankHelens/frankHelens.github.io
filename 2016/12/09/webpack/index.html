@@ -1,0 +1,606 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="一、什么是 webpack？webpack是一款模块加载器兼打包工具，它能把各种资源，例如JS（含JSX）、ES6、样式（含less/sass）、图片等都作为模块来使用和处理。
+更多webpack学习内容
+二、安装1$ npm install webpack -g
+三. 配置创建 webpack.config.js 它的作用和gulpfile.js一样就是一个配置项，设置 webpack 任务功能">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Webpack入门指南">
+<meta property="og:url" content="http://yoursite.com/2016/12/09/webpack/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一、什么是 webpack？webpack是一款模块加载器兼打包工具，它能把各种资源，例如JS（含JSX）、ES6、样式（含less/sass）、图片等都作为模块来使用和处理。
+更多webpack学习内容
+二、安装1$ npm install webpack -g
+三. 配置创建 webpack.config.js 它的作用和gulpfile.js一样就是一个配置项，设置 webpack 任务功能">
+<meta property="og:updated_time" content="2016-12-10T05:51:05.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Webpack入门指南">
+<meta name="twitter:description" content="一、什么是 webpack？webpack是一款模块加载器兼打包工具，它能把各种资源，例如JS（含JSX）、ES6、样式（含less/sass）、图片等都作为模块来使用和处理。
+更多webpack学习内容
+二、安装1$ npm install webpack -g
+三. 配置创建 webpack.config.js 它的作用和gulpfile.js一样就是一个配置项，设置 webpack 任务功能">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/12/09/webpack/"/>
+
+
+  <title> Webpack入门指南 | Hexo </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Hexo</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            Accueil
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule" rel="section">
+            
+            Schedule
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Webpack入门指南
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posté le</span>
+            <time itemprop="dateCreated" datetime="2016-12-09T15:49:35+08:00" content="2016-12-09">
+              2016-12-09
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="一、什么是-webpack？"><a href="#一、什么是-webpack？" class="headerlink" title="一、什么是 webpack？"></a>一、什么是 webpack？</h2><p><a href="http://webpack.github.io/" target="_blank" rel="external">webpack</a>是一款模块加载器兼打包工具，它能把各种资源，例如JS（含JSX）、ES6、样式（含less/sass）、图片等都作为模块来使用和处理。</p>
+<p><a href="https://github.com/lengziyu/learn-webpack" target="_blank" rel="external">更多webpack学习内容</a></p>
+<h2 id="二、安装"><a href="#二、安装" class="headerlink" title="二、安装"></a>二、安装</h2><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install webpack -g</div></pre></td></tr></table></figure>
+<h2 id="三-配置"><a href="#三-配置" class="headerlink" title="三. 配置"></a>三. 配置</h2><p>创建 <strong>webpack.config.js</strong> 它的作用和gulpfile.js一样就是一个配置项，设置 webpack 任务功能。</p>
+<ul>
+<li>entry 入口文件 让webpack用哪个文件作为项目的入口</li>
+<li>output 出口 让webpack把处理完成的文件放在哪里</li>
+<li>module 模块 要用什么不同的模块来处理各种类型的文件</li>
+<li>plugins 用于提取多个入口文件的公共脚本部分，然后生成一个 common.js 来方便多页面之间进行复用。</li>
+<li>resolve 用来设置路径指向</li>
+<li>watch 用监听文件有改动后执行打包</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">	<span class="attr">entry</span>:<span class="string">""</span>,<span class="comment">//入口文件</span></div><div class="line">	output:&#123;<span class="comment">//出口</span></div><div class="line">		path:<span class="string">""</span>,</div><div class="line">		<span class="attr">filename</span>:<span class="string">""</span></div><div class="line">	&#125;,</div><div class="line">	<span class="attr">module</span>:&#123;<span class="comment">//模块</span></div><div class="line">		loaders:[</div><div class="line">			&#123;<span class="attr">test</span>:<span class="regexp">/\.js$/</span>,<span class="attr">loader</span>:<span class="string">""</span>&#125;</div><div class="line">		]</div><div class="line">	&#125;,</div><div class="line">	<span class="attr">plugins</span>:&#123;&#125;,</div><div class="line">	<span class="attr">resolve</span>:&#123;&#125;,</div><div class="line">	<span class="attr">wacth</span>:<span class="literal">true</span></div><div class="line">	</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="webpack命令"><a href="#webpack命令" class="headerlink" title="webpack命令"></a>webpack命令</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">//直接运行webpack.config.js来打包</div><div class="line">$ webpack </div><div class="line"></div><div class="line">//使用另一份配置文件来打包</div><div class="line">$ webpack --config XXX.js  </div><div class="line"> </div><div class="line">//监听变动并自动打包</div><div class="line">$ webpack --watch   </div><div class="line"></div><div class="line">//压缩混淆脚本</div><div class="line">$ webpack -p</div></pre></td></tr></table></figure>
+<p>##四.开启服务器自动刷新</p>
+<p>###安装全局webpack-dev-server模块</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">//安装</div><div class="line">$ npm install webpack-dev-server -g</div><div class="line"></div><div class="line">//运行</div><div class="line">$ webpack-dev-server --progress --colors</div></pre></td></tr></table></figure>
+<p>###配置设置webpack.config.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">devServer: &#123;</div><div class="line">    <span class="attr">contentBase</span>: <span class="string">"www/"</span>,</div><div class="line">    <span class="attr">inline</span>:<span class="literal">true</span>,</div><div class="line">    <span class="attr">port</span> : <span class="string">"3000"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>##五.例子说明</p>
+<p>###1.例子demo01文件</p>
+<p>全局安装webpack就可以运行演示例子</p>
+<p>###2.例子demo02文件<br>需要引入CommonsChunkPlugin,这个属于webpack内置的一个插件，需要在当前目录安装webpack</p>
+<p>作用是：用于提取多个入口文件的公共脚本部分</p>
+<p>###配置设置webpack.config.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>);</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">	...</div><div class="line">	plugins:[</div><div class="line">	    <span class="keyword">new</span> webpack.optimize.CommonsChunkPlugin(&#123;</div><div class="line">	        <span class="attr">name</span>: <span class="string">'common'</span>,<span class="comment">//合并公共模块到指定的JS文件  注意不要.js后缀</span></div><div class="line">	        filename: <span class="string">'js/common.js'</span>,<span class="comment">//输出的目录</span></div><div class="line">	        chunks:[<span class="string">'index'</span>,<span class="string">'login'</span>]<span class="comment">//抽取的文件</span></div><div class="line">	    &#125;)</div><div class="line">	]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>###3.例子demo03文件</p>
+<p>###打包样式和转换less或sass</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">//安装出来css模块</div><div class="line">$ npm install style-loader css-loader </div><div class="line">//安装转less模块</div><div class="line">$ npm install less-loader less</div><div class="line">//安装转sass模块</div><div class="line">$ npm install sass-loader node-sass</div></pre></td></tr></table></figure>
+<p>###配置设置webpack.config.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>);</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">	...</div><div class="line">	module: &#123;</div><div class="line">		<span class="comment">// webpack使用loader的方式来处理各种各样的资源，比如说样式文件，我们需要两种loader，css-loader 和 style－loader，css-loader会遍历css文件</span></div><div class="line">	    loaders:[	   </div><div class="line">	    	<span class="comment">// &#123; test: /\.(css|less)$/, loader: 'style-loader!css-loader!less-loader'&#125;,</span></div><div class="line">	    	</div><div class="line">	    	&#123; <span class="attr">test</span>: <span class="regexp">/\.scss$/</span>, <span class="attr">loader</span>: <span class="string">'style-loader!css-loader!sass-loader'</span>&#125;</div><div class="line">	    ]</div><div class="line">	&#125;,</div><div class="line">	<span class="attr">resolve</span>: &#123;</div><div class="line">        <span class="comment">//require查找module的话从这里开始查找</span></div><div class="line">        root: __dirname+<span class="string">'/module'</span>, <span class="comment">//绝对路径</span></div><div class="line">        <span class="comment">//自动扩展文件后缀名，意味着我们require模块可以省略不写后缀名</span></div><div class="line">        extensions: [<span class="string">''</span>, <span class="string">'.js'</span>, <span class="string">'.css'</span>,<span class="string">".less"</span>],</div><div class="line">        <span class="comment">//模块别名定义，方便后续直接引用别名，无须多写长长的地址</span></div><div class="line">        alias: &#123;</div><div class="line">            <span class="attr">style</span> : <span class="string">'../css/style.scss'</span>,<span class="comment">//后续直接 require('style') 即可</span></div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">watch</span>:<span class="literal">true</span><span class="comment">//监听文件一旦改变重新打包</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>###4.例子demo04文件</p>
+<p>###打包jsx<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">//安装转jsx和ex6模块</div><div class="line">$ npm install babel-loader babel-preset-es2015 babel-preset-react</div><div class="line"></div><div class="line">//或者安装jsx-loader主要打包jsx</div><div class="line">$ npm install jsx-loader</div></pre></td></tr></table></figure></p>
+<p>###配置设置webpack.config.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">	...</div><div class="line">	module: &#123;			</div><div class="line">	    <span class="attr">loaders</span>:[		    	</div><div class="line">	    	&#123; </div><div class="line">	    		<span class="attr">test</span>: <span class="regexp">/\.js[x]?$/</span>, </div><div class="line">	    		<span class="attr">exclude</span>: <span class="regexp">/node_modules/</span>, </div><div class="line">	    		<span class="attr">loader</span>: <span class="string">'babel?presets[]=es2015&amp;presets[]=react'</span> </div><div class="line">	    	&#125;,</div><div class="line">	    ]</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>###5.例子demo05文件</p>
+<p>###加载模块到全局和自动刷新<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">//安装全局webpack-dev-server模块</div><div class="line">$ npm install webpack-dev-server -g</div><div class="line"></div><div class="line">//启动服务器</div><div class="line">$ webpack-dev-server --progress --colors</div></pre></td></tr></table></figure></p>
+<p>###配置设置webpack.config.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">	...</div><div class="line">	 devServer: &#123;</div><div class="line">      <span class="attr">inline</span>: <span class="literal">true</span>,   </div><div class="line">      <span class="attr">port</span>: <span class="number">8080</span></div><div class="line">    &#125;,</div><div class="line">	 <span class="attr">plugins</span>: [</div><div class="line">    	<span class="keyword">new</span> webpack.ProvidePlugin(&#123;</div><div class="line">        	<span class="attr">React</span>: <span class="string">'react'</span>,</div><div class="line">        	<span class="attr">ReactDOM</span>: <span class="string">'react-dom'</span></div><div class="line">    	&#125;)<span class="comment">//直接加载到全局不需要require()</span></div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>###6.例子demo06文件</p>
+<p>###gulp+webpack<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//安装全局gulp</div><div class="line">$ npm install gulp -g</div><div class="line">//安装gulp-webpack</div><div class="line">$ npm install gulp-webpack</div></pre></td></tr></table></figure></p>
+<p>###gulpfile配置</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> gulp = <span class="built_in">require</span>(<span class="string">'gulp'</span>);</div><div class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">'gulp-webpack'</span>);</div><div class="line"></div><div class="line">gulp.task(<span class="string">'default'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> gulp.src(<span class="string">'./module/main.js'</span>)</div><div class="line">    .pipe(webpack(<span class="built_in">require</span>(<span class="string">'./webpack.config.js'</span>)))</div><div class="line">    .pipe(gulp.dest(<span class="string">'js/'</span>));</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/05/基于nodeJs的mongoDB制作注册页面/" rel="next" title="基于nodeJs的mongoDB制作注册页面(ajax版)">
+                <i class="fa fa-chevron-left"></i> 基于nodeJs的mongoDB制作注册页面(ajax版)
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table Des Matières
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Ensemble
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="John Doe" />
+          <p class="site-author-name" itemprop="name">John Doe</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-name">articles</span>
+            </a>
+          </div>
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、什么是-webpack？"><span class="nav-number">1.</span> <span class="nav-text">一、什么是 webpack？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、安装"><span class="nav-number">2.</span> <span class="nav-text">二、安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三-配置"><span class="nav-number">3.</span> <span class="nav-text">三. 配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#webpack命令"><span class="nav-number">3.1.</span> <span class="nav-text">webpack命令</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Thème -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
