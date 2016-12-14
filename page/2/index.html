@@ -85,11 +85,11 @@
 
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="Frank的个人博客">
 <meta property="og:url" content="http://yoursite.com/page/2/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="Frank的个人博客">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="Frank的个人博客">
 
 
 
@@ -113,7 +113,7 @@
   <link rel="canonical" href="http://yoursite.com/page/2/"/>
 
 
-  <title> Hexo </title>
+  <title> Frank的个人博客 </title>
 </head>
 
 <body itemscope itemtype="//schema.org/WebPage" lang="">
@@ -146,11 +146,11 @@
   <div class="custom-logo-site-title">
     <a href="/"  class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <span class="site-title">Hexo</span>
+      <span class="site-title">Frank的个人博客</span>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
-  <p class="site-subtitle"></p>
+  <p class="site-subtitle">welcome to Frank's Blog</p>
 </div>
 
 <div class="site-nav-toggle">
@@ -171,7 +171,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-            Accueil
+            Startseite
           </a>
         </li>
       
@@ -179,7 +179,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -238,8 +238,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/11/10/canvas/" itemprop="url">
-                  Canvas
+                <a class="post-title-link" href="/2016/12/05/NodeJs模块化开发/" itemprop="url">
+                  NodeJs模块开发
                 </a>
               
             
@@ -251,9 +251,9 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Posté le</span>
-            <time itemprop="dateCreated" datetime="2016-11-10T15:37:01+08:00" content="2016-11-10">
-              2016-11-10
+            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <time itemprop="dateCreated" datetime="2016-12-05T17:23:06+08:00" content="2016-12-05">
+              2016-12-05
             </time>
           </span>
 
@@ -282,47 +282,605 @@
       
         
           
-            <h1 id="canvas"><a href="#canvas" class="headerlink" title="canvas"></a>canvas</h1><h3 id="一、什么是canvas"><a href="#一、什么是canvas" class="headerlink" title="一、什么是canvas"></a>一、什么是canvas</h3><ul>
-<li>canvas 元素用于在网页上绘制图形。HTML5 的 canvas 元素使用 JavaScript 在网页上绘制2D图像。</li>
-<li>在矩形区域的画布上，控制其每一像素，JavaScript 来绘制 2D图形，逐像素进行渲染。可以通过多种方法使用canvas 元素绘制路径、矩形、圆形、字符以及添加图像。</li>
-<li>浏览器支持情况 IE9.0以前的版本不支持</li>
-<li>getContext(‘2d’)方法可返回一个对象，该对象提供s了用于在画布上绘图的方法和属性。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var canvas = document.getElementsByTagName(&apos;canvas&apos;)[0];</div><div class="line">//创建文本形式</div><div class="line">var ctx = canvas.getContext(&quot;2d&quot;);</div><div class="line">ctx.beginPath(); //开写绘制路径</div><div class="line">ctx.moveTo(100,100);//移动画笔到坐标是100的位置</div><div class="line">ctx.lineTo(200,200);//画直线</div><div class="line">ctx.strokeStyle = &quot;blue&quot;;//描边之前设置颜色</div><div class="line">ctx.stroke();//描边 // 填充fill</div><div class="line">ctx.closePath();// 结束当前路径</div></pre></td></tr></table></figure>
+            <h1 id="NodeJs模块开发"><a href="#NodeJs模块开发" class="headerlink" title="NodeJs模块开发"></a>NodeJs模块开发</h1><p>一. 模块的规范<br>    目前，通行的Javascript模块规范共有两种：CMD和AMD。</p>
+<ul>
+<li>AMD 是 RequireJS 在推广过程中对模块定义的规范化产出。</li>
+<li>CMD 是 SeaJS 在推广过程中对模块定义的规范化产出。</li>
+<li>这些规范的目的都是为了 JavaScript 的模块化开发，特别是在浏览器端的。目前这些规范的实现都能达成浏览器端模块化开发的目的。</li>
+</ul>
+<ol>
+<li><p>对于依赖的模块，AMD 是提前执行，CMD 是延迟执行。不过 RequireJS 从 2.0 开始，也改成可以延迟执行（根据写法不同，处理方式不同）。CMD 推崇 as lazy as possible.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">// CMD</div><div class="line">define(function(require, exports, module) &#123;</div><div class="line">var a = require(&apos;./a&apos;)</div><div class="line">a.doSomething()</div><div class="line">// 此处略去 100 行</div><div class="line">var b = require(&apos;./b&apos;) // 依赖可以就近书写</div><div class="line">b.doSomething()</div><div class="line">// ... </div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<ol>
+<li>CMD 推崇依赖就近，AMD 推崇依赖前置。看代码：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"> // AMD 默认推荐的是</div><div class="line">define([&apos;./a&apos;, &apos;./b&apos;], function(a, b) &#123; // 依赖必须一开始就写好</div><div class="line">a.doSomething()</div><div class="line">// 此处略去 100 行</div><div class="line">b.doSomething()</div><div class="line">...</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>虽然 AMD 也支持 CMD 的写法，同时还支持将 require 作为依赖项传递，<br>但 RequireJS 的作者默认是最喜欢上面的写法，也是官方文档里默认的模块定义写法。</p>
+</li>
+</ol>
+<h3 id="Sea-js"><a href="#Sea-js" class="headerlink" title="Sea.js"></a>Sea.js</h3><p>Sea.js提供了一个全局方法——define，用来定义一个CMD模块。</p>
+<ol>
+<li>define(factory)：factory是这样一个函数function (require?, exports?, module?) {}，如果模块本身既不依赖其他模块，也不提供接口，require、exports和module都可以省略。</li>
+<li><p>所有模块都通过 define 来定义</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">define(function(require, exports, module) &#123;</div><div class="line"></div><div class="line">  // 通过 require 引入依赖</div><div class="line">  var $ = require(&apos;jquery&apos;);</div><div class="line">  var test= require(&apos;./test);</div><div class="line"></div><div class="line">  // 通过 exports 对外提供接口</div><div class="line">  exports.test = test</div><div class="line"></div><div class="line">  // 或者通过 module.exports 提供整个接口</div><div class="line">  module.exports = ...</div><div class="line"></div><div class="line">&#125;);</div><div class="line">obj = require(&quot;a&quot;)</div></pre></td></tr></table></figure>
+</li>
+<li><p>seajs 的简单配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">seajs.config(&#123;</div><div class="line">  base: &quot;../sea-modules/&quot;,</div><div class="line">  alias: &#123;</div><div class="line">    &quot;jquery&quot;: &quot;jquery/jquery/1.10.1/jquery-3.0.0.min.js&quot;</div><div class="line">  &#125;</div><div class="line">&#125;)</div><div class="line"></div><div class="line"></div><div class="line">// 加载入口模块</div><div class="line">seajs.use(&quot;../static/hello/src/main&quot;)</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="requirejs的使用"><a href="#requirejs的使用" class="headerlink" title="requirejs的使用"></a>requirejs的使用</h3><ol>
+<li><p>在html中引入requirejs</p>
+</li>
+<li><p>在HTML中，添加这样的 <script> 标签：</p>
+</li>
+</ol>
+<script src="js/require.js" data-main="js/config.js"></script>
+
+<ol>
+<li><p>通常使用requirejs的话，我们只需要导入requirejs即可，不需要显式导入其它的js库，因为这个工作会交给requirejs来做。</p>
+</li>
+<li><p>属性 data-main 是告诉requirejs：你下载完以后，马上去载入真正的入口文件。它一般用来对requirejs进行配置，并且载入真正的程序模块。</p>
+</li>
+<li><p>在config.js中配置requirejs</p>
+</li>
+</ol>
+<ul>
+<li>配置requirejs 比如项目中用到哪些模块，文件路径是什么</li>
+<li>载入程序主模块<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">requirejs.config(&#123;</div><div class="line">  baseUrl: &apos;/js&apos;,</div><div class="line">  paths: &#123;</div><div class="line">    jq: &apos;jquery.1.12.1&apos;</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">requirejs([&apos;jq&apos;], function($) &#123;</div><div class="line">  $(&quot;div&quot;).css();</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="二、文字绘制"><a href="#二、文字绘制" class="headerlink" title="二、文字绘制"></a>二、文字绘制</h3><ul>
-<li>font设置或返回文本内容的当前字体属性</li>
-<li>textAlign 设置或返回文本内容的当前对齐方式</li>
-<li>textBaseline 设置或者返回在绘制文本时使用的文本基线</li>
-<li>方法:</li>
-<li>fillText(text,x,y,maxWidth): text表示文字，x、y为坐标、maxWidth可选，为文字最大宽度，防止文字溢出；填充文字</li>
-<li>strokeText(text,x,y,maxWidth): text表示文字，x、y为坐标、maxWidth可选，为文字最大宽度，防止文字溢出；绘制文字<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">//纵中心线</div><div class="line">ctx.beginPath();</div><div class="line">ctx.moveTo(200,0);</div><div class="line">ctx.lineTo(200,400);</div><div class="line">ctx.strokeStyle = &apos;red&apos;;</div><div class="line">ctx.stroke();</div><div class="line"></div><div class="line">//横中心线</div><div class="line">ctx.beginPath();</div><div class="line">ctx.moveTo(0,200);</div><div class="line">ctx.lineTo(400,200);</div><div class="line">ctx.strokeStyle = &quot;blue&quot;;</div><div class="line">ctx.stroke();</div><div class="line">ctx.closePath();</div><div class="line"></div><div class="line">//字体</div><div class="line">ctx.font = &quot;50px 黑体&quot;;</div><div class="line">// ctx.textAlign = &quot;right&quot;;//左下边</div><div class="line">ctx.textAlign = &quot;center&quot;;</div><div class="line">ctx.textBaseline = &apos;top&apos;;</div><div class="line">//设置第四个参数设置文字的最大宽度,如果文字会超过大小的话会变形	ctx.strokeText(&quot;franksHelensSon-Ben&quot;,200,200,300); //空心</div><div class="line">// ctx.fillText(&quot;franks&quot;,200,200,500); //实心</div></pre></td></tr></table></figure>
+<ol>
+<li><p>在 paths 中，我们声明了一个名为 app 的模块，以及它对应的js文件地址。在最理想的情况下， app.js 的内容，应该使用requirejs的方式来定义模块</p>
+</li>
+<li><p>define: 定义一个模块;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">define([&quot;jquery&quot;,&quot;show&quot;], function($,show) &#123;</div><div class="line">  return &#123;</div><div class="line">    hello: function() &#123;</div><div class="line">        show()</div><div class="line">      alert(&quot;hello, app~&quot;);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+</li>
+<li><p>shim将某个依赖中的某个全局变量暴露给requirejs，当作这个模块本身的引用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">requirejs.config(&#123;</div><div class="line">  baseUrl: &apos;/public/js&apos;,</div><div class="line">  paths: &#123;</div><div class="line">    hello: &apos;hello&apos;</div><div class="line">  &#125;,</div><div class="line">  shim: &#123;</div><div class="line">    hello: &#123; exports: &apos;hello&apos; &#125;</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">requirejs([&apos;hello&apos;], function(hello) &#123;</div><div class="line">  hello();</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+</li>
+</ol>
+</p></li></ol>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/12/05/NodeJs/" itemprop="url">
+                  NodeJS
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <time itemprop="dateCreated" datetime="2016-12-05T17:19:40+08:00" content="2016-12-05">
+              2016-12-05
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="NodeJs"><a href="#NodeJs" class="headerlink" title="NodeJs"></a>NodeJs</h1><p>一.什么是node</p>
+<ol>
+<li>node是js语言的服务器运行环境(类似于php和apache)</li>
+<li>nodejs提供大量的工具库,使得javascript可以调用操作系统级别的api.</li>
+<li>node采用谷歌的v8引擎(javascript语言解释器),速度非常快跟js环境不一样,一个是运行在服务器,一个运行在客户端</li>
+<li>node是一个基于事件驱动和异步io的服务器javascript环境</li>
+<li>回调: 异步编程</li>
+<li>IO：input output程的基本方法，采用后续函数传递的方式，把后续的处理函数作为参数进行执行同步和异步（阻塞非阻塞）：AJAX的时候说过</li>
+<li>IO：input outputer<br>输入 输出，对应的就是下单操作</li>
+<li>单线程和多线程<br>单线程按顺序执行，多线程可以同时执行<h3 id="http模块"><a href="#http模块" class="headerlink" title="http模块"></a>http模块</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">//1.引入一个http的模块</div><div class="line">var http = require(&quot;http&quot;);</div><div class="line">//2.创建一个http服务器</div><div class="line">server = http.createServer(function(req,res)&#123;</div><div class="line">   res.write(&quot;响应对象&quot;);</div><div class="line">   res.end(&quot;响应结束&quot;);</div><div class="line">&#125;)</div><div class="line">//3.server.listen(port,function)监听响应</div><div class="line">server.listen(8080,function()&#123;</div><div class="line">    console.log(&quot;开启成功:http://localhost:8080&quot;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="设置请求头"><a href="#设置请求头" class="headerlink" title="设置请求头"></a>设置请求头</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">var http = require(&apos;http&apos;);//引入一个HTTP的模块</div><div class="line">var server = http.createServer(function(req,res)&#123;</div><div class="line">    //设置请求头</div><div class="line">    res.writeHead(200,&#123;&quot;Content-Type&quot;:&quot;text/html;charset=utf-8&quot;&#125;);</div><div class="line">    //判断url是不是首页</div><div class="line">    if(req.url==&quot;/index&quot;||req.url==&quot;/&quot;)&#123;</div><div class="line">        res.end(&quot;首页&quot;);</div><div class="line">    &#125;else if(req.url==&quot;/login&quot;)&#123;</div><div class="line">        res.end(&quot;登陆页面&quot;);</div><div class="line">    &#125;else&#123;</div><div class="line">        res.end(&quot;404&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;)</div><div class="line">server.listen(8080,function()&#123;</div><div class="line">    console.log(&quot;开启成功:http://localhost:8080&quot;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h3 id="url模块"><a href="#url模块" class="headerlink" title="url模块"></a>url模块</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">var http = require(&quot;http&quot;);</div><div class="line">var url = require(&quot;url&quot;);</div><div class="line">var server = http.createServer(function(req,res)&#123;</div><div class="line">//如果第二个参数是true返回的是query是一个json格式,否则是字符串</div><div class="line">    var oUrl = url.parse(req.url,true);</div><div class="line">    console.log(oUrl);</div><div class="line">    res.end(&quot;end&quot;);</div><div class="line">&#125;)</div><div class="line">server.listen(8080,function()&#123;</div><div class="line">    console.log(&quot;开启成功:http://localhost:8080&quot;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h3 id="node自定义模块"><a href="#node自定义模块" class="headerlink" title="node自定义模块"></a>node自定义模块</h3><ul>
+<li>在同级创建node_modules,里面放一个test.js文件</li>
+<li><p>在mod.js文件里</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var abc = require(&quot;test&quot;);</div><div class="line">abc.show();</div></pre></td></tr></table></figure>
+</li>
+<li><p>test.js文件里面</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function show()&#123;</div><div class="line">    console.log(&quot;abc&quot;);</div><div class="line">&#125;</div><div class="line">module.exports = &#123;</div><div class="line">    show:show</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>在node_modules里面创建一个package.json文件<br>package.json文件里面</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;name&quot;: &quot;test&quot;,</div><div class="line">  &quot;version&quot;: &quot;0.0.1&quot;,</div><div class="line">  &quot;main&quot;:&quot;../index.js&quot;//默认不写是打开index</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="三-阴影绘制"><a href="#三-阴影绘制" class="headerlink" title="三.阴影绘制"></a>三.阴影绘制</h3><ul>
-<li>shadowColor 阴影颜色</li>
-<li>shadowOffsetX 阴影的左右偏移值</li>
-<li>shadowOffsetY 阴影的上下偏移值</li>
-<li>shadowBlur 阴影模糊度</li>
-<li>save() 保存当前属性设置</li>
-<li>ctx.restore() 返回上一次保存的属性值,只能是保存一次返回一次</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">ctx.save()//保存当前属性设置 </div><div class="line">shadow(5,5,10,&quot;blue&quot;);</div><div class="line">ctx.font = &apos;50px 黑体&apos;;</div><div class="line">ctx.fillStyle = &quot;red&quot;;</div><div class="line">ctx.fillText(&apos;阴影1&apos;,60,60); </div><div class="line">ctx.restore()//返回上一次保存的属性值,只能是保存一次返回一次</div><div class="line"></div><div class="line">// shadow(5,5,5,&quot;yellow&quot;);</div><div class="line">ctx.strokeStyle = &quot;green&quot;;</div><div class="line">ctx.strokeText(&apos;阴影2&apos;,200,200);</div></pre></td></tr></table></figure>
-<p>将阴影绘制封成一个函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function shadow(x,y,blur,color)&#123;</div><div class="line">	ctx.shadowOffsetX = x;</div><div class="line">	ctx.shadowOffsetY = y;</div><div class="line">	ctx.shadowColor = color;</div><div class="line">	ctx.shadowBlur = blur;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h3 id="四-rect"><a href="#四-rect" class="headerlink" title="四.rect"></a>四.rect</h3><ul>
-<li>canvas自带的函数方法 ctx.fillRect()<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">//封装成一个函数</div><div class="line">	function rect(x,y,w,h,color)&#123;</div><div class="line">		ctx.moveTo(x,y);</div><div class="line">		ctx.lineTo(x+w,y);</div><div class="line">		ctx.lineTo(x+w,y+h);</div><div class="line">		ctx.lineTo(x,y+h);</div><div class="line">		ctx.lineTo(x,y);</div><div class="line">		ctx.fillStyle=color;</div><div class="line">		ctx.fill();</div><div class="line">		ctx.closePath();</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+<h3 id="创建buffer对象的方法"><a href="#创建buffer对象的方法" class="headerlink" title="创建buffer对象的方法"></a>创建buffer对象的方法</h3><p>1.直接创建<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var buf = new Buffer(6);</div><div class="line">buf.fill(255);//默认输出的值是随机的,用fill(255)可以填充数值</div><div class="line">console.log(buf);</div></pre></td></tr></table></figure></p>
+<p>2.通过数组<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var buf2 = new Buffer([255,110,5,0xcc]);</div><div class="line">console.log(buf2);</div></pre></td></tr></table></figure></p>
+<p>3.通过字符串<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var buf3 = new Buffer(&quot;内容&quot;);</div><div class="line">console.log(buf3.toString());//用toString直接输出字体</div></pre></td></tr></table></figure></p>
+<h3 id="nodejs文件读取"><a href="#nodejs文件读取" class="headerlink" title="nodejs文件读取"></a>nodejs文件读取</h3><p>1.文件系统模块 fs<br>2.读取文件方法</p>
+<ul>
+<li><p>readFile(异步);</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var fs = require(&quot;fs&quot;);</div><div class="line">fs.readFile(&quot;test/abc.txt&quot;,function(err,data)&#123;</div><div class="line">//异步读取文件,都有个回调函数,传两个参数(错误,内容);</div><div class="line">    if(err)&#123;console.log(err);return&#125;</div><div class="line">    console.log(data.toString())</div><div class="line">&#125;)</div><div class="line">console.log(2);</div><div class="line">//异步下面的代码先执行</div></pre></td></tr></table></figure>
+</li>
+<li><p>readFileSync(同步);</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var con = fs.readFileSync(&quot;test/abc.txt&quot;);</div><div class="line">//同步读取文件没有回调函数,所以直接赋值给con,输出这个con就可以了</div><div class="line">console.log(con.toString());</div><div class="line">console.log(2);</div></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="五-arc-圆的绘制"><a href="#五-arc-圆的绘制" class="headerlink" title="五.arc 圆的绘制"></a>五.arc 圆的绘制</h3><ul>
-<li>参数: (开始的坐标x,y,半径,开始的角度,绘制多大的角度,逆时针);<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ctx.arc(200,200,50,-Math.PI/180*deg,Math.PI/180*deg,true);</div></pre></td></tr></table></figure>
+<p>同步的小demo<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">function show(a,b,cb)&#123;</div><div class="line">    console.log(a,b);</div><div class="line">    cb();</div><div class="line">&#125;</div><div class="line">show(2,4,function()&#123;</div><div class="line">    console.log(1);</div><div class="line">&#125;)</div><div class="line">console.log(2);</div></pre></td></tr></table></figure></p>
+<h3 id="nodejs文件操作"><a href="#nodejs文件操作" class="headerlink" title="nodejs文件操作"></a>nodejs文件操作</h3><ul>
+<li>文件操作</li>
+<li>目录操作</li>
+</ul>
+<ol>
+<li>写入内容writeFile(url,data,{flag:w},fn(err))<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var fs = require(&apos;fs&apos;);</div><div class="line">fs.writeFile(&quot;test/abc.txt&quot;,&quot;内容内容内容内容内容内容&quot;,&#123;flag:w&#125;,function(err)&#123;</div><div class="line">    if(err)&#123;console.log(&quot;写入失败&quot;,err);return&#125;</div><div class="line">    console.log(&quot;写入成功&quot;);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li>777分别代表所有者,组用户,其他用户所具有的权限<br>1 = 执行 2 = 写  4 = 读  1+2+4=7</li>
+</ul>
+<ol>
+<li><p>创建文件mkdir(filename,0777,fn(err));</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">fs.mkdir(&quot;test/ben&quot;,0777,function()&#123;</div><div class="line">    if(err)&#123;console.log(&quot;创建失败&quot;,err);return&#125;</div><div class="line">    console.log(&quot;创建成功&quot;);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+</li>
+<li><p>读取目录所有文件readdir(url,fn(err,files))</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">fs.readdir(&quot;./&quot;,function(err,files)&#123;</div><div class="line">    console.log(files);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+</li>
+<li><p>判断文件是否存在fs.existsSync(urlstr)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//判断有没有文件</div><div class="line">var bol = fs.existsSync(&quot;test/frank.txt&quot;);</div><div class="line">//判断有没有文件夹</div><div class="line">//var bol = fs.existsSync(&quot;test&quot;);</div></pre></td></tr></table></figure>
+</li>
+<li><p>获取文件或文件夹的详细信息<br>var stat = fs.lstatSync(urlstr);</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var stat = fs.lstatSync(&quot;test/abc.txt&quot;);</div><div class="line">console.log(stat);</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>6.如果是文件返回true否则是false<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var isfile = stat.isFile();</div><div class="line">console.log(isfile);</div></pre></td></tr></table></figure></p>
+<h3 id="node读取并写入大文件-Stream"><a href="#node读取并写入大文件-Stream" class="headerlink" title="node读取并写入大文件(Stream)"></a>node读取并写入大文件(Stream)</h3><ul>
+<li>stream,主要是用在大数据处理.</li>
+<li>var rs = createReadStream创建一个可读流</li>
+<li>var ws = createWriteStream创建一个可写流</li>
+<li>pipe该方法从可读流中拉取所有数据，并写入到所提供的目标。</li>
+<li>rs.on(‘data’,fn(data))每读64K或读完触发的事件</li>
+<li>rs.on(“end”)<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">var fs = require(&quot;fs&quot;);</div><div class="line">var rs =fs.createReadStream(&quot;Flat-UI-master.zip&quot;);</div><div class="line">var ws =fs.createWriteStream(&quot;test/a.zip&quot;);</div><div class="line">var i = 0;</div><div class="line">re.on(&apos;data&apos;,function()&#123;</div><div class="line">    i++;</div><div class="line">    console.log(i);</div><div class="line">&#125;)</div><div class="line">re.on(&quot;red&quot;,function()&#123;</div><div class="line">    console.log(i);</div><div class="line">&#125;)</div><div class="line">re.pipe(ws);</div></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="六-贝塞尔曲线"><a href="#六-贝塞尔曲线" class="headerlink" title="六.贝塞尔曲线"></a>六.贝塞尔曲线</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">	var canvas = document.getElementById(&apos;canvas&apos;);</div><div class="line">	var ctx = canvas.getContext(&apos;2d&apos;);</div><div class="line"></div><div class="line">	canvas.onmousedown = function(e)&#123;</div><div class="line">		var dx =canvas.offsetLeft;</div><div class="line">		var dy =canvas.offsetTop;</div><div class="line">		document.onmousemove = function(e)&#123;</div><div class="line">			var x = e.clientX-dx;</div><div class="line">			var y = e.clientY-dy;</div><div class="line">			ctx.clearRect(0,0,canvas.width,canvas.height);</div><div class="line">			draw(x,y);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	document.onmouseup = function()&#123;</div><div class="line">		document.onmousemove = &quot;&quot;;</div><div class="line">	&#125;</div><div class="line">	function draw(x,y)&#123;</div><div class="line">		// 二次贝塞尔曲线方法quadraticCurveTo</div><div class="line">		ctx.beginPath();</div><div class="line">		ctx.moveTo(100,100);</div><div class="line">		ctx.quadraticCurveTo(x,y,200,200);</div><div class="line">		ctx.strokeStyle = &quot;black&quot;;</div><div class="line">		ctx.stroke();</div><div class="line">		</div><div class="line">		ctx.beginPath();</div><div class="line">		ctx.moveTo(100,100);</div><div class="line">		ctx.lineTo(x,y);</div><div class="line">		ctx.strokeStyle=&quot;red&quot;;</div><div class="line">		ctx.stroke();</div><div class="line"></div><div class="line">		ctx.beginPath();</div><div class="line">		ctx.moveTo(200,200);</div><div class="line">		ctx.lineTo(x,y);</div><div class="line">		ctx.strokeStyle=&quot;red&quot;;</div><div class="line">		ctx.stroke();</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
-<p>三次贝塞尔曲线方法bezierCurveTo<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">	var canvas = document.getElementById(&apos;canvas&apos;);</div><div class="line">	var ctx = canvas.getContext(&apos;2d&apos;);</div><div class="line">	var x1 = 200;</div><div class="line">	var x2 = 100;</div><div class="line">	var y1 = 100;</div><div class="line">	var y2 = 200;</div><div class="line">	var num = 0 ;</div><div class="line">	draw(200,100,100,200);</div><div class="line">	function draw(x1,y1,x2,y2)&#123;</div><div class="line">		ctx.beginPath();</div><div class="line">		ctx.moveTo(100,100);</div><div class="line">		ctx.bezierCurveTo(x1,y1,x2,y2,200,200);</div><div class="line">		ctx.strokeStyle = &quot;black&quot;;</div><div class="line">		ctx.stroke();</div><div class="line"></div><div class="line">		ctx.strokeStyle = &quot;red&quot;;</div><div class="line">		//控制点一的线</div><div class="line">		ctx.beginPath();</div><div class="line">		ctx.moveTo(100,100);</div><div class="line">		ctx.lineTo(x1,y1);</div><div class="line">		ctx.stroke();</div><div class="line">		// 画控制的点</div><div class="line">		ctx.beginPath();</div><div class="line">		ctx.arc(x1,y1,10,0,Math.PI*2);</div><div class="line">		ctx.fillStyle = &apos;green&apos;;</div><div class="line">		ctx.fill();</div><div class="line">		//控制点二的线</div><div class="line">		ctx.beginPath();</div><div class="line">		ctx.moveTo(200,200);</div><div class="line">		ctx.lineTo(x2,y2);</div><div class="line">		ctx.stroke();</div><div class="line">		// 画控制的点</div><div class="line">		ctx.beginPath();</div><div class="line">		ctx.arc(x2,y2,10,0,Math.PI*2);</div><div class="line">		ctx.fillStyle = &apos;green&apos;;</div><div class="line">		ctx.fill();</div><div class="line">	&#125;</div><div class="line">	// 检测鼠标位置</div><div class="line">	function check(x,y)&#123;</div><div class="line">		var l1 = x1 - 10;</div><div class="line">		var r1 = x1 + 10;</div><div class="line">		var t1 = y1 - 10;</div><div class="line">		var b1 = y1 + 10;</div><div class="line">		</div><div class="line">		var l2 = x2 - 10;</div><div class="line">		var r2 = x2 + 10;</div><div class="line">		var t2 = y2 - 10;</div><div class="line">		var b2 = y2 + 10;</div><div class="line">		if(l2&lt;x &amp;&amp; r2&gt;x &amp;&amp; t2&lt;y &amp;&amp; b2&gt;y)&#123;</div><div class="line">			num = 2;</div><div class="line">		&#125;else if(l1&lt;x &amp;&amp; r1&gt;x &amp;&amp; t1&lt;y &amp;&amp; b1&gt;y)&#123;</div><div class="line">			num = 1;</div><div class="line">		&#125;else &#123;</div><div class="line">			num = 0;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	canvas.onmousedown = function (e) &#123;</div><div class="line">		var disX = canvas.offsetLeft;</div><div class="line">		var disY = canvas.offsetTop;</div><div class="line">		check(e.clientX-disX,e.clientY-disY);</div><div class="line">		document.onmousemove = function (e) &#123;</div><div class="line">			console.log(num);</div><div class="line">			if(num==1)&#123;</div><div class="line">				x1 = e.clientX-disX;</div><div class="line">				y1 = e.clientY-disY;</div><div class="line">			&#125;else if(num==2)&#123;</div><div class="line">				x2 = e.clientX-disX;</div><div class="line">				y2 = e.clientY-disY;</div><div class="line">			&#125;</div><div class="line">			// ctx.clearRect(0,0,canvas.width,canvas.height);</div><div class="line">			draw(x1,y1,x2,y2);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	document.onmouseup = function () &#123;</div><div class="line">			document.onmousemove = &apos;&apos;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
-<h3 id="七-缩放-scale"><a href="#七-缩放-scale" class="headerlink" title="七.缩放 scale"></a>七.缩放 scale</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">	var canvas = document.getElementById(&apos;canvas&apos;);</div><div class="line">	var ctx = canvas.getContext(&quot;2d&quot;);</div><div class="line">	ctx.fillRect(10,10,100,100);</div><div class="line">	ctx.beginPath();</div><div class="line">	ctx.moveTo(400,0);</div><div class="line">	ctx.lineTo(400,800);</div><div class="line">	ctx.stroke();</div><div class="line"></div><div class="line">	ctx.save(); //保存当前状态</div><div class="line">	ctx.scale(2,2);</div><div class="line">	ctx.fillRect(200,50,100,100);</div><div class="line"></div><div class="line">	ctx.restore(); //导入</div><div class="line">	ctx.beginPath();</div><div class="line">	ctx.arc(200,200,50,0,Math.PI*2);</div><div class="line">	// ctx.fillStyle = &quot;rgb(23,454,66)&quot;;</div><div class="line">	ctx.fillStyle = &quot;#f3c&quot;;</div><div class="line">	ctx.fill();</div><div class="line">	// ctx.scale(1,3);</div><div class="line">	// ctx.fillRect(100,100,100,100);</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
-<h3 id="八-旋转-rotate"><a href="#八-旋转-rotate" class="headerlink" title="八 旋转 rotate"></a>八 旋转 rotate</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">	var canvas = document.getElementById(&apos;canvas&apos;);</div><div class="line">	var ctx = canvas.getContext(&quot;2d&quot;);</div><div class="line"></div><div class="line">	var deg = 2;</div><div class="line">	 var timer = setInterval(function()&#123;</div><div class="line">		ctx.save(); //保存当前位置 0 </div><div class="line">	 	deg +=2;</div><div class="line">		ctx.clearRect(-200,-200,800,800);</div><div class="line">		ctx.rotate(Math.PI/180*deg);</div><div class="line">		ctx.fillRect(0,0,200,200);</div><div class="line">		ctx.restore();//放回保存角度</div><div class="line">		</div><div class="line">	&#125;,30);</div><div class="line">	 function rect()&#123;</div><div class="line">	 	ctx.fillRect(400,400,200,200);</div><div class="line">	 &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
-<h3 id="九-画布移动"><a href="#九-画布移动" class="headerlink" title="九. 画布移动"></a>九. 画布移动</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">ctx.translate(400,400);</div><div class="line">var deg = 0;</div><div class="line">setInterval(function()&#123;</div><div class="line">	deg+=2;</div><div class="line">	// 清空画板</div><div class="line">	ctx.clearRect(-400,-400,canvas.width,canvas.height);</div><div class="line">	// 背景</div><div class="line">	ctx.fillRect(-100,-100,200,200);</div><div class="line">	ctx.save();</div><div class="line">	ctx.rotate(Math.PI/180*deg);</div><div class="line">	ctx.lineWidth = 5;//设置线的粗细</div><div class="line">	ctx.lineCap = &apos;round&apos;; //线的圆角 </div><div class="line">	ctx.beginPath();</div><div class="line">	ctx.moveTo(0,0);</div><div class="line">	ctx.lineTo(0,80);</div><div class="line">	ctx.strokeStyle = &apos;red&apos;;</div><div class="line">	ctx.stroke();</div><div class="line">	ctx.restore();</div><div class="line">&#125;,30)</div></pre></td></tr></table></figure>
-<h3 id="十-createLinearGradient-渐变"><a href="#十-createLinearGradient-渐变" class="headerlink" title="十.createLinearGradient 渐变"></a>十.createLinearGradient 渐变</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var c = ctx.createLinearGradient(0,0,800,800);</div><div class="line">c.addColorStop(0,&quot;red&quot;); </div><div class="line">c.addColorStop(0.5,&quot;blue&quot;); </div><div class="line">c.addColorStop(1,&quot;yellow&quot;); </div><div class="line">ctx.fillStyle = c;//设置填充颜色为渐变颜色</div><div class="line">ctx.fillRect(0,0,800,800);</div></pre></td></tr></table></figure>
-<h3 id="十一-createRadialGradient-径向渐变"><a href="#十一-createRadialGradient-径向渐变" class="headerlink" title="十一.createRadialGradient 径向渐变"></a>十一.createRadialGradient 径向渐变</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">	var canvas = document.getElementById(&apos;canvas&apos;);</div><div class="line">	var ctx = canvas.getContext(&quot;2d&quot;);</div><div class="line">	</div><div class="line">	// var c = ctx.createRadialGradient(400,400,0,400,400,200);</div><div class="line">	// c.addColorStop(0,&quot;red&quot;);</div><div class="line">	// c.addColorStop(0.5,&quot;blue&quot;);</div><div class="line">	// c.addColorStop(1,&quot;green&quot;);</div><div class="line">	// ctx.fillStyle = c;</div><div class="line">	// ctx.fillRect(0,0,800,800);</div><div class="line"></div><div class="line">	var x1 = 0;</div><div class="line">	var x2 = 0;</div><div class="line">	var y1 = 0;</div><div class="line">	var y2 = 0;</div><div class="line">	var movebol = false;</div><div class="line">	canvas.onmousedown = function (e) &#123;</div><div class="line">		var disX = canvas.offsetLeft;</div><div class="line">		var disY = canvas.offsetTop;</div><div class="line">		x1 = e.clientX-disX;</div><div class="line">		y1 = e.clientY-disY;		</div><div class="line">		document.onmousemove = function (e) &#123;</div><div class="line">			x2 = e.clientX - disX;</div><div class="line">			y2 = e.clientY - disY;</div><div class="line">			ctx.clearRect(0,0,800,800);</div><div class="line">			ctx.beginPath();</div><div class="line">			ctx.moveTo(x1,y1);</div><div class="line">			ctx.lineTo(x2,y2);</div><div class="line">			ctx.closePath();</div><div class="line">			ctx.stroke();</div><div class="line">			movebol = true;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	document.onmouseup = function () &#123;</div><div class="line">		document.onmousemove = &apos;&apos;;</div><div class="line">			var a = x1 - x2;</div><div class="line">			var b = y1 - y2;</div><div class="line">			var r = Math.sqrt(a*a+b*b);</div><div class="line">			if(movebol)&#123;</div><div class="line">			var c = ctx.createRadialGradient(x1,y1,0,x1,y1,r);</div><div class="line">			c.addColorStop(0,&quot;red&quot;);</div><div class="line">			c.addColorStop(0.5,&quot;blue&quot;);</div><div class="line">			c.addColorStop(1,&quot;green&quot;);</div><div class="line">			ctx.fillStyle = c;</div><div class="line">			ctx.fillRect(0,0,800,800);</div><div class="line"></div><div class="line">			&#125;</div><div class="line">			movebol = false;</div><div class="line">	&#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h3 id="nodeJs-http-post"><a href="#nodeJs-http-post" class="headerlink" title="nodeJs- http_post"></a>nodeJs- http_post</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">var http = require(&quot;http&quot;);</div><div class="line">var fs = require(&quot;fs&quot;);</div><div class="line">var server = http.createServer(function(req,res)&#123;</div><div class="line">    //判断是否文件</div><div class="line">    var isfile = false;</div><div class="line">    //判断是否为首页</div><div class="line">    var url = req.url;</div><div class="line">    if(url==&quot;/&quot;)&#123;</div><div class="line">        url = &quot;/index.html&quot;;</div><div class="line">    &#125;</div><div class="line">    //判断文件是否存在</div><div class="line">    var bol = fs.existsSync(&quot;www&quot;+url);</div><div class="line">    if(bol)&#123;</div><div class="line">        //存在就获取文件或者文件夹的信息</div><div class="line">        var stat = fs.lstatSync(&quot;www&quot;+url);</div><div class="line">        isfile = stat.isFile();//查看是否文件</div><div class="line">    &#125;</div><div class="line">    if(isfile)&#123;</div><div class="line">        //创建流式</div><div class="line">        var rs = fs.createReadStream(&quot;www&quot;+url);</div><div class="line">        rs.pipe(res);</div><div class="line">    &#125;else&#123;</div><div class="line">        res.end(&quot;404&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;)</div><div class="line">server.lisen(8080,function()&#123;</div><div class="line">    console.log(&quot;开启成功:http://localhost:8080&quot;);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/12/05/Angularjs自定义指令/" itemprop="url">
+                  Angularjs自定义指令
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <time itemprop="dateCreated" datetime="2016-12-05T10:39:45+08:00" content="2016-12-05">
+              2016-12-05
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Angularjs自定义指令"><a href="#Angularjs自定义指令" class="headerlink" title="Angularjs自定义指令"></a>Angularjs自定义指令</h2><h4 id="directive自定义指令"><a href="#directive自定义指令" class="headerlink" title="directive自定义指令"></a>directive自定义指令</h4><p>1.restrict</p>
+<ul>
+<li>E： 表示该directive仅能以element方式使用，即：<my-dialog></my-dialog></li>
+<li>A： 表示该directive仅能以attribute方式使用，即：<div my-dialog=""></div></li>
+<li>EA: 表示该directive既能以element方式使用，也能以attribute方式使用</li>
+</ul>
+<ol>
+<li>template 内部设置<br>你的directive里的html内容</li>
+<li>templateUrl 外部引入文件<br>你的directive里的html内容</li>
+<li>scope<br>选项与绑定策略 绑定策略的三种形式：<br>@:它将本地作用域和DOM中的属性值绑定起来<br>=:与@的不同点在于，@是针对字符串而用，但=是针对某个对象的引用<br>&amp;:对父级作用域进行绑定</li>
+<li>link<br>可以简单理解为，当directive被angular 编译后，执行该方法<br>这里你说的没错，link中的第一个参数scope基本上就是你说的上面写的那个scope。<br>html<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;body ng-app=&quot;myApp&quot; ng-controller=&quot;myCtrl&quot;&gt;</div><div class="line">    &#123;&#123;name&#125;&#125;</div><div class="line">    &lt;div ng-bind=&quot;frank&quot;&gt;&lt;/div&gt;</div><div class="line">    &lt;div class=&quot;frank&quot;&gt;&lt;/div&gt;</div><div class="line">    &lt;frank&gt;&lt;/frank&gt;   </div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>script<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">var app = angular.module(&quot;myApp&quot;,[])&#123;</div><div class="line">    app.controller(&quot;myCtrl&quot;,function($scope)&#123;</div><div class="line">        $scope.name = &quot;张三&quot;;</div><div class="line">    &#125;)</div><div class="line">    app.directive(&quot;frank&quot;,function()&#123;</div><div class="line">        return &#123;</div><div class="line">            restrict:&quot;ECMA&quot;,</div><div class="line">            //引入其他html文件</div><div class="line">            //templateUrl:&quot;template.html&quot;,</div><div class="line">           template:&quot;&lt;h1&gt;&#123;&#123;name&#125;&#125;&lt;/h1&gt;&quot;,</div><div class="line">           link:function(scope,element,attrs)&#123;</div><div class="line">                scope.name = &quot;frank&quot;;</div><div class="line">           &#125;</div><div class="line">        &#125;</div><div class="line">    </div><div class="line">    &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这时候网页显示就是全部变成自定义的frank,包括name,<br>但如果name不想被影响,则可以加scope:@<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">    var app = angular.module(&quot;myApp&quot;,[])&#123;</div><div class="line">    app.controller(&quot;myCtrl&quot;,function($scope)&#123;</div><div class="line">        $scope.name = &quot;张三&quot;;</div><div class="line">    &#125;)</div><div class="line">    app.directive(&quot;frank&quot;,function()&#123;</div><div class="line">        return &#123;</div><div class="line">            restrict:&quot;ECMA&quot;,</div><div class="line">            //引入其他html文件</div><div class="line">            //templateUrl:&quot;template.html&quot;,</div><div class="line">            scope:&#123;title:&quot;@&quot;&#125;,</div><div class="line">           template:&quot;&lt;h1&gt;&#123;&#123;name&#125;&#125;&lt;/h1&gt;&quot;,</div><div class="line">           link:function(scope,element,attrs)&#123;</div><div class="line">                scope.name = &quot;frank&quot;;</div><div class="line">           &#125;</div><div class="line">        &#125;</div><div class="line">    </div><div class="line">    &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这样上面的name就不会被影响</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;div maopao for-title=&quot;&#123;&#123;title&#125;&#125;&quot;&gt;&lt;/div&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">  var app = angular.module(&quot;myApp&quot;,[]);</div><div class="line"></div><div class="line">    app.controller(&quot;myCtrl&quot;,function($scope)&#123;</div><div class="line">        $scope.name = &quot;张三&quot;;</div><div class="line">        $scope.title = &quot;标题&quot;;</div><div class="line">    &#125;)</div><div class="line">    app.directive(&quot;maopao&quot;,function()&#123;</div><div class="line">        return &#123;</div><div class="line">            restrict:&quot;ECMA&quot;,</div><div class="line">            scope:&#123;title:&quot;@forTitle&quot;&#125;,</div><div class="line">            template:&quot;&lt;h1&gt;&#123;&#123;name&#125;&#125;&#123;&#123;title&#125;&#125;&lt;/h1&gt;&quot;,</div><div class="line">            link:function(scope,element,attrs)&#123;</div><div class="line">                scope.name = &quot;frank&quot;;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>=:针对整个对象(这里运用点击三下 让name发生改变)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;body ng-app=&quot;myApp&quot; ng-controller=&quot;myCtrl&quot;&gt;</div><div class="line">    &#123;&#123;name&#125;&#125;</div><div class="line">&lt;maopao arr=&quot;arr&quot; get-name=&quot;name&quot; change=&quot;change&quot; show=&quot;change()&quot;&gt;&lt;/maopao&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">var app = angular.module(&quot;myApp&quot;,[]);</div><div class="line"> app.controller(&quot;myCtrl&quot;,function($scope)&#123;</div><div class="line">     $scope.name = &quot;张三&quot;;</div><div class="line">     $scope.title = &quot;标题&quot;;</div><div class="line">     $scope.arr = [&#123;name:&quot;a1&quot;&#125;,&#123;name:&quot;a2&quot;&#125;];</div><div class="line">      $scope.change = function()&#123;</div><div class="line">         $scope.name = &quot;abc&quot;;</div><div class="line">     &#125;</div><div class="line"> &#125;)</div><div class="line"> app.directive(&quot;maopao&quot;,function()&#123;</div><div class="line">     return &#123;</div><div class="line">         restrict:&quot;ECMA&quot;,</div><div class="line">         scope:&#123;</div><div class="line">             arr:&apos;=&apos;,</div><div class="line">             change:&apos;=&apos;</div><div class="line">         &#125;,</div><div class="line">         template:&quot;&lt;h1&gt;&#123;&#123;name&#125;&#125;&#123;&#123;arr[1].name&#125;&#125;&#123;&#123;title&#125;&#125;&lt;/h1&gt;&quot;,</div><div class="line">         link:function(scope,element,attrs)&#123;</div><div class="line">             scope.i = 0;</div><div class="line">             element[0].onclick = function()&#123;</div><div class="line">                 console.log(attrs.show)</div><div class="line">                 scope.i++;</div><div class="line">                 console.log(scope.i)</div><div class="line">                 if (scope.i&gt;=3)&#123;</div><div class="line">                     scope.$apply(attrs.show)</div><div class="line">                 &#125;</div><div class="line"></div><div class="line">             &#125;</div><div class="line">         &#125;</div><div class="line">     &#125;</div><div class="line"> &#125;)</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/12/03/利用Angularjs制作tab切换/" itemprop="url">
+                  利用Angularjs制作tab切换
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <time itemprop="dateCreated" datetime="2016-12-03T16:33:26+08:00" content="2016-12-03">
+              2016-12-03
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="利用Angularjs制作tab切换"><a href="#利用Angularjs制作tab切换" class="headerlink" title="利用Angularjs制作tab切换"></a>利用Angularjs制作tab切换</h3><p>css样式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">        input&#123;</div><div class="line">            width: 100px;</div><div class="line">            height: 30px;</div><div class="line">            background: #ccc;</div><div class="line">        &#125;</div><div class="line">        .active&#123;</div><div class="line">            background: yellow;</div><div class="line">        &#125;</div><div class="line">        div&#123;</div><div class="line">            width: 200px;</div><div class="line">            height: 200px;</div><div class="line">            background: orangered;</div><div class="line">        &#125;</div><div class="line">    &lt;/style&gt;</div></pre></td></tr></table></figure></p>
+<p>在页头引入angularjs文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script src=&quot;angular.min.js&quot;&gt;&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>html<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;body ng-app=&quot;myApp&quot; ng-controller=&quot;con&quot;&gt;</div><div class="line">&lt;input type=&quot;button&quot; ng-class=&quot;json.bol?&apos;active&apos;:&apos;&apos;&quot; ng-click=&quot;change(json.btn)&quot; ng-repeat=&quot;json in arr&quot; value=&quot;&#123;&#123;json.btn&#125;&#125;&quot;&gt;</div><div class="line">&lt;div ng-repeat=&quot;json in arr&quot; ng-show=&quot;json.bol&quot;&gt;&#123;&#123;json.con&#125;&#125;&lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<p>script<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">var app = angular.module(&quot;myApp&quot;,[]);</div><div class="line">  app.controller(&quot;con&quot;,function($scope)&#123;</div><div class="line">      $scope.arr=[</div><div class="line">          &#123;btn:&quot;按钮1&quot;,con:&quot;内容1&quot;,bol:true&#125;,</div><div class="line">          &#123;btn:&quot;按钮2&quot;,con:&quot;内容2&quot;,bol:false&#125;,</div><div class="line">          &#123;btn:&quot;按钮3&quot;,con:&quot;内容3&quot;,bol:false&#125;,</div><div class="line">          &#123;btn:&quot;按钮4&quot;,con:&quot;内容4&quot;,bol:false&#125;,</div><div class="line">          &#123;btn:&quot;按钮5&quot;,con:&quot;内容5&quot;,bol:false&#125;,</div><div class="line">          &#123;btn:&quot;按钮6&quot;,con:&quot;内容6&quot;,bol:false&#125;</div><div class="line">      ]</div><div class="line">      $scope.change=function(btn)&#123;</div><div class="line">          for(var i=0;i&lt;$scope.arr.length;i++)&#123;</div><div class="line">              if(btn==$scope.arr[i].btn)&#123;</div><div class="line">                  $scope.arr[i].bol=true;</div><div class="line">              &#125;else&#123;</div><div class="line">                  $scope.arr[i].bol=false;</div><div class="line">              &#125;</div><div class="line">          &#125;</div><div class="line">      &#125;</div><div class="line"></div><div class="line">  &#125;)</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/12/03/Angularjs/" itemprop="url">
+                  AngularJS
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <time itemprop="dateCreated" datetime="2016-12-03T16:27:53+08:00" content="2016-12-03">
+              2016-12-03
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="AngularJS"><a href="#AngularJS" class="headerlink" title="AngularJS"></a>AngularJS</h1><h3 id="Angularjs-简介"><a href="#Angularjs-简介" class="headerlink" title="Angularjs 简介"></a>Angularjs 简介</h3><ol>
+<li>AngularJS 是一个为动态WEB应用设计的结构框架，提供给大家一种新的开发应用方式，这种方式可以让你扩展HTML的语法，以弥补在构建动态WEB应用时静态文本的不足，从而在web应用程序中使用HTML声明动态内容。</li>
+<li>AngularJS有五个主要核心特性，如下介绍：’</li>
+</ol>
+<ul>
+<li>双向数据绑定 —— 实现了把model与view完全绑定在一起，model变化，view也变化，反之亦然。</li>
+<li>模板 —— 在AngularJS中，模板相当于HTML文件被浏览器解析到DOM中，AngularJS遍历这些DOM，也就是说AuguarJS把模板当做DOM来操作，去生成一些指令来完成对view的数据绑定。</li>
+<li>MVVM ——<br>  M 数据层 View视图 C控制<br>  吸收了传统的MVC设计模式但又不是传统意义上的MVC，更接近于MVVM(Moodel-View-ViewModel)。</li>
+<li>依赖注入 —— AngularJS拥有内建的依赖注入子系统，可以帮助开发人员更容易的开发，理解和测试应用。</li>
+<li>指令 —— 可以用来创建自定义的标签，也可以用来装饰元素或者操作DOM属性。</li>
+<li>前后端分离，后端只提供数据接口，路由，模板渲染等都在前端完成</li>
+<li>html和js分离,展示和逻辑分离</li>
+<li>减少JS代码,减少DOM元素查找，事件绑定等代码<br>适合API开发</li>
+</ul>
+<p>3.教程系列</p>
+<ul>
+<li><p>菜鸟教程：<a href="http://www.runoob.com/angularjs/angularjs-tutorial.html" target="_blank" rel="external">http://www.runoob.com/angularjs/angularjs-tutorial.html</a></p>
+</li>
+<li><p>api手册: <a href="http://docs.angularjs.cn/api/ng/service/$http#jsonp" target="_blank" rel="external">http://docs.angularjs.cn/api/ng/service/$http#jsonp</a></p>
+</li>
+<li><p>github地址：<a href="https://github.com/angular/angular.js" target="_blank" rel="external">https://github.com/angular/angular.js</a></p>
+</li>
+<li><p>angularjs入门教程：<a href="http://www.ituring.com.cn/minibook/303" target="_blank" rel="external">http://www.ituring.com.cn/minibook/303</a></p>
+</li>
+<li><p><a href="http://blog.jobbole.com/46779/" target="_blank" rel="external">http://blog.jobbole.com/46779/</a></p>
+</li>
+</ul>
+<h3 id="ng-model"><a href="#ng-model" class="headerlink" title="ng-model"></a>ng-model</h3><p>原理:</p>
+<ol>
+<li>angular加载完成之后会启动,首先找ng-app指令</li>
+<li>找到后认为ng-app里面的所有内容都贵angular来管</li>
+<li>找到子层标签里的所有指令,就可以找到ng-model</li>
+<li>找到之后生成数据模型,然后挂载根作用域上面.</li>
+<li>然后下面所有标签都可以读取ng-model的值<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;div ng-app=&quot;&quot; ng-init=&quot;name=&apos;frank&apos;&quot;&gt;</div><div class="line">   &lt;input type=&quot;text&quot; ng-model=&quot;name&quot; /&gt;</div><div class="line">&lt;!-- 用这种方式没当页面刷新的时候,会有几百毫秒看到&#123;&#123;&#125;&#125;的内容 --&gt;</div><div class="line">    &lt;h1&gt;&#123;&#123;name&#125;&#125;&lt;/h1&gt;</div><div class="line">    &lt;!-- 用这样ng-bind就不会,ng-bind是不用写&#123;&#123;&#125;&#125;  --&gt;</div><div class="line">    &lt;div ng-bind=&quot;name&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="表达式"><a href="#表达式" class="headerlink" title="表达式"></a>表达式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">    &lt;body ng-app=&quot;&quot; ng-init=&quot;a=5;b=3&quot;&gt;</div><div class="line">	&lt;input type=&quot;text&quot; ng-model=&quot;a&quot;&gt;</div><div class="line">	&lt;input type=&quot;text&quot; ng-model=&quot;b&quot;&gt;&lt;br&gt;</div><div class="line">	&lt;div&gt;&#123;&#123;a&#125;&#125;+&#123;&#123;b&#125;&#125;=&#123;&#123;a+b&#125;&#125;&lt;/div&gt;&lt;br&gt;</div><div class="line">	&lt;div&gt;&#123;&#123;a&#125;&#125;-&#123;&#123;b&#125;&#125;=&#123;&#123;a-b&#125;&#125;&lt;/div&gt;&lt;br&gt;</div><div class="line">	&lt;div&gt;&#123;&#123;a&#125;&#125;/&#123;&#123;b&#125;&#125;=&#123;&#123;a/b&#125;&#125;&lt;/div&gt;&lt;br&gt;</div><div class="line">	&lt;div&gt;&#123;&#123;a&#125;&#125;*&#123;&#123;b&#125;&#125;=&#123;&#123;a*b&#125;&#125;&lt;/div&gt;&lt;br&gt;</div><div class="line">	&lt;div&gt;&#123;&#123;a&#125;&#125;%&#123;&#123;b&#125;&#125;=&#123;&#123;a%b&#125;&#125;&lt;/div&gt;&lt;br&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure>
+<h3 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h3><ol>
+<li><p>AngularJS有一套完整的、可扩展的、用来帮助web应用开发的指令集，它使得HTML可以转变成“特定领域语言(DSL)”，是用来扩展浏览器能力的技术之一，在DOM编译期间，和HTML关联着的指令会被检测到，并且被执行，这使得指令可以为DOM指定行为，或者改变它。</p>
+</li>
+<li><p>AngularJS通过称为指令的新属性来扩展的HTML，带有前缀ng-，我们也可以称之为“指令属性”，它就是绑定在DOM元素上的函数，可以调用方法、定义行为、绑定controller及$scope对象、操作DOM，等等。</p>
+</li>
+<li><p>AngularJS指令指示的是“当关联的HTML结构进入编译阶段时应该执行的操作”，它本质上只是一个当编译器编译到相关DOM时需要执行的函数，可以写在元素的名称里，属性里，css类名里，注释里。</p>
+</li>
+<li><p>当浏览器启动、开始解析HTML时，DOM元素上的指令属性就会跟其他属性一样被解析，也就是说当一个Angular.js应用启动，Angular编译器就会遍历DOM树来解析HTML，寻找这些指令属性函数，在一个DOM元素上找到一个或多个这样的指令属性函数，它们就会被收集起来、排序，然后按照优先级顺序被执行。</p>
+</li>
+<li><p>Angular.js应用的动态性和响应能力，都要归功于指令属性，常见的有：</p>
+</li>
+</ol>
+<ul>
+<li>ng-app:指令在网页加载完毕时会自动引导（自动初始化）应用程序。</li>
+<li>ng-init:指令为 AngularJS 应用程序定义了 初始值。</li>
+<li>ng-model:指令 绑定 HTML 元素 到应用程序数据。</li>
+<li>ng-bind: 表达式把数据绑定到 HTML</li>
+<li>ng-repeat:指令对于集合中（数组中）的每个项会 克隆一次 HTML 元素。</li>
+</ul>
+<p>显示隐藏小demo<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;body ng-app=&apos;&apos; ng-init=&quot;bol=true&quot;&gt;</div><div class="line">    &lt;button ng-click=&quot;bol=!bol&quot;&gt;显示隐藏&lt;/button&gt;</div><div class="line">    &lt;div ng-show=&quot;!bol&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure></p>
+<p>指令:ng-repeat<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">    &lt;body ng-app=&quot;&quot; ng-init=&quot;arr=[3,5,9,10,10,202,200]&quot;&gt;</div><div class="line">    &lt;ul&gt;</div><div class="line">       &lt;!-- 如果有重复的数字就会报错,所以要使用track by $index  --&gt;</div><div class="line">    	&lt;li ng-repeat=&quot;value in arr track by $index &quot;&gt;</div><div class="line">			&#123;&#123;value&#125;&#125;</div><div class="line">    	&lt;/li&gt; </div><div class="line">    &lt;/ul&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure></p>
+<p>ng-repeat还可以运动json<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;body ng-app=&quot;&quot; ng-init=&quot;arr=[&#123;&apos;user&apos;:&apos;zhangsan&apos;,&apos;pass&apos;:&apos;12345&apos;&#125;,&#123;&apos;user&apos;:&apos;lisi&apos;,&apos;pass&apos;:&apos;54321&apos;&#125;]&quot;&gt;</div><div class="line">   &lt;ul&gt;</div><div class="line">	&lt;li ng-repeat=&quot;json in arr&quot;&gt;</div><div class="line">	    用户名:&#123;&#123;arr.user&#125;&#125; &lt;br&gt;</div><div class="line">	    密码:&#123;&#123;json.pass&#125;&#125; </div><div class="line">	&lt;/li&gt;</div><div class="line">&lt;/ul&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure></p>
+<p> 指令ng-class:用于动态自定dom元素的classname<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;button ng-click=&quot;bol=!bol&quot;&gt;切换classname&lt;/button&gt;</div><div class="line">   &lt;!-- 运用三元运算符 --&gt;</div><div class="line">   &lt;!-- &lt;div ng-class=&quot;bol?&apos;active&apos;:&apos;inactive&apos;&quot;&gt;&lt;/div&gt; --&gt;</div><div class="line">   &lt;!-- 运用json --&gt;</div><div class="line">   &lt;div ng-class=&quot;&#123;&apos;true&apos;:&apos;active&apos;,&apos;false&apos;:&apos;inactive&apos;&#125;[bol]&quot;&gt;</div><div class="line">       我是内容</div><div class="line">   &lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<p>指令ng-include:引入另外的html文件(要在服务器下运行)</p>
+<ul>
+<li><p>创建一个header.html</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;div&gt;我是header&lt;/div&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>在主页里面引入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;body ng-app=&quot;&quot;&gt;</div><div class="line">	&lt;div ng-include=&quot;&apos;header.html&apos;&quot;&gt;&lt;/div&gt;</div><div class="line">	&lt;div class=&quot;content&quot;&gt;</div><div class="line">		正文内容</div><div class="line">	&lt;/div&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="controller-控制器"><a href="#controller-控制器" class="headerlink" title="controller 控制器"></a>controller 控制器</h3><p>html<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">    &lt;!-- 引入angular文件 --&gt;</div><div class="line">&lt;script src=&quot;angular.min.js&quot;&gt;&lt;/script&gt;</div><div class="line">&lt;body ng-app=&quot;myApp&quot; ng-controller=&quot;con&quot;&gt;</div><div class="line">    &lt;div ng-click=&quot;add()&quot;&gt;&#123;&#123;name&#125;&#125;&lt;/div&gt;</div><div class="line">     &lt;ul&gt;</div><div class="line">        &lt;li ng-repeat=&quot;value in arr&quot;&gt;</div><div class="line">            &#123;&#123;value&#125;&#125;</div><div class="line">        &lt;/li&gt;</div><div class="line">    &lt;/ul&gt;</div><div class="line">&lt;body&gt;</div></pre></td></tr></table></figure></p>
+<p>script里面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">    //创建一个angular自定义指令模块</div><div class="line">var app = angular.module(&quot;myApp&quot;,[]);</div><div class="line">   app.controller(&quot;con&quot;,function($scope)&#123;</div><div class="line">        $scope.name = &quot;frank&quot;;</div><div class="line">        $scope.arr = [1,2,3,4,5];</div><div class="line">        $scope.add=function()&#123;</div><div class="line">            $scope.arr.push($scope.arr.length+1);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">   &#125;)</div></pre></td></tr></table></figure></p>
 
           
         
@@ -355,7 +913,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -388,16 +946,16 @@
       <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
           <img class="site-author-image" itemprop="image"
-               src="/images/avatar.gif"
-               alt="John Doe" />
-          <p class="site-author-name" itemprop="name">John Doe</p>
+               src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1481698571&di=c49644c80862eadf4d4c37701e528e63&src=http://a.hiphotos.baidu.com/zhidao/pic/item/6609c93d70cf3bc7672e39b3d600baa1cd112a47.jpg"
+               alt="Frank" />
+          <p class="site-author-name" itemprop="name">Frank</p>
           <p class="site-description motion-element" itemprop="description"></p>
         </div>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">11</span>
-              <span class="site-state-item-name">articles</span>
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">Artikel</span>
             </a>
           </div>
 
@@ -440,15 +998,15 @@
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">John Doe</span>
+  <span class="author" itemprop="copyrightHolder">Frank</span>
 </div>
 
 <div class="powered-by">
-  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
 </div>
 
 <div class="theme-info">
-  Thème -
+  Theme -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
     NexT.Pisces
   </a>
