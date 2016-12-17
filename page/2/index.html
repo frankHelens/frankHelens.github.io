@@ -171,7 +171,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-            Home
+            Startseite
           </a>
         </li>
       
@@ -179,7 +179,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -238,6 +238,238 @@
             
               
                 
+                <a class="post-title-link" href="/2016/12/05/基于nodeJs的mongoDB制作注册页面/" itemprop="url">
+                  基于nodeJs的mongoDB制作注册页面(ajax版)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <time itemprop="dateCreated" datetime="2016-12-05T22:34:05+08:00" content="2016-12-05">
+              2016-12-05
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="ajax制作nodeJS注册页面"><a href="#ajax制作nodeJS注册页面" class="headerlink" title="ajax制作nodeJS注册页面"></a>ajax制作nodeJS注册页面</h1><h2 id="原理"><a href="#原理" class="headerlink" title="原理:"></a>原理:</h2><ol>
+<li>注册用户名跟密码提交到nodeJS的mongoDB数据库里面</li>
+<li>当用户在注册的时候输入为空则无法提交</li>
+<li>当mongoDB里面的表用户名已存在的时候,则无法提交,并会在用户名输入框旁提示用户名是否存在</li>
+</ol>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备:"></a>准备:</h2><ol>
+<li>webstrom开发工具</li>
+<li>jQuery —- ajax会用到</li>
+<li>node环境要配置好(不懂怎么配置node环境可以参考NodeJs那篇文章)</li>
+<li>mongoDB数据库,包括可视化工具(这样方便使用)</li>
+</ol>
+<h2 id="开始"><a href="#开始" class="headerlink" title="开始:"></a>开始:</h2><h3 id="1-在webStrom里-创建一个叫login文件-将jq文件放入其中"><a href="#1-在webStrom里-创建一个叫login文件-将jq文件放入其中" class="headerlink" title="1. 在webStrom里 创建一个叫login文件 将jq文件放入其中"></a>1. 在webStrom里 创建一个叫login文件 将jq文件放入其中</h3><h3 id="2-创建一个index-html文件-并布好局-这里是个小demo就不写css样式"><a href="#2-创建一个index-html文件-并布好局-这里是个小demo就不写css样式" class="headerlink" title="2. 创建一个index.html文件,并布好局(这里是个小demo就不写css样式)"></a>2. 创建一个index.html文件,并布好局(这里是个小demo就不写css样式)</h3><p>index.html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>注册页面<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    用户名<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">value</span>=<span class="string">""</span> <span class="attr">name</span>=<span class="string">"user"</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></div><div class="line">    密码<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">""</span> <span class="attr">name</span>=<span class="string">"pwd"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></div><div class="line">    确认密码<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">""</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">button</span>&gt;</span>注册<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"jquery.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></div><div class="line">        </div><div class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>页面的基本机构就这么简单</p>
+<h3 id="3-创建一个交server的js文件用于开启服务器使用-包括后台处理"><a href="#3-创建一个交server的js文件用于开启服务器使用-包括后台处理" class="headerlink" title="3. 创建一个交server的js文件用于开启服务器使用,包括后台处理"></a>3. 创建一个交server的js文件用于开启服务器使用,包括后台处理</h3><h3 id="4-创建好之后-打开控制台输入一下代码安装express模块-这个需要配置好nodeJS环境才可以"><a href="#4-创建好之后-打开控制台输入一下代码安装express模块-这个需要配置好nodeJS环境才可以" class="headerlink" title="4. 创建好之后,打开控制台输入一下代码安装express模块(这个需要配置好nodeJS环境才可以)"></a>4. 创建好之后,打开控制台输入一下代码安装express模块(这个需要配置好nodeJS环境才可以)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo cnpm install express</div></pre></td></tr></table></figure>
+<h3 id="5-安装成功后-这时候主目录会出现多出一个叫node-modules的文件夹-这个文件夹是用于存放node模块-详细请参考nodeJS模块化开发的文章"><a href="#5-安装成功后-这时候主目录会出现多出一个叫node-modules的文件夹-这个文件夹是用于存放node模块-详细请参考nodeJS模块化开发的文章" class="headerlink" title="5. 安装成功后,这时候主目录会出现多出一个叫node_modules的文件夹,这个文件夹是用于存放node模块(详细请参考nodeJS模块化开发的文章)"></a>5. 安装成功后,这时候主目录会出现多出一个叫node_modules的文件夹,这个文件夹是用于存放node模块(详细请参考nodeJS模块化开发的文章)</h3><h3 id="6-接下来就可以搭建服务器-在server创建express模块"><a href="#6-接下来就可以搭建服务器-在server创建express模块" class="headerlink" title="6.接下来就可以搭建服务器,在server创建express模块"></a>6.接下来就可以搭建服务器,在server创建express模块</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">"express"</span>);<span class="comment">//创建一个express模块</span></div><div class="line"><span class="keyword">var</span> app = express();</div></pre></td></tr></table></figure>
+<h3 id="7-创建一个url模块"><a href="#7-创建一个url模块" class="headerlink" title="7. 创建一个url模块"></a>7. 创建一个url模块</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var url = require(&quot;url&quot;);</div></pre></td></tr></table></figure>
+<h3 id="8-将服务器地址传给主页index"><a href="#8-将服务器地址传给主页index" class="headerlink" title="8. 将服务器地址传给主页index"></a>8. 将服务器地址传给主页index</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">app.get(<span class="string">"/zhuce"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">req,res</span>)</span>&#123;</div><div class="line">    res.sendFile(__dirname+<span class="string">"/index.html"</span>);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h3 id="9-设置端口-开始服务器-如果控制台显示”ok”的话就表示开启成功"><a href="#9-设置端口-开始服务器-如果控制台显示”ok”的话就表示开启成功" class="headerlink" title="9. 设置端口,开始服务器,如果控制台显示”ok”的话就表示开启成功"></a>9. 设置端口,开始服务器,如果控制台显示”ok”的话就表示开启成功</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">app.listen(<span class="number">8080</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"ok"</span>);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h3 id="10-在网页上输入http-localhost-8080-zhuce就可以看到已经跳转到主页了"><a href="#10-在网页上输入http-localhost-8080-zhuce就可以看到已经跳转到主页了" class="headerlink" title="10. 在网页上输入http://localhost:8080/zhuce就可以看到已经跳转到主页了"></a>10. 在网页上输入<a href="http://localhost:8080/zhuce就可以看到已经跳转到主页了" target="_blank" rel="external">http://localhost:8080/zhuce就可以看到已经跳转到主页了</a></h3><h3 id="11-重点来了-我发现了这里有个报错-是说jq没有找到-是因为这里是我使用get的方式-这样只是跳转至这个index页面-并没有加载jq文件-所以我们需要把第8点的那段代码给静态设置"><a href="#11-重点来了-我发现了这里有个报错-是说jq没有找到-是因为这里是我使用get的方式-这样只是跳转至这个index页面-并没有加载jq文件-所以我们需要把第8点的那段代码给静态设置" class="headerlink" title="11. 重点来了,我发现了这里有个报错,是说jq没有找到,是因为这里是我使用get的方式,这样只是跳转至这个index页面,并没有加载jq文件,所以我们需要把第8点的那段代码给静态设置"></a>11. 重点来了,我发现了这里有个报错,是说jq没有找到,是因为这里是我使用get的方式,这样只是跳转至这个index页面,并没有加载jq文件,所以我们需要把第8点的那段代码给静态设置</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">app.use(express.static(<span class="string">"./"</span>));<span class="comment">//加载静态页面</span></div></pre></td></tr></table></figure>
+<p>这样就可以获取整块页面的内容包括jq,当然地址也会相应的改了,直接输入<a href="http://localhost:8080/就可以访问了" target="_blank" rel="external">http://localhost:8080/就可以访问了</a></p>
+<h3 id="12-创建数据库-首先先在控制台安装mongoose模块"><a href="#12-创建数据库-首先先在控制台安装mongoose模块" class="headerlink" title="12. 创建数据库.首先先在控制台安装mongoose模块"></a>12. 创建数据库.首先先在控制台安装mongoose模块</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo cnpm install mongoose</div></pre></td></tr></table></figure>
+<h3 id="13-安装完成就可以加载mongoose模块-这句代码写在最上面"><a href="#13-安装完成就可以加载mongoose模块-这句代码写在最上面" class="headerlink" title="13. 安装完成就可以加载mongoose模块,这句代码写在最上面"></a>13. 安装完成就可以加载mongoose模块,这句代码写在最上面</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> mongoose = <span class="built_in">require</span>(<span class="string">"mongoose"</span>);<span class="comment">//加载mongoose模块</span></div></pre></td></tr></table></figure>
+<h3 id="14-我们可以开启mongoDB数据库-不懂开启请看前两篇MongoDB的文章-开启之后就可以链接到数据库了"><a href="#14-我们可以开启mongoDB数据库-不懂开启请看前两篇MongoDB的文章-开启之后就可以链接到数据库了" class="headerlink" title="14. 我们可以开启mongoDB数据库(不懂开启请看前两篇MongoDB的文章),开启之后就可以链接到数据库了"></a>14. 我们可以开启mongoDB数据库(不懂开启请看前两篇MongoDB的文章),开启之后就可以链接到数据库了</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> db = mongoose.connect(<span class="string">"mongodb://localhost:27017/mydb"</span>);</div></pre></td></tr></table></figure>
+<p>注意:链接到mongodb - 默认链接test数据路库,可在地址后加上需要连接的数据库名字例:/myDb<br>这里默认链接到mydb</p>
+<h3 id="15-测试是否链接成功"><a href="#15-测试是否链接成功" class="headerlink" title="15. 测试是否链接成功"></a>15. 测试是否链接成功</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">db.connection.on(<span class="string">"error"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">err</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"链接失败"</span>,err);</div><div class="line">&#125;)</div><div class="line">db.connection.on(<span class="string">"open"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"链接成功"</span>)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h3 id="16-重新运行server-如果控制显示链接成功-则ok"><a href="#16-重新运行server-如果控制显示链接成功-则ok" class="headerlink" title="16. 重新运行server,如果控制显示链接成功,则ok"></a>16. 重新运行server,如果控制显示链接成功,则ok</h3><h3 id="17-开始数据库的搭建-这个写在加载主页下面"><a href="#17-开始数据库的搭建-这个写在加载主页下面" class="headerlink" title="17. 开始数据库的搭建(这个写在加载主页下面)"></a>17. 开始数据库的搭建(这个写在加载主页下面)</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//数据库的规模设定</span></div><div class="line"><span class="keyword">var</span> Schema = <span class="keyword">new</span> mongoose.Schema(&#123;</div><div class="line">    <span class="attr">name</span>:&#123;<span class="attr">type</span>:<span class="built_in">String</span>&#125;,</div><div class="line">    <span class="attr">pwd</span>:&#123;<span class="attr">type</span>:<span class="built_in">String</span>&#125;</div><div class="line">&#125;,&#123;</div><div class="line">    <span class="attr">collection</span>:<span class="string">"sub"</span><span class="comment">//指定表</span></div><div class="line">&#125;)</div><div class="line"><span class="comment">//构造model对象用于操作数据库,类似thinkphp实例化</span></div><div class="line"><span class="keyword">var</span> user = db.model(<span class="string">"sub"</span>,Schema);</div></pre></td></tr></table></figure>
+<p>上面已经指定在哪个表,包括创建数据的类型</p>
+<h3 id="18-开始添加数据-这里使用post的方法添加数据"><a href="#18-开始添加数据-这里使用post的方法添加数据" class="headerlink" title="18. 开始添加数据,这里使用post的方法添加数据"></a>18. 开始添加数据,这里使用post的方法添加数据</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">    <span class="comment">//用post方法添加数据</span></div><div class="line">app.post(<span class="string">"/add"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">req,res</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> data = <span class="string">""</span>;<span class="comment">//创建一个data字符串</span></div><div class="line">    req.on(<span class="string">"data"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">con</span>)</span>&#123;</div><div class="line">        data+=con; <span class="comment">//将index里面的name的内容(con)传到data里面</span></div><div class="line">    &#125;)</div><div class="line">    <span class="built_in">console</span>.log(data);</div><div class="line">    req.on(<span class="string">"end"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="comment">//数据读取完执行的函数</span></div><div class="line">        <span class="comment">//此时的data: name=frank123&amp;pwd=123</span></div><div class="line">        <span class="keyword">var</span> arr = data.split(<span class="string">"&amp;"</span>);<span class="comment">//将获取的data劈开装进数组</span></div><div class="line">        <span class="comment">//此时的arr:[ 'name=frank123', 'pwd=123' ]</span></div><div class="line">        <span class="keyword">var</span> json = &#123;&#125;;<span class="comment">//创建一个对象</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>;i&lt;arr.length;i++) &#123;</div><div class="line">            <span class="keyword">var</span> a = arr[i].split(<span class="string">"="</span>); <span class="comment">//将arr里面的数据劈开装进数组a</span></div><div class="line">            <span class="comment">//此时的a : ['name','frank'][''pwd','123']</span></div><div class="line">            json[a[<span class="number">0</span>]] = a[<span class="number">1</span>];<span class="comment">//这样就得到了json对象</span></div><div class="line">        &#125;</div><div class="line">        <span class="comment">//json:&#123; name: 'frank', pwd: '123' &#125;获取到了用户名跟密码就可以填入数据库里面了</span></div><div class="line">        <span class="comment">//将数据添加到数据库里面</span></div><div class="line">        user.create([json],<span class="function"><span class="keyword">function</span>(<span class="params">err,doc</span>)</span>&#123;</div><div class="line">            <span class="keyword">if</span>(err)&#123;</div><div class="line">                <span class="built_in">console</span>.log(err);</div><div class="line">                <span class="keyword">return</span>;</div><div class="line">            &#125;<span class="keyword">else</span>&#123;</div><div class="line">                res.send(doc);</div><div class="line">            &#125;</div><div class="line">        &#125;)</div><div class="line">    &#125;)</div></pre></td></tr></table></figure>
+<p>上面判断将数据添加到数据库里面,如果添加失败则打印错误,成功的话返回一个添加的内容,这样的话,<br>ajax只要判断有没有内容数据就可以了</p>
+<h3 id="19-在index-html文件里面写js"><a href="#19-在index-html文件里面写js" class="headerlink" title="19. 在index.html文件里面写js"></a>19. 在index.html文件里面写js</h3><h3 id="20-获取元素-并给注册按钮添加点击事件"><a href="#20-获取元素-并给注册按钮添加点击事件" class="headerlink" title="20. 获取元素,并给注册按钮添加点击事件"></a>20. 获取元素,并给注册按钮添加点击事件</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> inp = $(<span class="string">"input"</span>);</div><div class="line"><span class="keyword">var</span> btn = $(<span class="string">"button"</span>);</div><div class="line"><span class="keyword">var</span> span = $(<span class="string">"span"</span>); </div><div class="line">btn.on(<span class="string">"click"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line"><span class="comment">//填写下面内容的</span></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="21-判断内容是否为空-以及密码是不一致-如果是则不给提交"><a href="#21-判断内容是否为空-以及密码是不一致-如果是则不给提交" class="headerlink" title="21. 判断内容是否为空,以及密码是不一致,如果是则不给提交"></a>21. 判断内容是否为空,以及密码是不一致,如果是则不给提交</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(inp.eq(<span class="number">0</span>).val()==<span class="string">""</span>||inp.eq(<span class="number">1</span>).val()==<span class="string">""</span>)&#123;</div><div class="line">    alert(<span class="string">"输入的内容为空"</span>);</div><div class="line">    <span class="keyword">return</span>;</div><div class="line">&#125;</div><div class="line"><span class="keyword">if</span>(inp.eq(<span class="number">1</span>).val()!=inp.eq(<span class="number">2</span>).val())&#123;</div><div class="line">    alert(<span class="string">"密码不一致"</span>);</div><div class="line">    <span class="keyword">return</span>;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h3 id="22-运用jq提供的ajax获取后台接口的数据"><a href="#22-运用jq提供的ajax获取后台接口的数据" class="headerlink" title="22. 运用jq提供的ajax获取后台接口的数据"></a>22. 运用jq提供的ajax获取后台接口的数据</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">$.ajax(&#123;</div><div class="line">    <span class="attr">url</span>:<span class="string">"/add"</span>,</div><div class="line">    <span class="attr">type</span>:<span class="string">"post"</span>,</div><div class="line">    <span class="attr">data</span>:&#123;</div><div class="line">        <span class="attr">name</span>:inp.eq(<span class="number">0</span>).val(),</div><div class="line">        <span class="attr">pwd</span>:inp.eq(<span class="number">1</span>).val(),</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">dataType</span>:<span class="string">"json"</span>,</div><div class="line">    <span class="attr">success</span>:<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</div><div class="line"><span class="comment">//      console.log(data);</span></div><div class="line">        <span class="keyword">if</span>(data.length&gt;<span class="number">0</span>)&#123;</div><div class="line">            alert(<span class="string">"注册成功"</span>)</div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">             alert(<span class="string">"注册失败"</span>)</div><div class="line">            &#125;</div><div class="line">    &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h3 id="23-注册无论成功是否-点击之后都要将val-清空"><a href="#23-注册无论成功是否-点击之后都要将val-清空" class="headerlink" title="23. 注册无论成功是否,点击之后都要将val()清空"></a>23. 注册无论成功是否,点击之后都要将val()清空</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">inp.each(<span class="function"><span class="keyword">function</span>(<span class="params">i</span>)</span>&#123;</div><div class="line">    inp.eq(i).val(<span class="string">""</span>);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h3 id="24-这样就成功将数据添加到后台数据库了-接下来就要写检测-如果数据库存在这些数据的话-就不可以注册-所以在server里面写检测数据"><a href="#24-这样就成功将数据添加到后台数据库了-接下来就要写检测-如果数据库存在这些数据的话-就不可以注册-所以在server里面写检测数据" class="headerlink" title="24. 这样就成功将数据添加到后台数据库了,接下来就要写检测,如果数据库存在这些数据的话,就不可以注册,所以在server里面写检测数据"></a>24. 这样就成功将数据添加到后台数据库了,接下来就要写检测,如果数据库存在这些数据的话,就不可以注册,所以在server里面写检测数据</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">app.post(<span class="string">"/check"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">req,res</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> data = <span class="string">""</span>;</div><div class="line">    req.on(<span class="string">"data"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">con</span>) </span>&#123;</div><div class="line">        data += con;</div><div class="line">    &#125;)</div><div class="line">    req.on(<span class="string">"end"</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> arr = data.split(<span class="string">"&amp;"</span>);</div><div class="line">        <span class="keyword">var</span> json = &#123;&#125;;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</div><div class="line">            <span class="keyword">var</span> a = arr[i].split(<span class="string">"="</span>);</div><div class="line">            json[a[<span class="number">0</span>]] = a[<span class="number">1</span>];</div><div class="line">        &#125;</div><div class="line">        user.find(json,<span class="function"><span class="keyword">function</span>(<span class="params">err,doc</span>)</span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(doc);</div><div class="line">            <span class="keyword">if</span>(err)&#123;<span class="built_in">console</span>.log(err);<span class="keyword">return</span>&#125;;</div><div class="line">            <span class="keyword">if</span>(doc.length&gt;<span class="number">0</span>)&#123;</div><div class="line">                res.send(<span class="string">'&#123;"error":0,"msg":"用户名已注册"&#125;'</span>)</div><div class="line">            &#125;<span class="keyword">else</span>&#123;</div><div class="line">                res.send(<span class="string">'&#123;"error":1,"msg":"可以注册"&#125;'</span>)</div><div class="line">            &#125;</div><div class="line">        &#125;)</div><div class="line">    &#125;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h3 id="25-检测的接口就做好了-接下来就开始在index-html里面用ajax获取数据"><a href="#25-检测的接口就做好了-接下来就开始在index-html里面用ajax获取数据" class="headerlink" title="25. 检测的接口就做好了,接下来就开始在index.html里面用ajax获取数据"></a>25. 检测的接口就做好了,接下来就开始在index.html里面用ajax获取数据</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> bol = <span class="literal">false</span>;</div><div class="line">  inp.eq(<span class="number">0</span>).on(<span class="string">"blur"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">      $.ajax(&#123;</div><div class="line">      <span class="attr">url</span>:<span class="string">"/check"</span>,</div><div class="line">          <span class="attr">type</span>:<span class="string">"post"</span>,</div><div class="line">          <span class="attr">data</span>:&#123;<span class="string">"name"</span>:inp.eq(<span class="number">0</span>).val()&#125;,</div><div class="line">          <span class="attr">dataType</span>:<span class="string">"json"</span>,</div><div class="line">          <span class="attr">success</span>:<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</div><div class="line">          <span class="keyword">if</span>(data.error==<span class="number">0</span>)&#123;</div><div class="line">              bol=<span class="literal">false</span>;</div><div class="line">              span.css(<span class="string">"color"</span>,<span class="string">'red'</span>);</div><div class="line">          &#125;<span class="keyword">else</span>&#123;</div><div class="line">              bol=<span class="literal">true</span>;</div><div class="line">              span.css(<span class="string">"color"</span>,<span class="string">'green'</span>);</div><div class="line">          &#125;</div><div class="line">              span.html(data.msg);</div><div class="line">          &#125;</div><div class="line">      &#125;)</div><div class="line">  &#125;)</div></pre></td></tr></table></figure>
+<h3 id="26-上面我们创建了一个bol值是用来判断数据-如果有的话就咬阻止注册-所以在点击事件那里判断"><a href="#26-上面我们创建了一个bol值是用来判断数据-如果有的话就咬阻止注册-所以在点击事件那里判断" class="headerlink" title="26. 上面我们创建了一个bol值是用来判断数据,如果有的话就咬阻止注册,所以在点击事件那里判断"></a>26. 上面我们创建了一个bol值是用来判断数据,如果有的话就咬阻止注册,所以在点击事件那里判断</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">btn.on(<span class="string">"click"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">   <span class="comment">//在这里判断</span></div><div class="line">   <span class="keyword">if</span>(!bol)&#123;</div><div class="line">       alert(<span class="string">"用户名已存在"</span>);</div><div class="line">           <span class="keyword">return</span>;</div><div class="line">   &#125;</div><div class="line">   <span class="keyword">if</span>(inp.eq(<span class="number">0</span>).val()==<span class="string">""</span>||inp.eq(<span class="number">1</span>).val()==<span class="string">""</span>)&#123;</div><div class="line">       alert(<span class="string">"输入的内容为空"</span>);</div><div class="line">       <span class="keyword">return</span>;</div><div class="line">   &#125;</div><div class="line">   <span class="comment">//.....最后面还要将span的内容清空</span></div><div class="line">   span.val(<span class="string">""</span>);</div></pre></td></tr></table></figure>
+<p>这样的效果就出来了</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/12/05/可视化工具Robomongo/" itemprop="url">
+                  MongoDB可视化工具Robomongo
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <time itemprop="dateCreated" datetime="2016-12-05T17:50:08+08:00" content="2016-12-05">
+              2016-12-05
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>由于基于nodeJs的数据库用到的MongoDB只能在终端进行增删改查,并不能想phpMysql一样可视化,所以运用这款可视化工具即可.</p>
+<p>下载地址：<a href="https://robomongo.org/download" target="_blank" rel="external">https://robomongo.org/download</a></p>
+<ol>
+<li>安装之后会有出现这样的图标,当我们开启MongoDB数据库的之后,直接打开软件就可以显示MongoDB可视化的数据库<br><img src="https://robomongo.org/static/robomongo-128x128-129df2f1.png" alt="image"></li>
+<li>打开之后界面就是这样<br><img src="http://images2015.cnblogs.com/blog/511616/201606/511616-20160628194347124-1845977811.png" alt="image"></li>
+</ol>
+<hr>
+<p>不懂怎么开启可以参考上一篇文章 MongoDB介绍及下载与安装</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/12/05/MongoDB介绍及下载与安装/" itemprop="url">
                   MongoDB介绍及下载与安装
                 </a>
@@ -251,7 +483,7 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Posted on</span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
             <time itemprop="dateCreated" datetime="2016-12-05T17:24:32+08:00" content="2016-12-05">
               2016-12-05
             </time>
@@ -395,7 +627,7 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Posted on</span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
             <time itemprop="dateCreated" datetime="2016-12-05T17:23:06+08:00" content="2016-12-05">
               2016-12-05
             </time>
@@ -434,9 +666,9 @@
 </ul>
 <ol>
 <li><p>对于依赖的模块，AMD 是提前执行，CMD 是延迟执行。不过 RequireJS 从 2.0 开始，也改成可以延迟执行（根据写法不同，处理方式不同）。CMD 推崇 as lazy as possible.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">// CMD</div><div class="line">define(function(require, exports, module) &#123;</div><div class="line">var a = require(&apos;./a&apos;)</div><div class="line">a.doSomething()</div><div class="line">// 此处略去 100 行</div><div class="line">var b = require(&apos;./b&apos;) // 依赖可以就近书写</div><div class="line">b.doSomething()</div><div class="line">// ... </div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// CMD</span></div><div class="line">define(<span class="function"><span class="keyword">function</span>(<span class="params">require, exports, module</span>) </span>&#123;</div><div class="line"><span class="keyword">var</span> a = <span class="built_in">require</span>(<span class="string">'./a'</span>)</div><div class="line">a.doSomething()</div><div class="line"><span class="comment">// 此处略去 100 行</span></div><div class="line"><span class="keyword">var</span> b = <span class="built_in">require</span>(<span class="string">'./b'</span>) <span class="comment">// 依赖可以就近书写</span></div><div class="line">b.doSomething()</div><div class="line"><span class="comment">// ... </span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <ol>
-<li>CMD 推崇依赖就近，AMD 推崇依赖前置。看代码：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"> // AMD 默认推荐的是</div><div class="line">define([&apos;./a&apos;, &apos;./b&apos;], function(a, b) &#123; // 依赖必须一开始就写好</div><div class="line">a.doSomething()</div><div class="line">// 此处略去 100 行</div><div class="line">b.doSomething()</div><div class="line">...</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<li>CMD 推崇依赖就近，AMD 推崇依赖前置。看代码：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"> <span class="comment">// AMD 默认推荐的是</span></div><div class="line">define([<span class="string">'./a'</span>, <span class="string">'./b'</span>], <span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>) </span>&#123; <span class="comment">// 依赖必须一开始就写好</span></div><div class="line">a.doSomething()</div><div class="line"><span class="comment">// 此处略去 100 行</span></div><div class="line">b.doSomething()</div><div class="line">...</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 </li>
 </ol>
 <p>虽然 AMD 也支持 CMD 的写法，同时还支持将 require 作为依赖项传递，<br>但 RequireJS 的作者默认是最喜欢上面的写法，也是官方文档里默认的模块定义写法。</p>
@@ -446,10 +678,10 @@
 <ol>
 <li>define(factory)：factory是这样一个函数function (require?, exports?, module?) {}，如果模块本身既不依赖其他模块，也不提供接口，require、exports和module都可以省略。</li>
 <li><p>所有模块都通过 define 来定义</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">define(function(require, exports, module) &#123;</div><div class="line"></div><div class="line">  // 通过 require 引入依赖</div><div class="line">  var $ = require(&apos;jquery&apos;);</div><div class="line">  var test= require(&apos;./test);</div><div class="line"></div><div class="line">  // 通过 exports 对外提供接口</div><div class="line">  exports.test = test</div><div class="line"></div><div class="line">  // 或者通过 module.exports 提供整个接口</div><div class="line">  module.exports = ...</div><div class="line"></div><div class="line">&#125;);</div><div class="line">obj = require(&quot;a&quot;)</div></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">define(function(require, exports, module) &#123;</div><div class="line"></div><div class="line">  // 通过 require 引入依赖</div><div class="line">  var $ = require('jquery');</div><div class="line">  var test= require('./test);</div><div class="line"></div><div class="line">  // 通过 exports 对外提供接口</div><div class="line">  exports.test = test</div><div class="line"></div><div class="line">  // 或者通过 module.exports 提供整个接口</div><div class="line">  module.exports = ...</div><div class="line"></div><div class="line">&#125;);</div><div class="line">obj = require("a")</div></pre></td></tr></table></figure>
 </li>
 <li><p>seajs 的简单配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">seajs.config(&#123;</div><div class="line">  base: &quot;../sea-modules/&quot;,</div><div class="line">  alias: &#123;</div><div class="line">    &quot;jquery&quot;: &quot;jquery/jquery/1.10.1/jquery-3.0.0.min.js&quot;</div><div class="line">  &#125;</div><div class="line">&#125;)</div><div class="line"></div><div class="line"></div><div class="line">// 加载入口模块</div><div class="line">seajs.use(&quot;../static/hello/src/main&quot;)</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">seajs.config(&#123;</div><div class="line">  <span class="attr">base</span>: <span class="string">"../sea-modules/"</span>,</div><div class="line">  <span class="attr">alias</span>: &#123;</div><div class="line">    <span class="string">"jquery"</span>: <span class="string">"jquery/jquery/1.10.1/jquery-3.0.0.min.js"</span></div><div class="line">  &#125;</div><div class="line">&#125;)</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">// 加载入口模块</span></div><div class="line">seajs.use(<span class="string">"../static/hello/src/main"</span>)</div></pre></td></tr></table></figure>
 </li>
 </ol>
 <h3 id="requirejs的使用"><a href="#requirejs的使用" class="headerlink" title="requirejs的使用"></a>requirejs的使用</h3><ol>
@@ -470,17 +702,19 @@
 </ol>
 <ul>
 <li>配置requirejs 比如项目中用到哪些模块，文件路径是什么</li>
-<li>载入程序主模块<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">requirejs.config(&#123;</div><div class="line">  baseUrl: &apos;/js&apos;,</div><div class="line">  paths: &#123;</div><div class="line">    jq: &apos;jquery.1.12.1&apos;</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">requirejs([&apos;jq&apos;], function($) &#123;</div><div class="line">  $(&quot;div&quot;).css();</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<li>载入程序主模块</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">requirejs.config(&#123;</div><div class="line">  <span class="attr">baseUrl</span>: <span class="string">'/js'</span>,</div><div class="line">  <span class="attr">paths</span>: &#123;</div><div class="line">    <span class="attr">jq</span>: <span class="string">'jquery.1.12.1'</span></div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">requirejs([<span class="string">'jq'</span>], <span class="function"><span class="keyword">function</span>(<span class="params">$</span>) </span>&#123;</div><div class="line">  $(<span class="string">"div"</span>).css();</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 </li>
 </ul>
 <ol>
 <li><p>在 paths 中，我们声明了一个名为 app 的模块，以及它对应的js文件地址。在最理想的情况下， app.js 的内容，应该使用requirejs的方式来定义模块</p>
 </li>
 <li><p>define: 定义一个模块;</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">define([&quot;jquery&quot;,&quot;show&quot;], function($,show) &#123;</div><div class="line">  return &#123;</div><div class="line">    hello: function() &#123;</div><div class="line">        show()</div><div class="line">      alert(&quot;hello, app~&quot;);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 </li>
-<li><p>shim将某个依赖中的某个全局变量暴露给requirejs，当作这个模块本身的引用。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">requirejs.config(&#123;</div><div class="line">  baseUrl: &apos;/public/js&apos;,</div><div class="line">  paths: &#123;</div><div class="line">    hello: &apos;hello&apos;</div><div class="line">  &#125;,</div><div class="line">  shim: &#123;</div><div class="line">    hello: &#123; exports: &apos;hello&apos; &#125;</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">requirejs([&apos;hello&apos;], function(hello) &#123;</div><div class="line">  hello();</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">define([<span class="string">"jquery"</span>,<span class="string">"show"</span>], <span class="function"><span class="keyword">function</span>(<span class="params">$,show</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    <span class="attr">hello</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        show()</div><div class="line">      alert(<span class="string">"hello, app~"</span>);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<ol>
+<li>shim将某个依赖中的某个全局变量暴露给requirejs，当作这个模块本身的引用。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">requirejs.config(&#123;</div><div class="line">  <span class="attr">baseUrl</span>: <span class="string">'/public/js'</span>,</div><div class="line">  <span class="attr">paths</span>: &#123;</div><div class="line">    <span class="attr">hello</span>: <span class="string">'hello'</span></div><div class="line">  &#125;,</div><div class="line">  <span class="attr">shim</span>: &#123;</div><div class="line">    <span class="attr">hello</span>: &#123; <span class="attr">exports</span>: <span class="string">'hello'</span> &#125;</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">requirejs([<span class="string">'hello'</span>], <span class="function"><span class="keyword">function</span>(<span class="params">hello</span>) </span>&#123;</div><div class="line">  hello();</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 </li>
 </ol>
 </p></li></ol>
@@ -545,7 +779,7 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Posted on</span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
             <time itemprop="dateCreated" datetime="2016-12-05T17:19:40+08:00" content="2016-12-05">
               2016-12-05
             </time>
@@ -585,282 +819,82 @@
 <li>回调: 异步编程</li>
 <li>IO：input output程的基本方法，采用后续函数传递的方式，把后续的处理函数作为参数进行执行同步和异步（阻塞非阻塞）：AJAX的时候说过</li>
 <li>IO：input outputer<br>输入 输出，对应的就是下单操作</li>
-<li>单线程和多线程<br>单线程按顺序执行，多线程可以同时执行<h3 id="http模块"><a href="#http模块" class="headerlink" title="http模块"></a>http模块</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">//1.引入一个http的模块</div><div class="line">var http = require(&quot;http&quot;);</div><div class="line">//2.创建一个http服务器</div><div class="line">server = http.createServer(function(req,res)&#123;</div><div class="line">   res.write(&quot;响应对象&quot;);</div><div class="line">   res.end(&quot;响应结束&quot;);</div><div class="line">&#125;)</div><div class="line">//3.server.listen(port,function)监听响应</div><div class="line">server.listen(8080,function()&#123;</div><div class="line">    console.log(&quot;开启成功:http://localhost:8080&quot;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-</li>
+<li>单线程和多线程<br>单线程按顺序执行，多线程可以同时执行<h3 id="http模块"><a href="#http模块" class="headerlink" title="http模块"></a>http模块</h3></li>
 </ol>
-<h3 id="设置请求头"><a href="#设置请求头" class="headerlink" title="设置请求头"></a>设置请求头</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">var http = require(&apos;http&apos;);//引入一个HTTP的模块</div><div class="line">var server = http.createServer(function(req,res)&#123;</div><div class="line">    //设置请求头</div><div class="line">    res.writeHead(200,&#123;&quot;Content-Type&quot;:&quot;text/html;charset=utf-8&quot;&#125;);</div><div class="line">    //判断url是不是首页</div><div class="line">    if(req.url==&quot;/index&quot;||req.url==&quot;/&quot;)&#123;</div><div class="line">        res.end(&quot;首页&quot;);</div><div class="line">    &#125;else if(req.url==&quot;/login&quot;)&#123;</div><div class="line">        res.end(&quot;登陆页面&quot;);</div><div class="line">    &#125;else&#123;</div><div class="line">        res.end(&quot;404&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;)</div><div class="line">server.listen(8080,function()&#123;</div><div class="line">    console.log(&quot;开启成功:http://localhost:8080&quot;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<h3 id="url模块"><a href="#url模块" class="headerlink" title="url模块"></a>url模块</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">var http = require(&quot;http&quot;);</div><div class="line">var url = require(&quot;url&quot;);</div><div class="line">var server = http.createServer(function(req,res)&#123;</div><div class="line">//如果第二个参数是true返回的是query是一个json格式,否则是字符串</div><div class="line">    var oUrl = url.parse(req.url,true);</div><div class="line">    console.log(oUrl);</div><div class="line">    res.end(&quot;end&quot;);</div><div class="line">&#125;)</div><div class="line">server.listen(8080,function()&#123;</div><div class="line">    console.log(&quot;开启成功:http://localhost:8080&quot;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//1.引入一个http的模块</span></div><div class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>);</div><div class="line"><span class="comment">//2.创建一个http服务器</span></div><div class="line">server = http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req,res</span>)</span>&#123;</div><div class="line">   res.write(<span class="string">"响应对象"</span>);</div><div class="line">   res.end(<span class="string">"响应结束"</span>);</div><div class="line">&#125;)</div><div class="line"><span class="comment">//3.server.listen(port,function)监听响应</span></div><div class="line">server.listen(<span class="number">8080</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"开启成功:http://localhost:8080"</span>)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h3 id="设置请求头"><a href="#设置请求头" class="headerlink" title="设置请求头"></a>设置请求头</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);<span class="comment">//引入一个HTTP的模块</span></div><div class="line"><span class="keyword">var</span> server = http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req,res</span>)</span>&#123;</div><div class="line">    <span class="comment">//设置请求头</span></div><div class="line">    res.writeHead(<span class="number">200</span>,&#123;<span class="string">"Content-Type"</span>:<span class="string">"text/html;charset=utf-8"</span>&#125;);</div><div class="line">    <span class="comment">//判断url是不是首页</span></div><div class="line">    <span class="keyword">if</span>(req.url==<span class="string">"/index"</span>||req.url==<span class="string">"/"</span>)&#123;</div><div class="line">        res.end(<span class="string">"首页"</span>);</div><div class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(req.url==<span class="string">"/login"</span>)&#123;</div><div class="line">        res.end(<span class="string">"登陆页面"</span>);</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        res.end(<span class="string">"404"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;)</div><div class="line">server.listen(<span class="number">8080</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"开启成功:http://localhost:8080"</span>)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h3 id="url模块"><a href="#url模块" class="headerlink" title="url模块"></a>url模块</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>);</div><div class="line"><span class="keyword">var</span> url = <span class="built_in">require</span>(<span class="string">"url"</span>);</div><div class="line"><span class="keyword">var</span> server = http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req,res</span>)</span>&#123;</div><div class="line"><span class="comment">//如果第二个参数是true返回的是query是一个json格式,否则是字符串</span></div><div class="line">    <span class="keyword">var</span> oUrl = url.parse(req.url,<span class="literal">true</span>);</div><div class="line">    <span class="built_in">console</span>.log(oUrl);</div><div class="line">    res.end(<span class="string">"end"</span>);</div><div class="line">&#125;)</div><div class="line">server.listen(<span class="number">8080</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"开启成功:http://localhost:8080"</span>)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <h3 id="node自定义模块"><a href="#node自定义模块" class="headerlink" title="node自定义模块"></a>node自定义模块</h3><ul>
 <li>在同级创建node_modules,里面放一个test.js文件</li>
-<li><p>在mod.js文件里</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var abc = require(&quot;test&quot;);</div><div class="line">abc.show();</div></pre></td></tr></table></figure>
-</li>
-<li><p>test.js文件里面</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function show()&#123;</div><div class="line">    console.log(&quot;abc&quot;);</div><div class="line">&#125;</div><div class="line">module.exports = &#123;</div><div class="line">    show:show</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>在node_modules里面创建一个package.json文件<br>package.json文件里面</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;name&quot;: &quot;test&quot;,</div><div class="line">  &quot;version&quot;: &quot;0.0.1&quot;,</div><div class="line">  &quot;main&quot;:&quot;../index.js&quot;//默认不写是打开index</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
+<li>在mod.js文件里</li>
 </ul>
-<h3 id="创建buffer对象的方法"><a href="#创建buffer对象的方法" class="headerlink" title="创建buffer对象的方法"></a>创建buffer对象的方法</h3><p>1.直接创建<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var buf = new Buffer(6);</div><div class="line">buf.fill(255);//默认输出的值是随机的,用fill(255)可以填充数值</div><div class="line">console.log(buf);</div></pre></td></tr></table></figure></p>
-<p>2.通过数组<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var buf2 = new Buffer([255,110,5,0xcc]);</div><div class="line">console.log(buf2);</div></pre></td></tr></table></figure></p>
-<p>3.通过字符串<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var buf3 = new Buffer(&quot;内容&quot;);</div><div class="line">console.log(buf3.toString());//用toString直接输出字体</div></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> abc = <span class="built_in">require</span>(<span class="string">"test"</span>);</div><div class="line">abc.show();</div></pre></td></tr></table></figure>
+<ul>
+<li>test.js文件里面</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">show</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"abc"</span>);</div><div class="line">&#125;</div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">show</span>:show</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>在node_modules里面创建一个package.json文件<br>package.json文件里面</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="string">"name"</span>: <span class="string">"test"</span>,</div><div class="line">  <span class="string">"version"</span>: <span class="string">"0.0.1"</span>,</div><div class="line">  <span class="string">"main"</span>:<span class="string">"../index.js"</span><span class="comment">//默认不写是打开index</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="创建buffer对象的方法"><a href="#创建buffer对象的方法" class="headerlink" title="创建buffer对象的方法"></a>创建buffer对象的方法</h3><p>1.直接创建</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> buf = <span class="keyword">new</span> Buffer(<span class="number">6</span>);</div><div class="line">buf.fill(<span class="number">255</span>);<span class="comment">//默认输出的值是随机的,用fill(255)可以填充数值</span></div><div class="line"><span class="built_in">console</span>.log(buf);</div></pre></td></tr></table></figure>
+<p>2.通过数组</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> buf2 = <span class="keyword">new</span> Buffer([<span class="number">255</span>,<span class="number">110</span>,<span class="number">5</span>,<span class="number">0xcc</span>]);</div><div class="line"><span class="built_in">console</span>.log(buf2);</div></pre></td></tr></table></figure>
+<p>3.通过字符串</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> buf3 = <span class="keyword">new</span> Buffer(<span class="string">"内容"</span>);</div><div class="line"><span class="built_in">console</span>.log(buf3.toString());<span class="comment">//用toString直接输出字体</span></div></pre></td></tr></table></figure>
 <h3 id="nodejs文件读取"><a href="#nodejs文件读取" class="headerlink" title="nodejs文件读取"></a>nodejs文件读取</h3><p>1.文件系统模块 fs<br>2.读取文件方法</p>
 <ul>
-<li><p>readFile(异步);</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var fs = require(&quot;fs&quot;);</div><div class="line">fs.readFile(&quot;test/abc.txt&quot;,function(err,data)&#123;</div><div class="line">//异步读取文件,都有个回调函数,传两个参数(错误,内容);</div><div class="line">    if(err)&#123;console.log(err);return&#125;</div><div class="line">    console.log(data.toString())</div><div class="line">&#125;)</div><div class="line">console.log(2);</div><div class="line">//异步下面的代码先执行</div></pre></td></tr></table></figure>
-</li>
-<li><p>readFileSync(同步);</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var con = fs.readFileSync(&quot;test/abc.txt&quot;);</div><div class="line">//同步读取文件没有回调函数,所以直接赋值给con,输出这个con就可以了</div><div class="line">console.log(con.toString());</div><div class="line">console.log(2);</div></pre></td></tr></table></figure>
-</li>
+<li>readFile(异步);</li>
 </ul>
-<p>同步的小demo<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">function show(a,b,cb)&#123;</div><div class="line">    console.log(a,b);</div><div class="line">    cb();</div><div class="line">&#125;</div><div class="line">show(2,4,function()&#123;</div><div class="line">    console.log(1);</div><div class="line">&#125;)</div><div class="line">console.log(2);</div></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>);</div><div class="line">fs.readFile(<span class="string">"test/abc.txt"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">err,data</span>)</span>&#123;</div><div class="line"><span class="comment">//异步读取文件,都有个回调函数,传两个参数(错误,内容);</span></div><div class="line">    <span class="keyword">if</span>(err)&#123;<span class="built_in">console</span>.log(err);<span class="keyword">return</span>&#125;</div><div class="line">    <span class="built_in">console</span>.log(data.toString())</div><div class="line">&#125;)</div><div class="line"><span class="built_in">console</span>.log(<span class="number">2</span>);</div><div class="line"><span class="comment">//异步下面的代码先执行</span></div></pre></td></tr></table></figure>
+<ul>
+<li>readFileSync(同步);</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> con = fs.readFileSync(<span class="string">"test/abc.txt"</span>);</div><div class="line"><span class="comment">//同步读取文件没有回调函数,所以直接赋值给con,输出这个con就可以了</span></div><div class="line"><span class="built_in">console</span>.log(con.toString());</div><div class="line"><span class="built_in">console</span>.log(<span class="number">2</span>);</div></pre></td></tr></table></figure>
+<p>同步的小demo</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">show</span>(<span class="params">a,b,cb</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(a,b);</div><div class="line">    cb();</div><div class="line">&#125;</div><div class="line">show(<span class="number">2</span>,<span class="number">4</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="number">1</span>);</div><div class="line">&#125;)</div><div class="line"><span class="built_in">console</span>.log(<span class="number">2</span>);</div></pre></td></tr></table></figure>
 <h3 id="nodejs文件操作"><a href="#nodejs文件操作" class="headerlink" title="nodejs文件操作"></a>nodejs文件操作</h3><ul>
 <li>文件操作</li>
 <li>目录操作</li>
 </ul>
 <ol>
-<li>写入内容writeFile(url,data,{flag:w},fn(err))<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var fs = require(&apos;fs&apos;);</div><div class="line">fs.writeFile(&quot;test/abc.txt&quot;,&quot;内容内容内容内容内容内容&quot;,&#123;flag:w&#125;,function(err)&#123;</div><div class="line">    if(err)&#123;console.log(&quot;写入失败&quot;,err);return&#125;</div><div class="line">    console.log(&quot;写入成功&quot;);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-</li>
+<li>写入内容writeFile(url,data,{flag:w},fn(err))</li>
 </ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</div><div class="line">fs.writeFile(<span class="string">"test/abc.txt"</span>,<span class="string">"内容内容内容内容内容内容"</span>,&#123;<span class="attr">flag</span>:w&#125;,<span class="function"><span class="keyword">function</span>(<span class="params">err</span>)</span>&#123;</div><div class="line">    <span class="keyword">if</span>(err)&#123;<span class="built_in">console</span>.log(<span class="string">"写入失败"</span>,err);<span class="keyword">return</span>&#125;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"写入成功"</span>);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <ul>
 <li>777分别代表所有者,组用户,其他用户所具有的权限<br>1 = 执行 2 = 写  4 = 读  1+2+4=7</li>
 </ul>
 <ol>
-<li><p>创建文件mkdir(filename,0777,fn(err));</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">fs.mkdir(&quot;test/ben&quot;,0777,function()&#123;</div><div class="line">    if(err)&#123;console.log(&quot;创建失败&quot;,err);return&#125;</div><div class="line">    console.log(&quot;创建成功&quot;);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-</li>
-<li><p>读取目录所有文件readdir(url,fn(err,files))</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">fs.readdir(&quot;./&quot;,function(err,files)&#123;</div><div class="line">    console.log(files);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-</li>
-<li><p>判断文件是否存在fs.existsSync(urlstr)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//判断有没有文件</div><div class="line">var bol = fs.existsSync(&quot;test/frank.txt&quot;);</div><div class="line">//判断有没有文件夹</div><div class="line">//var bol = fs.existsSync(&quot;test&quot;);</div></pre></td></tr></table></figure>
-</li>
-<li><p>获取文件或文件夹的详细信息<br>var stat = fs.lstatSync(urlstr);</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var stat = fs.lstatSync(&quot;test/abc.txt&quot;);</div><div class="line">console.log(stat);</div></pre></td></tr></table></figure>
+<li>创建文件mkdir(filename,0777,fn(err));</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">fs.mkdir(<span class="string">"test/ben"</span>,<span class="number">0777</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">if</span>(err)&#123;<span class="built_in">console</span>.log(<span class="string">"创建失败"</span>,err);<span class="keyword">return</span>&#125;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"创建成功"</span>);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<ol>
+<li>读取目录所有文件readdir(url,fn(err,files))</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">fs.readdir(<span class="string">"./"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">err,files</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(files);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<ol>
+<li>判断文件是否存在fs.existsSync(urlstr)</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//判断有没有文件</span></div><div class="line"><span class="keyword">var</span> bol = fs.existsSync(<span class="string">"test/frank.txt"</span>);</div><div class="line"><span class="comment">//判断有没有文件夹</span></div><div class="line"><span class="comment">//var bol = fs.existsSync("test");</span></div></pre></td></tr></table></figure>
+<ol>
+<li>获取文件或文件夹的详细信息</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> stat = fs.lstatSync(urlstr);</div><div class="line"><span class="keyword">var</span> stat = fs.lstatSync(<span class="string">"test/abc.txt"</span>);</div><div class="line"><span class="built_in">console</span>.log(stat);</div></pre></td></tr></table></figure>
+<ol>
+<li>如果是文件返回true否则是false<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var isfile = stat.isFile();</div><div class="line">console.log(isfile);</div></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>6.如果是文件返回true否则是false<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var isfile = stat.isFile();</div><div class="line">console.log(isfile);</div></pre></td></tr></table></figure></p>
 <h3 id="node读取并写入大文件-Stream"><a href="#node读取并写入大文件-Stream" class="headerlink" title="node读取并写入大文件(Stream)"></a>node读取并写入大文件(Stream)</h3><ul>
 <li>stream,主要是用在大数据处理.</li>
 <li>var rs = createReadStream创建一个可读流</li>
 <li>var ws = createWriteStream创建一个可写流</li>
 <li>pipe该方法从可读流中拉取所有数据，并写入到所提供的目标。</li>
 <li>rs.on(‘data’,fn(data))每读64K或读完触发的事件</li>
-<li>rs.on(“end”)<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">var fs = require(&quot;fs&quot;);</div><div class="line">var rs =fs.createReadStream(&quot;Flat-UI-master.zip&quot;);</div><div class="line">var ws =fs.createWriteStream(&quot;test/a.zip&quot;);</div><div class="line">var i = 0;</div><div class="line">re.on(&apos;data&apos;,function()&#123;</div><div class="line">    i++;</div><div class="line">    console.log(i);</div><div class="line">&#125;)</div><div class="line">re.on(&quot;red&quot;,function()&#123;</div><div class="line">    console.log(i);</div><div class="line">&#125;)</div><div class="line">re.pipe(ws);</div></pre></td></tr></table></figure>
-</li>
+<li>rs.on(“end”)</li>
 </ul>
-<h3 id="nodeJs-http-post"><a href="#nodeJs-http-post" class="headerlink" title="nodeJs- http_post"></a>nodeJs- http_post</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">var http = require(&quot;http&quot;);</div><div class="line">var fs = require(&quot;fs&quot;);</div><div class="line">var server = http.createServer(function(req,res)&#123;</div><div class="line">    //判断是否文件</div><div class="line">    var isfile = false;</div><div class="line">    //判断是否为首页</div><div class="line">    var url = req.url;</div><div class="line">    if(url==&quot;/&quot;)&#123;</div><div class="line">        url = &quot;/index.html&quot;;</div><div class="line">    &#125;</div><div class="line">    //判断文件是否存在</div><div class="line">    var bol = fs.existsSync(&quot;www&quot;+url);</div><div class="line">    if(bol)&#123;</div><div class="line">        //存在就获取文件或者文件夹的信息</div><div class="line">        var stat = fs.lstatSync(&quot;www&quot;+url);</div><div class="line">        isfile = stat.isFile();//查看是否文件</div><div class="line">    &#125;</div><div class="line">    if(isfile)&#123;</div><div class="line">        //创建流式</div><div class="line">        var rs = fs.createReadStream(&quot;www&quot;+url);</div><div class="line">        rs.pipe(res);</div><div class="line">    &#125;else&#123;</div><div class="line">        res.end(&quot;404&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;)</div><div class="line">server.lisen(8080,function()&#123;</div><div class="line">    console.log(&quot;开启成功:http://localhost:8080&quot;);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/05/Angularjs自定义指令/" itemprop="url">
-                  Angularjs自定义指令
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-12-05T10:39:45+08:00" content="2016-12-05">
-              2016-12-05
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Angularjs自定义指令"><a href="#Angularjs自定义指令" class="headerlink" title="Angularjs自定义指令"></a>Angularjs自定义指令</h2><h4 id="directive自定义指令"><a href="#directive自定义指令" class="headerlink" title="directive自定义指令"></a>directive自定义指令</h4><p>1.restrict</p>
-<ul>
-<li>E： 表示该directive仅能以element方式使用，即：<my-dialog></my-dialog></li>
-<li>A： 表示该directive仅能以attribute方式使用，即：<div my-dialog=""></div></li>
-<li>EA: 表示该directive既能以element方式使用，也能以attribute方式使用</li>
-</ul>
-<ol>
-<li>template 内部设置<br>你的directive里的html内容</li>
-<li>templateUrl 外部引入文件<br>你的directive里的html内容</li>
-<li>scope<br>选项与绑定策略 绑定策略的三种形式：<br>@:它将本地作用域和DOM中的属性值绑定起来<br>=:与@的不同点在于，@是针对字符串而用，但=是针对某个对象的引用<br>&amp;:对父级作用域进行绑定</li>
-<li>link<br>可以简单理解为，当directive被angular 编译后，执行该方法<br>这里你说的没错，link中的第一个参数scope基本上就是你说的上面写的那个scope。<br>html<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;body ng-app=&quot;myApp&quot; ng-controller=&quot;myCtrl&quot;&gt;</div><div class="line">    &#123;&#123;name&#125;&#125;</div><div class="line">    &lt;div ng-bind=&quot;frank&quot;&gt;&lt;/div&gt;</div><div class="line">    &lt;div class=&quot;frank&quot;&gt;&lt;/div&gt;</div><div class="line">    &lt;frank&gt;&lt;/frank&gt;   </div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>script<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">var app = angular.module(&quot;myApp&quot;,[])&#123;</div><div class="line">    app.controller(&quot;myCtrl&quot;,function($scope)&#123;</div><div class="line">        $scope.name = &quot;张三&quot;;</div><div class="line">    &#125;)</div><div class="line">    app.directive(&quot;frank&quot;,function()&#123;</div><div class="line">        return &#123;</div><div class="line">            restrict:&quot;ECMA&quot;,</div><div class="line">            //引入其他html文件</div><div class="line">            //templateUrl:&quot;template.html&quot;,</div><div class="line">           template:&quot;&lt;h1&gt;&#123;&#123;name&#125;&#125;&lt;/h1&gt;&quot;,</div><div class="line">           link:function(scope,element,attrs)&#123;</div><div class="line">                scope.name = &quot;frank&quot;;</div><div class="line">           &#125;</div><div class="line">        &#125;</div><div class="line">    </div><div class="line">    &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>这时候网页显示就是全部变成自定义的frank,包括name,<br>但如果name不想被影响,则可以加scope:@<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">    var app = angular.module(&quot;myApp&quot;,[])&#123;</div><div class="line">    app.controller(&quot;myCtrl&quot;,function($scope)&#123;</div><div class="line">        $scope.name = &quot;张三&quot;;</div><div class="line">    &#125;)</div><div class="line">    app.directive(&quot;frank&quot;,function()&#123;</div><div class="line">        return &#123;</div><div class="line">            restrict:&quot;ECMA&quot;,</div><div class="line">            //引入其他html文件</div><div class="line">            //templateUrl:&quot;template.html&quot;,</div><div class="line">            scope:&#123;title:&quot;@&quot;&#125;,</div><div class="line">           template:&quot;&lt;h1&gt;&#123;&#123;name&#125;&#125;&lt;/h1&gt;&quot;,</div><div class="line">           link:function(scope,element,attrs)&#123;</div><div class="line">                scope.name = &quot;frank&quot;;</div><div class="line">           &#125;</div><div class="line">        &#125;</div><div class="line">    </div><div class="line">    &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>这样上面的name就不会被影响</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;div maopao for-title=&quot;&#123;&#123;title&#125;&#125;&quot;&gt;&lt;/div&gt;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">  var app = angular.module(&quot;myApp&quot;,[]);</div><div class="line"></div><div class="line">    app.controller(&quot;myCtrl&quot;,function($scope)&#123;</div><div class="line">        $scope.name = &quot;张三&quot;;</div><div class="line">        $scope.title = &quot;标题&quot;;</div><div class="line">    &#125;)</div><div class="line">    app.directive(&quot;maopao&quot;,function()&#123;</div><div class="line">        return &#123;</div><div class="line">            restrict:&quot;ECMA&quot;,</div><div class="line">            scope:&#123;title:&quot;@forTitle&quot;&#125;,</div><div class="line">            template:&quot;&lt;h1&gt;&#123;&#123;name&#125;&#125;&#123;&#123;title&#125;&#125;&lt;/h1&gt;&quot;,</div><div class="line">            link:function(scope,element,attrs)&#123;</div><div class="line">                scope.name = &quot;frank&quot;;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>=:针对整个对象(这里运用点击三下 让name发生改变)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;body ng-app=&quot;myApp&quot; ng-controller=&quot;myCtrl&quot;&gt;</div><div class="line">    &#123;&#123;name&#125;&#125;</div><div class="line">&lt;maopao arr=&quot;arr&quot; get-name=&quot;name&quot; change=&quot;change&quot; show=&quot;change()&quot;&gt;&lt;/maopao&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">var app = angular.module(&quot;myApp&quot;,[]);</div><div class="line"> app.controller(&quot;myCtrl&quot;,function($scope)&#123;</div><div class="line">     $scope.name = &quot;张三&quot;;</div><div class="line">     $scope.title = &quot;标题&quot;;</div><div class="line">     $scope.arr = [&#123;name:&quot;a1&quot;&#125;,&#123;name:&quot;a2&quot;&#125;];</div><div class="line">      $scope.change = function()&#123;</div><div class="line">         $scope.name = &quot;abc&quot;;</div><div class="line">     &#125;</div><div class="line"> &#125;)</div><div class="line"> app.directive(&quot;maopao&quot;,function()&#123;</div><div class="line">     return &#123;</div><div class="line">         restrict:&quot;ECMA&quot;,</div><div class="line">         scope:&#123;</div><div class="line">             arr:&apos;=&apos;,</div><div class="line">             change:&apos;=&apos;</div><div class="line">         &#125;,</div><div class="line">         template:&quot;&lt;h1&gt;&#123;&#123;name&#125;&#125;&#123;&#123;arr[1].name&#125;&#125;&#123;&#123;title&#125;&#125;&lt;/h1&gt;&quot;,</div><div class="line">         link:function(scope,element,attrs)&#123;</div><div class="line">             scope.i = 0;</div><div class="line">             element[0].onclick = function()&#123;</div><div class="line">                 console.log(attrs.show)</div><div class="line">                 scope.i++;</div><div class="line">                 console.log(scope.i)</div><div class="line">                 if (scope.i&gt;=3)&#123;</div><div class="line">                     scope.$apply(attrs.show)</div><div class="line">                 &#125;</div><div class="line"></div><div class="line">             &#125;</div><div class="line">         &#125;</div><div class="line">     &#125;</div><div class="line"> &#125;)</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/03/利用Angularjs制作tab切换/" itemprop="url">
-                  利用Angularjs制作tab切换
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-12-03T16:33:26+08:00" content="2016-12-03">
-              2016-12-03
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="利用Angularjs制作tab切换"><a href="#利用Angularjs制作tab切换" class="headerlink" title="利用Angularjs制作tab切换"></a>利用Angularjs制作tab切换</h3><p>css样式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">        input&#123;</div><div class="line">            width: 100px;</div><div class="line">            height: 30px;</div><div class="line">            background: #ccc;</div><div class="line">        &#125;</div><div class="line">        .active&#123;</div><div class="line">            background: yellow;</div><div class="line">        &#125;</div><div class="line">        div&#123;</div><div class="line">            width: 200px;</div><div class="line">            height: 200px;</div><div class="line">            background: orangered;</div><div class="line">        &#125;</div><div class="line">    &lt;/style&gt;</div></pre></td></tr></table></figure></p>
-<p>在页头引入angularjs文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script src=&quot;angular.min.js&quot;&gt;&lt;/script&gt;</div></pre></td></tr></table></figure></p>
-<p>html<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;body ng-app=&quot;myApp&quot; ng-controller=&quot;con&quot;&gt;</div><div class="line">&lt;input type=&quot;button&quot; ng-class=&quot;json.bol?&apos;active&apos;:&apos;&apos;&quot; ng-click=&quot;change(json.btn)&quot; ng-repeat=&quot;json in arr&quot; value=&quot;&#123;&#123;json.btn&#125;&#125;&quot;&gt;</div><div class="line">&lt;div ng-repeat=&quot;json in arr&quot; ng-show=&quot;json.bol&quot;&gt;&#123;&#123;json.con&#125;&#125;&lt;/div&gt;</div></pre></td></tr></table></figure></p>
-<p>script<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">var app = angular.module(&quot;myApp&quot;,[]);</div><div class="line">  app.controller(&quot;con&quot;,function($scope)&#123;</div><div class="line">      $scope.arr=[</div><div class="line">          &#123;btn:&quot;按钮1&quot;,con:&quot;内容1&quot;,bol:true&#125;,</div><div class="line">          &#123;btn:&quot;按钮2&quot;,con:&quot;内容2&quot;,bol:false&#125;,</div><div class="line">          &#123;btn:&quot;按钮3&quot;,con:&quot;内容3&quot;,bol:false&#125;,</div><div class="line">          &#123;btn:&quot;按钮4&quot;,con:&quot;内容4&quot;,bol:false&#125;,</div><div class="line">          &#123;btn:&quot;按钮5&quot;,con:&quot;内容5&quot;,bol:false&#125;,</div><div class="line">          &#123;btn:&quot;按钮6&quot;,con:&quot;内容6&quot;,bol:false&#125;</div><div class="line">      ]</div><div class="line">      $scope.change=function(btn)&#123;</div><div class="line">          for(var i=0;i&lt;$scope.arr.length;i++)&#123;</div><div class="line">              if(btn==$scope.arr[i].btn)&#123;</div><div class="line">                  $scope.arr[i].bol=true;</div><div class="line">              &#125;else&#123;</div><div class="line">                  $scope.arr[i].bol=false;</div><div class="line">              &#125;</div><div class="line">          &#125;</div><div class="line">      &#125;</div><div class="line"></div><div class="line">  &#125;)</div></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>);</div><div class="line"><span class="keyword">var</span> rs =fs.createReadStream(<span class="string">"Flat-UI-master.zip"</span>);</div><div class="line"><span class="keyword">var</span> ws =fs.createWriteStream(<span class="string">"test/a.zip"</span>);</div><div class="line"><span class="keyword">var</span> i = <span class="number">0</span>;</div><div class="line">re.on(<span class="string">'data'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    i++;</div><div class="line">    <span class="built_in">console</span>.log(i);</div><div class="line">&#125;)</div><div class="line">re.on(<span class="string">"red"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(i);</div><div class="line">&#125;)</div><div class="line">re.pipe(ws);</div></pre></td></tr></table></figure>
+<h3 id="nodeJs-http-post"><a href="#nodeJs-http-post" class="headerlink" title="nodeJs- http_post"></a>nodeJs- http_post</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>);</div><div class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>);</div><div class="line"><span class="keyword">var</span> server = http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req,res</span>)</span>&#123;</div><div class="line">    <span class="comment">//判断是否文件</span></div><div class="line">    <span class="keyword">var</span> isfile = <span class="literal">false</span>;</div><div class="line">    <span class="comment">//判断是否为首页</span></div><div class="line">    <span class="keyword">var</span> url = req.url;</div><div class="line">    <span class="keyword">if</span>(url==<span class="string">"/"</span>)&#123;</div><div class="line">        url = <span class="string">"/index.html"</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//判断文件是否存在</span></div><div class="line">    <span class="keyword">var</span> bol = fs.existsSync(<span class="string">"www"</span>+url);</div><div class="line">    <span class="keyword">if</span>(bol)&#123;</div><div class="line">        <span class="comment">//存在就获取文件或者文件夹的信息</span></div><div class="line">        <span class="keyword">var</span> stat = fs.lstatSync(<span class="string">"www"</span>+url);</div><div class="line">        isfile = stat.isFile();<span class="comment">//查看是否文件</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span>(isfile)&#123;</div><div class="line">        <span class="comment">//创建流式</span></div><div class="line">        <span class="keyword">var</span> rs = fs.createReadStream(<span class="string">"www"</span>+url);</div><div class="line">        rs.pipe(res);</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        res.end(<span class="string">"404"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;)</div><div class="line">server.lisen(<span class="number">8080</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"开启成功:http://localhost:8080"</span>);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 
           
         
@@ -934,8 +968,8 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">13</span>
-              <span class="site-state-item-name">posts</span>
+              <span class="site-state-item-count">15</span>
+              <span class="site-state-item-name">Artikel</span>
             </a>
           </div>
 
@@ -982,7 +1016,7 @@
 </div>
 
 <div class="powered-by">
-  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
 </div>
 
 <div class="theme-info">

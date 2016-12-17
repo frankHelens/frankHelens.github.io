@@ -84,16 +84,19 @@
 
 
 
-<meta name="description" content="利用Angularjs制作tab切换css样式123456789101112131415&amp;lt;style&amp;gt;        input&amp;#123;            width: 100px;            height: 30px;            background: #ccc;        &amp;#125;        .active&amp;#123;">
+<meta name="description" content="利用Angularjs制作tab切换css样式
+123456789101112131415&amp;lt;style&amp;gt;        input&amp;#123;            width: 100px;            height: 30px;            background: #ccc;        &amp;#125;        .active&amp;#123;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="利用Angularjs制作tab切换">
 <meta property="og:url" content="http://yoursite.com/2016/12/03/利用Angularjs制作tab切换/index.html">
 <meta property="og:site_name" content="Frank的个人博客">
-<meta property="og:description" content="利用Angularjs制作tab切换css样式123456789101112131415&amp;lt;style&amp;gt;        input&amp;#123;            width: 100px;            height: 30px;            background: #ccc;        &amp;#125;        .active&amp;#123;">
-<meta property="og:updated_time" content="2016-12-03T11:49:11.000Z">
+<meta property="og:description" content="利用Angularjs制作tab切换css样式
+123456789101112131415&amp;lt;style&amp;gt;        input&amp;#123;            width: 100px;            height: 30px;            background: #ccc;        &amp;#125;        .active&amp;#123;">
+<meta property="og:updated_time" content="2016-12-17T01:05:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用Angularjs制作tab切换">
-<meta name="twitter:description" content="利用Angularjs制作tab切换css样式123456789101112131415&amp;lt;style&amp;gt;        input&amp;#123;            width: 100px;            height: 30px;            background: #ccc;        &amp;#125;        .active&amp;#123;">
+<meta name="twitter:description" content="利用Angularjs制作tab切换css样式
+123456789101112131415&amp;lt;style&amp;gt;        input&amp;#123;            width: 100px;            height: 30px;            background: #ccc;        &amp;#125;        .active&amp;#123;">
 
 
 
@@ -173,7 +176,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-            Home
+            Startseite
           </a>
         </li>
       
@@ -181,7 +184,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -250,7 +253,7 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Posted on</span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
             <time itemprop="dateCreated" datetime="2016-12-03T16:33:26+08:00" content="2016-12-03">
               2016-12-03
             </time>
@@ -279,11 +282,14 @@
       
 
       
-        <h3 id="利用Angularjs制作tab切换"><a href="#利用Angularjs制作tab切换" class="headerlink" title="利用Angularjs制作tab切换"></a>利用Angularjs制作tab切换</h3><p>css样式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">        input&#123;</div><div class="line">            width: 100px;</div><div class="line">            height: 30px;</div><div class="line">            background: #ccc;</div><div class="line">        &#125;</div><div class="line">        .active&#123;</div><div class="line">            background: yellow;</div><div class="line">        &#125;</div><div class="line">        div&#123;</div><div class="line">            width: 200px;</div><div class="line">            height: 200px;</div><div class="line">            background: orangered;</div><div class="line">        &#125;</div><div class="line">    &lt;/style&gt;</div></pre></td></tr></table></figure></p>
-<p>在页头引入angularjs文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script src=&quot;angular.min.js&quot;&gt;&lt;/script&gt;</div></pre></td></tr></table></figure></p>
-<p>html<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;body ng-app=&quot;myApp&quot; ng-controller=&quot;con&quot;&gt;</div><div class="line">&lt;input type=&quot;button&quot; ng-class=&quot;json.bol?&apos;active&apos;:&apos;&apos;&quot; ng-click=&quot;change(json.btn)&quot; ng-repeat=&quot;json in arr&quot; value=&quot;&#123;&#123;json.btn&#125;&#125;&quot;&gt;</div><div class="line">&lt;div ng-repeat=&quot;json in arr&quot; ng-show=&quot;json.bol&quot;&gt;&#123;&#123;json.con&#125;&#125;&lt;/div&gt;</div></pre></td></tr></table></figure></p>
-<p>script<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">var app = angular.module(&quot;myApp&quot;,[]);</div><div class="line">  app.controller(&quot;con&quot;,function($scope)&#123;</div><div class="line">      $scope.arr=[</div><div class="line">          &#123;btn:&quot;按钮1&quot;,con:&quot;内容1&quot;,bol:true&#125;,</div><div class="line">          &#123;btn:&quot;按钮2&quot;,con:&quot;内容2&quot;,bol:false&#125;,</div><div class="line">          &#123;btn:&quot;按钮3&quot;,con:&quot;内容3&quot;,bol:false&#125;,</div><div class="line">          &#123;btn:&quot;按钮4&quot;,con:&quot;内容4&quot;,bol:false&#125;,</div><div class="line">          &#123;btn:&quot;按钮5&quot;,con:&quot;内容5&quot;,bol:false&#125;,</div><div class="line">          &#123;btn:&quot;按钮6&quot;,con:&quot;内容6&quot;,bol:false&#125;</div><div class="line">      ]</div><div class="line">      $scope.change=function(btn)&#123;</div><div class="line">          for(var i=0;i&lt;$scope.arr.length;i++)&#123;</div><div class="line">              if(btn==$scope.arr[i].btn)&#123;</div><div class="line">                  $scope.arr[i].bol=true;</div><div class="line">              &#125;else&#123;</div><div class="line">                  $scope.arr[i].bol=false;</div><div class="line">              &#125;</div><div class="line">          &#125;</div><div class="line">      &#125;</div><div class="line"></div><div class="line">  &#125;)</div></pre></td></tr></table></figure></p>
-
+        <h3 id="利用Angularjs制作tab切换"><a href="#利用Angularjs制作tab切换" class="headerlink" title="利用Angularjs制作tab切换"></a>利用Angularjs制作tab切换</h3><p>css样式</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">        input&#123;</div><div class="line">            width: 100px;</div><div class="line">            height: 30px;</div><div class="line">            background: #ccc;</div><div class="line">        &#125;</div><div class="line">        .active&#123;</div><div class="line">            background: yellow;</div><div class="line">        &#125;</div><div class="line">        div&#123;</div><div class="line">            width: 200px;</div><div class="line">            height: 200px;</div><div class="line">            background: orangered;</div><div class="line">        &#125;</div><div class="line">    <span class="tag">&lt;/<span class="name">style</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>在页头引入angularjs文件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script src=<span class="string">"angular.min.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></div></pre></td></tr></table></figure>
+<p>html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>=<span class="string">"myApp"</span> <span class="attr">ng-controller</span>=<span class="string">"con"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">ng-class</span>=<span class="string">"json.bol?'active':''"</span> <span class="attr">ng-click</span>=<span class="string">"change(json.btn)"</span> <span class="attr">ng-repeat</span>=<span class="string">"json in arr"</span> <span class="attr">value</span>=<span class="string">"&#123;&#123;json.btn&#125;&#125;"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-repeat</span>=<span class="string">"json in arr"</span> <span class="attr">ng-show</span>=<span class="string">"json.bol"</span>&gt;</span>&#123;&#123;json.con&#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>script</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> app = angular.module(<span class="string">"myApp"</span>,[]);</div><div class="line">  app.controller(<span class="string">"con"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">$scope</span>)</span>&#123;</div><div class="line">      $scope.arr=[</div><div class="line">          &#123;<span class="attr">btn</span>:<span class="string">"按钮1"</span>,<span class="attr">con</span>:<span class="string">"内容1"</span>,<span class="attr">bol</span>:<span class="literal">true</span>&#125;,</div><div class="line">          &#123;<span class="attr">btn</span>:<span class="string">"按钮2"</span>,<span class="attr">con</span>:<span class="string">"内容2"</span>,<span class="attr">bol</span>:<span class="literal">false</span>&#125;,</div><div class="line">          &#123;<span class="attr">btn</span>:<span class="string">"按钮3"</span>,<span class="attr">con</span>:<span class="string">"内容3"</span>,<span class="attr">bol</span>:<span class="literal">false</span>&#125;,</div><div class="line">          &#123;<span class="attr">btn</span>:<span class="string">"按钮4"</span>,<span class="attr">con</span>:<span class="string">"内容4"</span>,<span class="attr">bol</span>:<span class="literal">false</span>&#125;,</div><div class="line">          &#123;<span class="attr">btn</span>:<span class="string">"按钮5"</span>,<span class="attr">con</span>:<span class="string">"内容5"</span>,<span class="attr">bol</span>:<span class="literal">false</span>&#125;,</div><div class="line">          &#123;<span class="attr">btn</span>:<span class="string">"按钮6"</span>,<span class="attr">con</span>:<span class="string">"内容6"</span>,<span class="attr">bol</span>:<span class="literal">false</span>&#125;</div><div class="line">      ]</div><div class="line">      $scope.change=<span class="function"><span class="keyword">function</span>(<span class="params">btn</span>)</span>&#123;</div><div class="line">          <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;$scope.arr.length;i++)&#123;</div><div class="line">              <span class="keyword">if</span>(btn==$scope.arr[i].btn)&#123;</div><div class="line">                  $scope.arr[i].bol=<span class="literal">true</span>;</div><div class="line">              &#125;<span class="keyword">else</span>&#123;</div><div class="line">                  $scope.arr[i].bol=<span class="literal">false</span>;</div><div class="line">              &#125;</div><div class="line">          &#125;</div><div class="line">      &#125;</div><div class="line"></div><div class="line">  &#125;)</div></pre></td></tr></table></figure>
       
     </div>
 
@@ -367,10 +373,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            Table of Contents
+            Inhaltsverzeichnis
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
-            Overview
+            Übersicht
           </li>
         </ul>
       
@@ -386,8 +392,8 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">13</span>
-              <span class="site-state-item-name">posts</span>
+              <span class="site-state-item-count">15</span>
+              <span class="site-state-item-name">Artikel</span>
             </a>
           </div>
 
@@ -445,7 +451,7 @@
 </div>
 
 <div class="powered-by">
-  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
 </div>
 
 <div class="theme-info">
