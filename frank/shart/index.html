@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>星空展览</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <!-- css -->
+    <link rel="stylesheet" href="css/swiper.min.css"> 
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animate.min.css">   
+</head>
+<body>  
+    <!-- 区域内容 -->
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <h1 class="title title-big">周年庆典<span>Year</span></h1> 
+                <h4 class="title title-small title-special">活动多多 - <span>惊喜不断</span></h4> 
+                <!-- 两个球 -->
+                <img src="img/planet-1.png" alt="" class="abs ani planet">
+                <img src="img/moon.png" alt="" class="abs ani moon">
+                <!-- 射线动画 -->
+                <img src="img/asteroids-left.png" class="a-left" alt="">
+                <img src="img/asteroids-right.png" class="a-right" alt="">
+                <!-- 粒子 -->
+                <div class="tiny-stars">
+                  <img src="img/stars.png" alt="" />
+                </div> 
+                <div class="tiny-stars middle-stars">
+                  <img src="img/stars1.png" alt="" />
+                </div> 
+                <!-- 球加动画     -->
+                <div class="planet-big centered"> 
+                    <span class="round round-1"></span> 
+                    <span class="round round-2"></span> 
+                    <span class="round round-3"></span> 
+                    <span class="round round-4"></span> 
+                    <span class="round round-5"></span> 
+                </div>
+                    <!-- 内容 -->
+                <div class="planet-big-content"> 
+                    <h4>梦幻星空烩彩设计公司<span class="title-cursive">一周年盛大活动</span></h4> 
+                    <h5 class="title">ARE YOU READY?</h5> 
+                </div>
+                <!-- 箭头 -->
+                <img class="arrow abs" src="img/arrow.png" alt="">
+                <img class="hand abs" src="img/hand.png" alt="">
+
+            </div>
+            <!-- 第二屏  swiper-no-swiping-->
+            <div class="swiper-slide">
+                <div class="clouds">
+                <img src="img/cloud-6.png" alt="">
+                </div>
+                <div class="content2"> 
+                    <h4  class="ani" swiper-animate-effect="fade-out-down">梦幻星空周年展览会<span class="title-cursive">活动介绍</span></h4>
+                    <h5 class="ani"  class="ani" swiper-animate-effect="fade-out-down" swiper-animate-delay="1s" id="text" >展览主题新奇多样，包括：无限星空展、5D错觉画展、浪漫Kiss House、夜光丛林探险、前生今世镜、迈克尔45°房、惊魂浴室、恐怖沙发、三生结缘树、4D体感游戏节等，让你睁大眼睛梦游仙境。</h5> 
+                    <h4 class="ani"  class="ani" swiper-animate-effect="fade-out-down" swiper-animate-delay="1.5s">点击发光点开始穿越吧~~</h4>
+                </div>
+                <img class="abs ani observatory" src="img/observatory.png" alt="">
+                <img id="g" class="abs g ani" swiper-animate-effect="scores" src="img/g.png" alt="">
+            </div>
+            <!-- 第三屏 swiper-no-swiping-->
+            <div class="swiper-slide ">
+                <canvas id="canvas"></canvas>
+                <img src="img/asteroids-left.png" class="a-left" alt="">
+                <img src="img/asteroids-right.png" class="a-right" alt="">
+            </div>
+            <div class="swiper-slide">Slide 4</div>
+            <div class="swiper-slide">Slide 5</div>
+            <div class="swiper-slide">Slide 6</div>
+            <div class="swiper-slide">Slide 7</div>
+            <div class="swiper-slide">Slide 8</div>
+            <div class="swiper-slide">Slide 9</div>
+            <div class="swiper-slide">Slide 10</div>
+        </div>
+    </div>
+
+    <!--  JS -->
+    <script src="js/swiper.min.js"></script>
+    <script src="js/swiper.animate1.0.2.min.js"></script>
+    <script>
+    // 动态宽度rem
+    (function(html){
+        change()
+        function change(){
+            var w = html.clientWidth;
+            if (w>640) {
+                w = 640;
+            }
+            var size = 100*(w/375).toFixed(2);
+            html.style.fontSize = size+"px"
+        }
+        window.addEventListener('resize',function () {
+            change()
+        })
+    })(document.documentElement)
+    //Initialize Swiper
+    var swiper = new Swiper('.swiper-container', {
+        paginationClickable: true,
+        direction: 'vertical',
+        onInit: function(swiper){ //Swiper2.x的初始化是onFirstInit
+            swiperAnimate(swiper); //初始化完成开始动画
+        }, 
+        onSlideChangeEnd: function(swiper){ 
+            swiperAnimate(swiper); //每个slide切换结束时也运行当前slide动画
+        },
+        onTouchStart: function(swiper,even){
+            if(swiper.activeIndex==1){//锁住
+                swiper.lockSwipeToNext();
+            }else{
+                swiper.unlockSwipeToNext();
+            }
+        }
+    });
+   
+    </script>
+    <script src='js/shar.js'></script>
+</body>
+</html>

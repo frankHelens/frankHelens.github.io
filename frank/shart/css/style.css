@@ -1,0 +1,322 @@
+ html, body {
+        position: relative;
+        height: 100%;
+    }
+    body {
+        background: #eee;
+        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        color:#000;
+        margin: 0;
+        padding: 0;
+    }
+    .abs{
+        position: absolute;
+    }
+    .swiper-container {
+        width: 100%;
+        height: 100%;
+    }
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        position: relative;
+}
+/*第一屏*/
+.swiper-slide:nth-child(1){
+    background: url(../img/bg-main.png); 
+}
+.a-left{
+    width: 250px;
+    height: 250px;
+    transform: translate3d(-300px,-300px,0);
+    animation:a-left-move 2s ease-in-out infinite;
+}
+@-webkit-keyframes a-left-move{
+    0%{
+        transform: translate3d(-350px,-350px,0);
+        opacity: 1;
+    }
+    100%{
+        transform: translate3d(350px,350px,0);
+        opacity: 0;
+    }
+}
+.a-right{
+    width: 250px;
+    height: 250px;
+    transform: translate3d(350px,-350px,0);
+    animation: a-right-move 2s ease-in-out infinite 0.5s;
+}
+
+@-webkit-keyframes a-right-move{
+    0%{
+        transform: translate3d(350px,-350px,0);
+         opacity: 1;
+    }
+    100%{
+        transform: translate3d(-350px,350px,0);
+         opacity: 0;
+    }
+}
+/*球加动画*/
+.planet-big {
+    z-index: 2;
+    position: absolute;
+    vertical-align: middle;
+    top: 50%;
+    left:50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 2.8rem;
+    height: 2.8rem;
+    background-image: url(../img/planet-big-with-orbits.png);
+    background-position: center center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+/*粒子*/
+.tiny-stars{ 
+    width: 90%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    animation:stars1-move 15s linear infinite;
+    opacity: 0.6;
+}
+.middle-stars{
+    animation:stars2-move 12s linear infinite; 
+    opacity: 1;
+}
+.tiny-stars img{ 
+    width: 100%;
+    height: 100%;
+}
+@-webkit-keyframes stars1-move{
+    0%{
+        transform: translateX(-50%) translateY(-50%) rotate(0deg);
+    }
+    100%{
+        transform: translateX(-50%) translateY(-50%) rotate(-360deg);
+    }
+}
+@-webkit-keyframes stars2-move{
+    0%{
+        transform: translateX(-50%) translateY(-50%) rotate(0deg);
+    }
+    100%{
+        transform: translateX(-50%) translateY(-50%) rotate(360deg);
+    }
+}
+/*两个球*/
+.abs{
+    position: absolute;
+}
+.planet{
+    width: 10%;
+    top: 100px;
+    left: 10%;
+}
+.moon{
+    width: 17%;
+    top: 35px;
+    right: 5%;
+}
+.ani{
+    animation:ani 2s linear infinite;  
+}
+@-webkit-keyframes ani{
+    0%{
+        transform: translateY(-10px);
+    }
+    50%{
+        transform: translateY(10px);
+    }
+    100%{
+        transform: translateY(-10px);
+    }
+}
+    
+/*标题*/
+.title{
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.title-big {
+    margin-top: 40px;
+    color: #00C6FF;
+    font-size: .3rem;
+    line-height: .3px;
+    font-weight: normal;
+    font-family: 'Open Sans', Arial, sans-serif; 
+    opacity: 0;   
+    animation:fade-out-down 1s ease-in-out 1 0.8s forwards;  
+}
+/*向下淡出效果*/
+@-webkit-keyframes fade-out-down{
+    0%{
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+    100%{
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+/*向上淡出效果*/
+@-webkit-keyframes fade-out-up{
+    0%{
+        transform: translateY(0);
+        opacity: 0;
+    }
+    100%{
+        transform: translateY(-20px);
+        opacity: 1;
+    }
+}
+/*缩小放大效果*/
+@-webkit-keyframes scale{
+    0%{
+        transform: scale(0);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
+.title-special {
+    color: #fff;
+    font-weight: normal;
+}
+
+.title-big span {
+    display: block;
+    font-size: .5rem;
+    line-height: .9rem;
+    font-weight: bold;
+}
+.title-small, .title-smaller {
+    margin-top: -20px;
+    color: #00C6FF;
+    font-size: .2rem;
+    font-family: 'PT Sans', Arial, sans-serif;
+    transform: scale(0);
+    animation:scale 1s ease-in-out 1 1.5s forwards;
+}
+/*球内容*/
+.planet-big-content {
+    font-size: .2rem;
+    color: #fdc12d;
+    z-index:4;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 80%;
+    text-align: center;
+    vertical-align: middle;  
+}
+.title-cursive{
+    display: block;
+}
+.planet-big-content h4{
+    opacity: 0;
+    animation:fade-out-down 0.5s ease-in-out 1 2.2s forwards;  
+}
+.planet-big-content h5{
+    opacity: 0;
+    color: #00C6FF;
+    animation:fade-out-down 0.5s ease-in-out 1 2.5s forwards;  
+}
+.arrow{
+    width: .3rem;
+    position: absolute;
+    bottom: 40px;
+    left: 48%;
+    opacity: 0;
+    animation:fade-out-down 1s linear alternate  infinite;   
+}
+.hand{
+    position: absolute;
+    width: .75rem;
+    bottom: 30px;
+    right: 10%;
+    opacity: 0;
+    animation:fade-out-up 2s  infinite 4s;   
+}
+/*第二屏*/
+.swiper-slide:nth-child(2){
+    background: url(../img/bg-bottom.jpg) no-repeat ;
+    background-size: 100% 100%; 
+}
+.clouds img{
+    position: absolute;
+}
+.clouds img:nth-child(1){
+    top: 20px;
+    animation:clouds-move 15s infinite;   
+}
+/*云朵移动*/
+@-webkit-keyframes clouds-move{
+    0%{
+        transform: translateX(0);
+    }f
+    35%{
+        transform: translateX(400px);
+    }
+    80%{
+        transform: translateX(-500px);
+    }
+    100%{
+        transform: translateX(0px);
+    }
+}
+.content2{
+    top: 30%;
+     font-size: .2rem;
+    color: #fdc12d;
+    z-index:4;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 80%;
+    text-align: center;
+    vertical-align: middle;
+}
+.content2 h4,h5{
+    opacity: 0;
+}
+.content2 h5{
+    color: #00C6FF;
+}
+/*星星*/
+.g{
+    width: 80%;
+    bottom: 30%;
+    left: 10%;
+    z-index:999;
+}
+/*建筑物*/
+.observatory{
+    width: 30%;
+    bottom: 5%;
+    left: 0%;
+}
+/*第三屏*/
+.swiper-slide:nth-child(3){
+    background: url(../img/bg-three.jpg) no-repeat ;
+    background-size: 100% 100%; 
+}
+.three-contains {
+    width: 100%;
+    height: 70%;
+    background: red;
+    top: 25%;
+}
+.three-tiny-stars{
+    width: 40%;
+}   
+/*四个球*/
+.boll{
+    left: 4%;
+}
