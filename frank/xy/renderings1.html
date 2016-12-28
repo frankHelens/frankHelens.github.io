@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>Renderings</title>
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/header.css">
+	<link rel="stylesheet" href="css/footer.css">
+	<link rel="stylesheet" href="css/renderings1.css">
+	<link rel="stylesheet" href="css/swiper-3.3.1.min.css">
+
+</head>
+<body>
+	<!-- 头部 -->
+	<div class="header">
+		<div class="inner clear">
+			<div class="logo fl">
+				<a href="home.html"><img src="img/logo.png" alt=""></a>
+			</div>
+		<ul class="fr">
+			<a href="home.html"><li class="fl">HOME</li></a>
+			<a href="about.html"><li class="fl">ABOUT</li></a>
+			<a href="renderings1.html"><li class="fl">Renderings</li></a>
+			<a href="3danimate.html"><li class="fl">3D Animate</li></a>
+			<a href="bim.html"><li class="fl">BIM</li></a>
+			<a href="content.html"><li class="fl">Contact</li></a>
+		</ul>
+		<i></i>
+		</div>			
+	</div>
+	<!-- 内容	 -->
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="img/Renimg/B1.jpg" alt=""></div>
+        <div class="swiper-slide"><img src="img/Renimg/B30.jpg" alt=""></div>
+        <div class="swiper-slide"><img src="img/Renimg/B2.jpg" alt=""></div>
+    </div>
+    <!-- 如果需要分页器 -->
+    <div class="swiper-pagination"></div>
+</div>
+<!-- 下面的照片 -->
+<div class="content">
+<!-- 	<div class="">
+		<img src="img/B1.jpg" alt="">
+	</div> -->
+</div>
+<div class="show"><img src="" alt=""></div>
+
+	<!-- 脚部 -->
+	<div class="footer">
+		<div class="share">
+			<a href="###"></a>
+			<p class="clear">
+				<a href="###" class="fl"></a>
+				<a href="###" class="fl"></a>
+				<a href="###" class="fl"></a>
+				<a href="###" class="fl"></a>
+			</p>
+		</div>
+		<p>Copyright © 1998-2015 shining Group</p>
+	</div>
+	<script src = "js/jquery-1.11.2.min.js"></script>
+	<script src = 'js/header.js'></script>
+	<script src = 'js/footer.js'></script>
+	<script src = 'js/swiper-3.3.1.min.js'></script>
+	<script src = 'js/renderings1.js'></script>
+	<script>        
+  var mySwiper = new Swiper ('.swiper-container', {
+  	effect : 'fade',
+    loop: true,
+   	autoplay: 2000,//可选选项，自动滑动
+    // 如果需要分页器
+    pagination: '.swiper-pagination',
+  })     
+
+  </script>
+</body>
+</html>

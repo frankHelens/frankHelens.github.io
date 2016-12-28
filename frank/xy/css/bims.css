@@ -1,0 +1,122 @@
+
+.header .nav ul li #bim{border:1px solid white;}
+
+
+.contont-1,.contont-3,.contont-5{
+	background:#f2f2f3;
+}
+.div1{
+	width:100%;
+	max-width:1127px;
+	height:500px;
+	margin:auto;
+	position:relative;
+}
+.div1 div{
+	padding:5% 0 5% 5%;
+	width:58%;
+	max-width:380px;
+}
+.div1 div h3{
+	padding-bottom:20px;
+}
+.div1 div img{
+	width:100%;
+	margin:10% 0;
+}
+.div1>img{
+	width:30%;
+	position:absolute;
+	max-width:350px;
+	min-width:150px
+}
+.contont-1 div>img{
+	right:2%;
+	bottom:0px;
+}
+
+.contont-2 .div1>img{
+	right:2%;
+	top:0px;
+}
+.contont-2 .div1 div>img{
+	width:45%;
+	margin:1%;
+	padding-top:10%;
+}
+
+.contont-3 .div1 div{
+	margin:0 auto;
+}
+.contont-3 .div1 div img{width:45%;margin:10% 2%;}
+
+.contont-3 .div1>img{bottom:0;left:-8%;}
+
+.contont-4 .div1 .img1{top:0;left:-8%;}
+.contont-4 .div1 .img2{bottom:0;right:2%;}
+.contont-4 .div1 div{
+	margin:0 auto;
+	padding-left:50px;
+}
+.contont-4 .div1 div img{
+	width:50%;
+	padding:0;
+	margin:5% 20%;
+}
+.contont-5 .div1>img{top:0;right:2%;}
+
+.contont-5 .div1{padding-top:10%;}
+
+
+@media screen and (max-width:960px) {
+
+	.contont ul .l_space{
+		display:none;
+	}
+	.contont ul .l_space_1{
+		display:none;
+	}
+	.contont ul{
+		width:100%;
+		border-bottom:none;
+		overflow:none;
+		text-align:center;
+	}
+	.contont ul li{
+		height:auto;
+		float:none;
+	}
+	.contont ul .fr{float:none;}
+
+	.contont ul .l_text_1 p,ul p{
+		width:100%;
+		float:none;
+		padding-bottom:20px;
+	}
+
+	.contont ul .l_img{
+		width:100%;
+	}
+	.contont ul .l_text{
+		padding-left:0px;
+		width:100%;
+	}
+	.contont ul .l_text_1{
+		width:100%;
+		text-align:center;
+		padding-right:0;
+	}
+	
+}
+
+@media screen and (max-width:560px) {
+	.div1{
+		height:350px;
+	}
+}
+
+
+
+
+
+

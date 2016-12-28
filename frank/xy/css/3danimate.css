@@ -1,0 +1,61 @@
+.banner{
+	width: 100%;
+	background-color: #1b1b1b;
+	margin-bottom: 31px;
+}
+.main{
+	max-width:1126px;
+	min-width: 320px;
+	width:100%; 
+	margin:auto;
+	position: relative;
+	font-size:100px;
+}
+.banner .main img{
+	width: 100%;
+}
+.banner .main .message{
+	width: 100%;
+	height: 17%;
+	position: absolute;
+	bottom: 0;
+	background-color: rgba(11,11,11,0.6);
+	font-size:0.3em;
+	color: #b4b4b4;
+	display: none;
+}
+.banner .main .message h2{
+	margin:3% 4%;
+}
+
+.main .sm_video{
+	width: 32%;
+	margin:1% 0.6%;
+	text-align: center;
+	cursor: pointer;
+}
+.main .sm_video img{
+	width: 100%;
+}
+.main .sm_video p{
+	font-size: 0.12em;
+	color: #8f8f8f;
+	margin-top:15px;
+}
+@media screen and (max-width: 960px) {
+.main{
+	font-size:60px;
+}
+.main .sm_video{
+	width: 48%;
+ }
+}
+@media screen and (max-width: 490px) {
+.main{
+	font-size:40px;
+}
+.main .sm_video{
+	width: 90%;
+	margin:3% 5%;
+ }
+}

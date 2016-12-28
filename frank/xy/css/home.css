@@ -1,0 +1,71 @@
+.content{
+	max-width: 1127px;
+	width: 100%;
+	margin: auto;
+}
+.content .con .left{	
+	width: 65%;
+	overflow: hidden;
+	border-right: 21px solid #e1e1e1;
+	box-sizing: border-box;
+	position: relative;
+	transition: 0.8s ;
+}
+.content .m .left{
+	border-right: 0;
+	border-left: 21px solid #e1e1e1;
+}
+.content .con .left img{	
+	width: 100%;	
+}
+.content .con .right{
+	font-size: 100px;
+	width: 35%;
+	box-sizing: border-box;
+	padding: .43em 15px 0;
+	color: #b4b4b4;
+	transition: 1s;
+}
+.content .m .right {
+	text-align:right;
+}
+.content .con .right h2{
+	font-size: .3em;
+	padding-bottom: .25em;
+
+}
+.content .con .right p{
+	font-size: .15em;
+	line-height: 1.3em;
+}
+.left .conImgs{
+	position: absolute;
+	top: 0;
+}
+
+@media screen and (max-width: 1060px){
+	.content .con .right{
+		font-size: 94px;
+	}
+}
+@media screen and (max-width: 960px){
+	.content .con .right{
+		font-size: 89px;
+	}
+}
+@media screen and (max-width: 760px){
+	.content .con .right{
+		font-size: 66px;
+		width: 100%;
+		text-align: center;
+	}
+	.content .con .left{
+		width: 100%;
+		border: none;
+	}
+}	
+
+
+
+
+

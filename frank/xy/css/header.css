@@ -1,0 +1,94 @@
+.header{
+	height: 69px;
+	background-color: #1b1b1b;
+	position: relative;
+}
+.header .inner{
+	max-width: 1127px;
+	width: 100%;
+	margin:auto;
+	position: relative;
+}
+/*logo的居中*/
+.header .logo{
+	line-height: 69px; 
+}
+.header ul li.active a{
+	color: white;
+}
+.header i{
+		cursor: pointer;
+		position: absolute;
+		top: 28px;
+		right:15px;
+		width: 20px;
+		height: 11px;
+		border-top: 3px #ccc solid;
+		border-bottom: 3px #ccc solid;
+		display: none;
+	}
+.header i:after{
+		content: '';
+		position: absolute;
+		top: 4px;
+		left: 0;
+		width: 100%;
+		height: 3px;
+		background-color: #ccc;
+}
+
+@media screen and (min-width: 760px){
+
+.header ul li {
+	margin-top: 21px;
+}
+.header ul li{
+	padding: 6px 10px;
+	border: 1px solid transparent;
+	margin-left: 48px;
+	border-radius: 5px
+}
+.header ul li:hover{
+	border: 1px solid #7b7b7b;
+}
+.header ul li.active{
+	border:1px solid #7b7b7b;
+}
+
+.header ul li {
+	color: #a8a8a8;
+}
+}
+@media screen and (min-width: 759px) and (max-width: 940px){
+	.header ul li{
+	margin-left: 18px;
+}
+}
+@media screen and (max-width: 760px){
+	.header i{
+		display: block;
+	}
+	.header ul{
+		width: 220px;
+		display: none;
+		position: absolute;
+		top: 69px;
+		right: 0;
+		z-index:2;
+	}
+	.header ul li {
+		float: none;
+		border:none;
+		background: rgba(0,0,0,0.5);
+		border-top: 1px solid rgba(255,255,255,0.6);
+		height: 52px;
+		line-height: 52px;
+		text-align: center;
+		border-radius: 0;
+		color: white;
+	}	
+	.header ul li:hover{
+		background: rgba(0,0,0,0.6);
+	}
+	
+}

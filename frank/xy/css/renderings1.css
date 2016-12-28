@@ -1,0 +1,72 @@
+ html, body {
+    width: 100%;
+ }
+.swiper-container {
+    margin: auto;
+    width: 100%;
+ }
+ .swiper-slide{
+    width: 100%;
+ }
+.swiper-slide img{
+    width: 100%;
+}
+.swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction{
+    bottom: 27px !important;
+}
+.swiper-container-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet{
+    width: 11px;
+    height: 11px; 
+}
+.swiper-container-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet-active{
+    background-color: orange;
+}
+
+/*下面的照片*/
+.content{
+    position: relative;
+    min-height: 1000px;
+    margin-top:10px;
+}
+.content div{
+    width: 25%;
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+.content div img{
+    width: 100%;
+}
+.content div p{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5) url(../img/RenImg/tomax.png) center center no-repeat;
+    top: 0; left: 0;
+    background-size: 15% auto;
+    display: none;
+}
+.show{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    display: none;
+    z-index: 1;
+}
+.show img{
+    width: 80%;
+    position: absolute;
+    left: 0;right: 0;top: 0;bottom: 0;
+    margin: auto;
+    animation: show 0.8s;
+}
+@keyframes show{
+        from{
+            transform: scale(0);
+        }
+        to{
+            transform: scale(1);
+        }
+}

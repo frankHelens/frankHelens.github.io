@@ -1,0 +1,65 @@
+.contains{
+	width: 100%;
+	background:url(../img/contact_bg.jpg) no-repeat center;
+	background-size: 100% 100%;
+}
+.contains .main{
+	max-width:760px;
+	width:100%;
+	margin:auto;
+	padding:193px 0 250px;
+	text-align: center; 
+}
+.contains .main h2{
+	font-size: 20px;
+	padding: 15px 0;
+}
+.contains .main h2 span{
+	font-size: 16px;
+	color: #595757;
+}
+.contains .main p{
+	font-size: 10px;
+	color: #595757;
+}
+.contains .main a {
+	display: inline-block;
+	width: 31px;
+	height: 23px;
+	background: url(../img/share.png);
+	background-position:-320px 0; 
+	margin: 0 30px;
+}
+.main_bottom>div {
+	margin-top: 60px;
+}
+.main_bottom>div:nth-child(1) a{
+	width: 35px;
+	height: 31px;
+	background-position:-200px 0;
+}
+.main_bottom>div:nth-child(2) a{
+	width: 20px;
+	height: 38px;
+	background-position:-240px 0;
+}
+.main_bottom>div:nth-child(3) a{
+	width: 25px;
+	height: 37px;
+	background-position:-281px 0;
+}
+.contains .footer{
+	margin-bottom: 0;
+}
+@media screen and (max-width: 960px) {
+	.contains{
+	background-size:960px 100%;
+	}	
+	.contains .main{
+	width:270px;
+	margin:auto;
+	padding:100px 0 80px;
+	text-align: center; 
+}
+
+}

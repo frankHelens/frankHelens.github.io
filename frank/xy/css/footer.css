@@ -1,0 +1,44 @@
+.footer{
+	margin: 82px;
+	text-align: center;
+	font-size: 10px;
+}
+.footer .share{
+	width: 172px;
+	height: 100%;
+	margin: 0 auto;
+}
+.footer a{
+	display: block;
+	width: 35px;
+	height: 26px;
+	background:url(../img/share.png) no-repeat;
+	background-position:0 0;
+	margin: auto;
+	transition: 0.35s;
+
+}
+.footer p{
+	padding: 19px 0;
+}
+.footer p a{
+	width: 25px;
+	height: 25px;
+	margin-left: 14px;
+}
+.footer p a:nth-child(1){
+	background-position: -41px 0;
+}
+
+.footer p a:nth-child(2){
+	background-position: -80px 0;
+	
+}
+.footer p a:nth-child(3){
+	background-position: -120px 0;
+	
+}
+.footer p a:nth-child(4){
+	background-position: -160px 0;
+	
+}

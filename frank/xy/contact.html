@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>contact</title>
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/header.css">
+	<link rel="stylesheet" href="css/footer.css">
+	<link rel="stylesheet" href="css/contact.css">
+</head>
+<body>
+	<!-- 头部 -->
+	<div class="header">
+		<div class="inner clear">
+			<div class="logo fl">
+				<a href="home.html"><img src="img/logo.png" alt=""></a>
+			</div>
+		<ul class="fr">
+			<a href="home.html"><li class="fl">HOME</li></a>
+			<a href="about.html"><li class="fl">ABOUT</li></a>
+			<a href="renderings1.html"><li class="fl">Renderings</li></a>
+			<a href="3danimate.html"><li class="fl">3D Animate</li></a>
+			<a href="bim.html"><li class="fl">BIM</li></a>
+			<a href="contact.html"><li class="fl">Contact</li></a>
+		</ul>
+		<i></i>
+		</div>			
+	</div>	
+	<!-- 内容 -->
+	<div class="contains">
+		<div class="main">
+			<h2>Contast:<span>Eric Wang</span></h2>
+			<h2><a href="###"></a>Email:<span>eric@shining365.com</span></h2>
+			<div class="main_bottom clear">
+				<div class="fl clear">
+					<a href="" class="fl"></a>
+					<p class="fl">+86 21 6598 6866- 304<br/>
+					+86 21 6598 3188- 304</p>
+				</div>
+				<div class="fl clear">
+					<a href="" class="fl"></a>
+					<p class="fl">+86 138 1690 3400</p>
+				</div>
+				<div class="fl clear">
+					<a href="" class="fl"></a>
+					<p class="fl">1-5F, creative center building, No.2, 1147 Lane,<br/> Siping Road, Yangpu District, Shanghai</p>
+				</div>
+			</div>
+		</div>
+
+	<!-- 脚部 -->
+	<div class="footer">
+		<div class="share">
+			<p class="clear">
+				<a href="###" class="fl"></a>
+				<a href="###" class="fl"></a>
+				<a href="###" class="fl"></a>
+				<a href="###" class="fl"></a>
+			</p>
+		</div>
+		<p>Copyright © 1998-2015 shining Group</p>
+	</div>
+	</div>	
+</body>
+	<script src = "js/jquery-1.11.2.min.js"></script>
+	<script src = 'js/header.js'></script>
+	<script>
+		$(".footer a").hover(function(){
+		$(this).css("backgroundPosition",(($(this).index()+1)*(-40))+"px"+" -40px");
+	},function(){
+		$(this).css("backgroundPosition",(($(this).index()+1)*(-40))+"px"+" 0px");
+	})
+	</script>
+</body>
+</html>

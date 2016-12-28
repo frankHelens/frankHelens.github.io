@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>作业</title>
+		<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+			#div{
+				width: 100px;
+				height: 200px;
+				background: blue;
+				margin-top: 30px;
+				position: absolute;
+				left: -100px;
+			}
+			#div span{
+				width: 20px;
+				height: 60px;
+				background: red;
+				position: absolute;
+				line-height: 20px;
+				text-align: center;
+				right: -20px;
+				top: 70px;
+				color: white;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="div">
+			<span>分享到</span>
+		</div>
+		<script type="text/javascript">
+			var div = document.getElementById("div");
+			//向右移动
+			div.onmouseenter = function(){
+				moveStart();
+			}
+			var timer1 = null;
+			function moveStart(){
+				// clearInterval(timer1);
+				console.log(timer1);
+				 timer1 = setInterval(function(){
+				 	div.style.left = div.offsetLeft+10+"px";
+					if(div.offsetLeft>=0){
+//						alert(54564546);
+						clearInterval(timer1);
+//						div.style.left = div.offsetLeft+"px"
+					}
+				},50)
+			}
+			
+//			向左移动
+			var timer2 =null;
+			div.onmouseleave = function(){
+				moveBack();
+			}
+			function moveBack(){
+				clearInterval(timer2);
+				 timer2 = setInterval(function(){
+				 	div.style.left = -(div.offsetLeft+10)+"px";
+					if(div.offsetLeft===-100){	
+						clearInterval(timer2);
+					}
+//					console.log(div.offsetLeft);
+				},50)
+			}
+		</script>
+	</body>
+</html>

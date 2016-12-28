@@ -1,0 +1,46 @@
+.main{
+	width: 100%;
+	background: url(../img/worldmap.jpg);
+}
+.main_con{
+	max-width: 1026px;
+	width: 100%;
+	margin:auto;
+	padding-top: 105px;
+}
+.main_con .txt{
+	width: 509px;
+	margin-bottom: 50px;
+}
+.main_con .txt h2{
+	font-size:24px;
+}
+.main_con .txt p{
+	font-size: 15px;
+	color: #595757;
+	line-height: 27px;
+	padding:24px 0;
+}
+.main_con .logos img{
+	width: 8%;
+	margin:0 1%;
+}
+@media screen and (max-width: 760px){
+	.main_con .logos img{
+		width:14%;
+		margin:2% 3%;
+	}
+}
+@media screen and (max-width: 535px){
+	.main_con{
+		padding-top: 10%;
+	}
+	.main_con .txt{
+		width: 100%;
+		margin-bottom: 30px;
+	}
+	.main_con .logos img{
+		width:18%;
+		margin:1% 1%;
+	}
+}
