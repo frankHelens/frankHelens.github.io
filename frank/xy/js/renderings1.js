@@ -1,5 +1,6 @@
 $(function(){
 	var $content = $('.content');
+	createDiv(20)
 	//创建div和图片函数
 	function createDiv(n){
 		var len = $content.children().length;

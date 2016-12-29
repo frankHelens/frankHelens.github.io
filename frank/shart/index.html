@@ -12,40 +12,38 @@
 <body>  
     <!-- 区域内容 -->
     <div class="swiper-container">
-        <div class="swiper-wrapper">
+        <div class="swiper-wrapper ">
             <div class="swiper-slide">
-                <h1 class="title title-big">周年庆典<span>Year</span></h1> 
-                <h4 class="title title-small title-special">活动多多 - <span>惊喜不断</span></h4> 
+                <div class="loading swiper-no-swiping">
+                    <h1 id="loadingNum"></h1>
+                </div>
+                <div class="frist">
+                <h1 class="title title-big ani" swiper-animate-effect="fade-out-down">周年庆典<span>Year</span></h1> 
+                <h4 class="title title-small title-special ani" swiper-animate-effect="smbig">活动多多 - <span>惊喜不断</span></h4> 
                 <!-- 两个球 -->
-                <img src="img/planet-1.png" alt="" class="abs ani planet">
-                <img src="img/moon.png" alt="" class="abs ani moon">
+                <img src="img/planet-1.png" alt="" class="abs ani planet" swiper-animate-effect="updown">
+                <img src="img/moon.png" alt="" class="abs ani moon" swiper-animate-effect="updown">
                 <!-- 射线动画 -->
-                <img src="img/asteroids-left.png" class="a-left" alt="">
-                <img src="img/asteroids-right.png" class="a-right" alt="">
+                <img src="img/asteroids-left.png" class="ani a-left" swiper-animate-effect="a-left-move" alt="">
+                <img src="img/asteroids-right.png" class="ani a-right" swiper-animate-effect="a-right-move" alt="">
                 <!-- 粒子 -->
-                <div class="tiny-stars">
+                <div class="ani tiny-stars" swiper-animate-effect="stars1-move">
                   <img src="img/stars.png" alt="" />
                 </div> 
-                <div class="tiny-stars middle-stars">
+                <div class="tiny-stars ani" swiper-animate-effect="middle-stars">
                   <img src="img/stars1.png" alt="" />
                 </div> 
                 <!-- 球加动画     -->
-                <div class="planet-big centered"> 
-                    <span class="round round-1"></span> 
-                    <span class="round round-2"></span> 
-                    <span class="round round-3"></span> 
-                    <span class="round round-4"></span> 
-                    <span class="round round-5"></span> 
-                </div>
+                <div class="planet-big centered"> </div>
                     <!-- 内容 -->
                 <div class="planet-big-content"> 
-                    <h4>梦幻星空烩彩设计公司<span class="title-cursive">一周年盛大活动</span></h4> 
-                    <h5 class="title">ARE YOU READY?</h5> 
+                    <h4 class="ani" swiper-animate-effect="fade-out-down" swiper-animate-delay="2.2s">梦幻星空烩彩设计公司<span class="title-cursive">一周年盛大活动</span></h4> 
+                    <h5 class="title ani" swiper-animate-effect="fade-out-down" swiper-animate-delay="2.5s">ARE YOU READY?</h5> 
                 </div>
                 <!-- 箭头 -->
                 <img class="arrow abs" src="img/arrow.png" alt="">
                 <img class="hand abs" src="img/hand.png" alt="">
-
+                </div>
             </div>
             <!-- 第二屏  swiper-no-swiping-->
             <div class="swiper-slide">
@@ -60,14 +58,27 @@
                 <img class="abs ani observatory" src="img/observatory.png" alt="">
                 <img id="g" class="abs g ani" swiper-animate-effect="scores" src="img/g.png" alt="">
             </div>
-            <!-- 第三屏 swiper-no-swiping-->
+            <!-- 第三屏 swiper-no-swiping  -->
             <div class="swiper-slide ">
+            		<div class="abs hint ani">
+					   <div class="planet-big-content"> 
+    	                    <h4 class="ani" swiper-animate-effect="fade-out-down">移动你的设备,吃掉所有星星,进入穿越之门~~</h4> 
+    	                    <h5 class="title ani" swiper-animate-effect="fade-out-down" swiper-animate-delay="0.5">点击下面开始!</h5> 
+    	                    	<button id="moveStart" class="ani" swiper-animate-effect="smbig" >START</button>
+                	   </div>
+                       <!-- 射线动画 -->
+                        <img src="img/asteroids-left.png" class="ani a-left" swiper-animate-effect="a-left-move" alt="">
+                        <img src="img/asteroids-right.png" class="ani a-right" swiper-animate-effect="a-right-move" alt="">
+            		</div>
                 <canvas id="canvas"></canvas>
                 <img src="img/asteroids-left.png" class="a-left" alt="">
                 <img src="img/asteroids-right.png" class="a-right" alt="">
             </div>
-            <div class="swiper-slide">Slide 4</div>
-            <div class="swiper-slide">Slide 5</div>
+            <div class="swiper-slide">
+                <div class="textWrap">
+    
+                </div>
+            </div>
             <div class="swiper-slide">Slide 6</div>
             <div class="swiper-slide">Slide 7</div>
             <div class="swiper-slide">Slide 8</div>

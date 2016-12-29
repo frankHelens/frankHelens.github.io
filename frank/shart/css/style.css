@@ -22,43 +22,49 @@
         font-size: 18px;
         position: relative;
 }
+/*loading屏*/
+
+.loading{
+    width: 100%;
+    height: 100%;
+}
+
+#loadingNum{
+    color: white;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    /*transform:translateX(-50%) translateY(-50%);*/
+}
 /*第一屏*/
 .swiper-slide:nth-child(1){
     background: url(../img/bg-main.png); 
 }
+.frist{
+    width: 100%;
+    height: 100%;
+    display: none;
+}
 .a-left{
     width: 250px;
     height: 250px;
+    -webkit-transform: translate3d(-300px,-300px,0);
+    -moz-transform: translate3d(-300px,-300px,0);
+    -ms-transform: translate3d(-300px,-300px,0);
+    -o-transform: translate3d(-300px,-300px,0);
     transform: translate3d(-300px,-300px,0);
-    animation:a-left-move 2s ease-in-out infinite;
-}
-@-webkit-keyframes a-left-move{
-    0%{
-        transform: translate3d(-350px,-350px,0);
-        opacity: 1;
-    }
-    100%{
-        transform: translate3d(350px,350px,0);
-        opacity: 0;
-    }
 }
 .a-right{
     width: 250px;
     height: 250px;
+    -webkit-transform:  translate3d(350px,-350px,0);
+    -moz-transform: translate3d(350px,-350px,0);
+    -ms-transform: translate3d(350px,-350px,0);
+    -o-transform: translate3d(350px,-350px,0);
     transform: translate3d(350px,-350px,0);
-    animation: a-right-move 2s ease-in-out infinite 0.5s;
 }
 
-@-webkit-keyframes a-right-move{
-    0%{
-        transform: translate3d(350px,-350px,0);
-         opacity: 1;
-    }
-    100%{
-        transform: translate3d(-350px,350px,0);
-         opacity: 0;
-    }
-}
 /*球加动画*/
 .planet-big {
     z-index: 2;
@@ -66,6 +72,10 @@
     vertical-align: middle;
     top: 50%;
     left:50%;
+    -webkit-transform:translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -ms-transform:translateX(-50%) translateY(-50%);
+    -o-transform:translateX(-50%) translateY(-50%);
     transform: translateX(-50%) translateY(-50%);
     width: 2.8rem;
     height: 2.8rem;
@@ -80,34 +90,19 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    animation:stars1-move 15s linear infinite;
+    -webkit-transform:translateX(-50%) translateY(-50%) ;
+    -moz-transform:translateX(-50%) translateY(-50%) ;
+    -ms-transform:translateX(-50%) translateY(-50%) ;
+    -o-transform:translateX(-50%) translateY(-50%) ;
+    transform:translateX(-50%) translateY(-50%);
     opacity: 0.6;
 }
-.middle-stars{
-    animation:stars2-move 12s linear infinite; 
-    opacity: 1;
-}
+
 .tiny-stars img{ 
     width: 100%;
     height: 100%;
 }
-@-webkit-keyframes stars1-move{
-    0%{
-        transform: translateX(-50%) translateY(-50%) rotate(0deg);
-    }
-    100%{
-        transform: translateX(-50%) translateY(-50%) rotate(-360deg);
-    }
-}
-@-webkit-keyframes stars2-move{
-    0%{
-        transform: translateX(-50%) translateY(-50%) rotate(0deg);
-    }
-    100%{
-        transform: translateX(-50%) translateY(-50%) rotate(360deg);
-    }
-}
+
 /*两个球*/
 .abs{
     position: absolute;
@@ -122,20 +117,7 @@
     top: 35px;
     right: 5%;
 }
-.ani{
-    animation:ani 2s linear infinite;  
-}
-@-webkit-keyframes ani{
-    0%{
-        transform: translateY(-10px);
-    }
-    50%{
-        transform: translateY(10px);
-    }
-    100%{
-        transform: translateY(-10px);
-    }
-}
+
     
 /*标题*/
 .title{
@@ -151,18 +133,7 @@
     font-weight: normal;
     font-family: 'Open Sans', Arial, sans-serif; 
     opacity: 0;   
-    animation:fade-out-down 1s ease-in-out 1 0.8s forwards;  
-}
-/*向下淡出效果*/
-@-webkit-keyframes fade-out-down{
-    0%{
-        transform: translateY(-10px);
-        opacity: 0;
-    }
-    100%{
-        transform: translateY(0);
-        opacity: 1;
-    }
+/*    animation:fade-out-down 1s ease-in-out 1 0.8s forwards;  */
 }
 /*向上淡出效果*/
 @-webkit-keyframes fade-out-up{
@@ -175,15 +146,7 @@
         opacity: 1;
     }
 }
-/*缩小放大效果*/
-@-webkit-keyframes scale{
-    0%{
-        transform: scale(0);
-    }
-    100%{
-        transform: scale(1);
-    }
-}
+
 .title-special {
     color: #fff;
     font-weight: normal;
@@ -201,7 +164,6 @@
     font-size: .2rem;
     font-family: 'PT Sans', Arial, sans-serif;
     transform: scale(0);
-    animation:scale 1s ease-in-out 1 1.5s forwards;
 }
 /*球内容*/
 .planet-big-content {
@@ -211,7 +173,11 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -ms-transform:translateX(-50%) translateY(-50%);
+    -o-transform:translateX(-50%) translateY(-50%);
+    transform:translateX(-50%) translateY(-50%);
     width: 80%;
     text-align: center;
     vertical-align: middle;  
@@ -221,7 +187,7 @@
 }
 .planet-big-content h4{
     opacity: 0;
-    animation:fade-out-down 0.5s ease-in-out 1 2.2s forwards;  
+/*    animation:fade-out-down 0.5s ease-in-out 1 2.2s forwards;  */
 }
 .planet-big-content h5{
     opacity: 0;
@@ -260,15 +226,19 @@
 @-webkit-keyframes clouds-move{
     0%{
         transform: translateX(0);
-    }f
+        -webkit-animation:translateX(0);
+    }
     35%{
         transform: translateX(400px);
+        -webkit-animation:translateX(400px);
     }
     80%{
         transform: translateX(-500px);
+        -webkit-animation:translateX(-500px);
     }
     100%{
         transform: translateX(0px);
+        -webkit-animation: translateX(0px);
     }
 }
 .content2{
@@ -307,6 +277,20 @@
     background: url(../img/bg-three.jpg) no-repeat ;
     background-size: 100% 100%; 
 }
+canvas{
+	display: none;
+}
+.hint{
+	width: 100%;
+	height: 100%;
+	transition: 1s;
+}
+#moveStart{
+	color: white;	
+	font-size: .2rem;
+	-webkit-transform:scale(0) ;
+	transform:scale(0) ;
+}
 .three-contains {
     width: 100%;
     height: 70%;
@@ -320,3 +304,18 @@
 .boll{
     left: 4%;
 }
+/*第三屏*/
+.swiper-slide:nth-child(4){
+    background: url(../img/bg-four.jpg) no-repeat ;
+    background-size: 100% 100%; 
+}
+.textWrap{
+    color:white;
+    text-align: center;
+    font-size: .25rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%) ;
+}
+
