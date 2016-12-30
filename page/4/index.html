@@ -84,28 +84,12 @@
 
 
 
-<meta name="description" content="canvas一、什么是canvas
-canvas 元素用于在网页上绘制图形。HTML5 的 canvas 元素使用 JavaScript 在网页上绘制2D图像。
-在矩形区域的画布上，控制其每一像素，JavaScript 来绘制 2D图形，逐像素进行渲染。可以通过多种方法使用canvas 元素绘制路径、矩形、圆形、字符以及添加图像。
-浏览器支持情况 IE9.0以前的版本不支持
-getContext(">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Canvas">
-<meta property="og:url" content="http://yoursite.com/2016/11/10/canvas/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Frank的个人博客">
+<meta property="og:url" content="http://yoursite.com/page/4/index.html">
 <meta property="og:site_name" content="Frank的个人博客">
-<meta property="og:description" content="canvas一、什么是canvas
-canvas 元素用于在网页上绘制图形。HTML5 的 canvas 元素使用 JavaScript 在网页上绘制2D图像。
-在矩形区域的画布上，控制其每一像素，JavaScript 来绘制 2D图形，逐像素进行渲染。可以通过多种方法使用canvas 元素绘制路径、矩形、圆形、字符以及添加图像。
-浏览器支持情况 IE9.0以前的版本不支持
-getContext(">
-<meta property="og:updated_time" content="2016-12-16T13:33:13.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Canvas">
-<meta name="twitter:description" content="canvas一、什么是canvas
-canvas 元素用于在网页上绘制图形。HTML5 的 canvas 元素使用 JavaScript 在网页上绘制2D图像。
-在矩形区域的画布上，控制其每一像素，JavaScript 来绘制 2D图形，逐像素进行渲染。可以通过多种方法使用canvas 元素绘制路径、矩形、圆形、字符以及添加图像。
-浏览器支持情况 IE9.0以前的版本不支持
-getContext(">
+<meta name="twitter:title" content="Frank的个人博客">
 
 
 
@@ -126,10 +110,10 @@ getContext(">
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/11/10/canvas/"/>
+  <link rel="canonical" href="http://yoursite.com/page/4/"/>
 
 
-  <title> Canvas | Frank的个人博客 </title>
+  <title> Frank的个人博客 </title>
 </head>
 
 <body itemscope itemtype="//schema.org/WebPage" lang="">
@@ -150,7 +134,9 @@ getContext(">
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container one-collumn sidebar-position-left 
+   page-home 
+ ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
@@ -229,9 +215,9 @@ getContext(">
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
   
@@ -251,7 +237,10 @@ getContext(">
             
             
               
-                Canvas
+                
+                <a class="post-title-link" href="/2016/11/10/canvas/" itemprop="url">
+                  Canvas
+                </a>
               
             
           </h1>
@@ -291,7 +280,9 @@ getContext(">
       
 
       
-        <h1 id="canvas"><a href="#canvas" class="headerlink" title="canvas"></a>canvas</h1><h3 id="一、什么是canvas"><a href="#一、什么是canvas" class="headerlink" title="一、什么是canvas"></a>一、什么是canvas</h3><ul>
+        
+          
+            <h1 id="canvas"><a href="#canvas" class="headerlink" title="canvas"></a>canvas</h1><h3 id="一、什么是canvas"><a href="#一、什么是canvas" class="headerlink" title="一、什么是canvas"></a>一、什么是canvas</h3><ul>
 <li>canvas 元素用于在网页上绘制图形。HTML5 的 canvas 元素使用 JavaScript 在网页上绘制2D图像。</li>
 <li>在矩形区域的画布上，控制其每一像素，JavaScript 来绘制 2D图形，逐像素进行渲染。可以通过多种方法使用canvas 元素绘制路径、矩形、圆形、字符以及添加图像。</li>
 <li>浏览器支持情况 IE9.0以前的版本不支持</li>
@@ -336,20 +327,16 @@ getContext(">
 <h3 id="十-createLinearGradient-渐变"><a href="#十-createLinearGradient-渐变" class="headerlink" title="十.createLinearGradient 渐变"></a>十.createLinearGradient 渐变</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//创建一个线性渐变颜色</span></div><div class="line">	 <span class="keyword">var</span> c = ctx.createLinearGradient(<span class="number">0</span>,<span class="number">0</span>,<span class="number">800</span>,<span class="number">800</span>);</div><div class="line">	 c.addColorStop(<span class="number">0</span>,<span class="string">"red"</span>); </div><div class="line">	 c.addColorStop(<span class="number">0.5</span>,<span class="string">"blue"</span>); </div><div class="line">	 c.addColorStop(<span class="number">1</span>,<span class="string">"yellow"</span>); </div><div class="line">	 ctx.fillStyle = c;<span class="comment">//设置填充颜色为渐变颜色</span></div><div class="line">	 ctx.fillRect(<span class="number">0</span>,<span class="number">0</span>,<span class="number">800</span>,<span class="number">800</span>);</div></pre></td></tr></table></figure>
 <h3 id="十一-createRadialGradient-径向渐变"><a href="#十一-createRadialGradient-径向渐变" class="headerlink" title="十一.createRadialGradient 径向渐变"></a>十一.createRadialGradient 径向渐变</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line">&lt;script type=<span class="string">"text/javascript"</span>&gt;</div><div class="line">	<span class="keyword">var</span> canvas = <span class="built_in">document</span>.getElementById(<span class="string">'canvas'</span>);</div><div class="line">	<span class="keyword">var</span> ctx = canvas.getContext(<span class="string">"2d"</span>);</div><div class="line">	</div><div class="line">	<span class="comment">// var c = ctx.createRadialGradient(400,400,0,400,400,200);</span></div><div class="line">	<span class="comment">// c.addColorStop(0,"red");</span></div><div class="line">	<span class="comment">// c.addColorStop(0.5,"blue");</span></div><div class="line">	<span class="comment">// c.addColorStop(1,"green");</span></div><div class="line">	<span class="comment">// ctx.fillStyle = c;</span></div><div class="line">	<span class="comment">// ctx.fillRect(0,0,800,800);</span></div><div class="line"></div><div class="line">	<span class="keyword">var</span> x1 = <span class="number">0</span>;</div><div class="line">	<span class="keyword">var</span> x2 = <span class="number">0</span>;</div><div class="line">	<span class="keyword">var</span> y1 = <span class="number">0</span>;</div><div class="line">	<span class="keyword">var</span> y2 = <span class="number">0</span>;</div><div class="line">	<span class="keyword">var</span> movebol = <span class="literal">false</span>;</div><div class="line">	canvas.onmousedown = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</div><div class="line">		<span class="keyword">var</span> disX = canvas.offsetLeft;</div><div class="line">		<span class="keyword">var</span> disY = canvas.offsetTop;</div><div class="line">		x1 = e.clientX-disX;</div><div class="line">		y1 = e.clientY-disY;		</div><div class="line">		<span class="built_in">document</span>.onmousemove = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</div><div class="line">			x2 = e.clientX - disX;</div><div class="line">			y2 = e.clientY - disY;</div><div class="line">			ctx.clearRect(<span class="number">0</span>,<span class="number">0</span>,<span class="number">800</span>,<span class="number">800</span>);</div><div class="line">			ctx.beginPath();</div><div class="line">			ctx.moveTo(x1,y1);</div><div class="line">			ctx.lineTo(x2,y2);</div><div class="line">			ctx.closePath();</div><div class="line">			ctx.stroke();</div><div class="line">			movebol = <span class="literal">true</span>;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="built_in">document</span>.onmouseup = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">		<span class="built_in">document</span>.onmousemove = <span class="string">''</span>;</div><div class="line">			<span class="keyword">var</span> a = x1 - x2;</div><div class="line">			<span class="keyword">var</span> b = y1 - y2;</div><div class="line">			<span class="keyword">var</span> r = <span class="built_in">Math</span>.sqrt(a*a+b*b);</div><div class="line">			<span class="keyword">if</span>(movebol)&#123;</div><div class="line">			<span class="keyword">var</span> c = ctx.createRadialGradient(x1,y1,<span class="number">0</span>,x1,y1,r);</div><div class="line">			c.addColorStop(<span class="number">0</span>,<span class="string">"red"</span>);</div><div class="line">			c.addColorStop(<span class="number">0.5</span>,<span class="string">"blue"</span>);</div><div class="line">			c.addColorStop(<span class="number">1</span>,<span class="string">"green"</span>);</div><div class="line">			ctx.fillStyle = c;</div><div class="line">			ctx.fillRect(<span class="number">0</span>,<span class="number">0</span>,<span class="number">800</span>,<span class="number">800</span>);</div><div class="line"></div><div class="line">			&#125;</div><div class="line">			movebol = <span class="literal">false</span>;</div><div class="line">	&#125;</div><div class="line">&lt;<span class="regexp">/script&gt;</span></div></pre></td></tr></table></figure>
 
+          
+        
       
     </div>
 
     <div>
       
-        
-
-      
     </div>
 
     <div>
-      
-        
-
       
     </div>
 
@@ -357,32 +344,23 @@ getContext(">
       
 
       
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-          </div>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/11/11/ajax/" rel="prev" title="Ajax">
-                Ajax <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
       
+      
+        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
+    
+  </section>
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+  </nav>
+
 
 
           </div>
@@ -390,10 +368,6 @@ getContext(">
 
 
           
-  <div class="comments" id="comments">
-    
-  </div>
-
 
         </div>
         
@@ -413,17 +387,8 @@ getContext(">
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            Inhaltsverzeichnis
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            Übersicht
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel ">
+      <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1481698571&di=c49644c80862eadf4d4c37701e528e63&src=http://a.hiphotos.baidu.com/zhidao/pic/item/6609c93d70cf3bc7672e39b3d600baa1cd112a47.jpg"
@@ -459,17 +424,6 @@ getContext(">
 
       </section>
 
-      
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-            
-              
-            
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#canvas"><span class="nav-number">1.</span> <span class="nav-text">canvas</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、什么是canvas"><span class="nav-number">1.0.1.</span> <span class="nav-text">一、什么是canvas</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、文字绘制"><span class="nav-number">1.0.2.</span> <span class="nav-text">二、文字绘制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三-阴影绘制"><span class="nav-number">1.0.3.</span> <span class="nav-text">三.阴影绘制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四-rect"><span class="nav-number">1.0.4.</span> <span class="nav-text">四.rect</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五-arc-圆的绘制"><span class="nav-number">1.0.5.</span> <span class="nav-text">五.arc 圆的绘制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#六-贝塞尔曲线"><span class="nav-number">1.0.6.</span> <span class="nav-text">六.贝塞尔曲线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#七-缩放-scale"><span class="nav-number">1.0.7.</span> <span class="nav-text">七.缩放 scale</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#八-旋转-rotate"><span class="nav-number">1.0.8.</span> <span class="nav-text">八 旋转 rotate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#九-画布移动"><span class="nav-number">1.0.9.</span> <span class="nav-text">九. 画布移动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#十-createLinearGradient-渐变"><span class="nav-number">1.0.10.</span> <span class="nav-text">十.createLinearGradient 渐变</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#十一-createRadialGradient-径向渐变"><span class="nav-number">1.0.11.</span> <span class="nav-text">十一.createRadialGradient 径向渐变</span></a></li></ol></li></ol></li></ol></div>
-            
-          </div>
-        </section>
       
 
     </div>
@@ -573,10 +527,6 @@ getContext(">
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
-
-
 
   
 

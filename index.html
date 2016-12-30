@@ -238,6 +238,121 @@
             
               
                 
+                <a class="post-title-link" href="/2016/12/30/最常用的20个javascript方法函数(下)/" itemprop="url">
+                  最常用的20个javascript方法函数(下)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <time itemprop="dateCreated" datetime="2016-12-30T14:59:51+08:00" content="2016-12-30">
+              2016-12-30
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>11获取cookie值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getCookie</span>(<span class="params">name</span>) </span>&#123;</div><div class="line"><span class="keyword">var</span> arr = <span class="built_in">document</span>.cookie.match(<span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">"(^| )"</span> + name + <span class="string">"=([^;]*)(;|$)"</span>));</div><div class="line"><span class="keyword">if</span> (arr != <span class="literal">null</span>) <span class="keyword">return</span> <span class="built_in">unescape</span>(arr[<span class="number">2</span>]);</div><div class="line"><span class="keyword">return</span> <span class="literal">null</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>12加入收藏夹</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">AddFavorite</span>(<span class="params">sURL, sTitle</span>) </span>&#123;</div><div class="line"><span class="keyword">try</span> &#123;</div><div class="line"><span class="built_in">window</span>.external.addFavorite(sURL, sTitle)</div><div class="line">&#125; <span class="keyword">catch</span>(e) &#123;</div><div class="line"><span class="keyword">try</span> &#123;</div><div class="line"><span class="built_in">window</span>.sidebar.addPanel(sTitle, sURL, <span class="string">""</span>)</div><div class="line">&#125; <span class="keyword">catch</span>(e) &#123;</div><div class="line">alert(<span class="string">"加入收藏失败，请使用Ctrl+D进行添加"</span>)</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>13设为首页</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">setHomepage</span>(<span class="params"></span>) </span>&#123;</div><div class="line"><span class="keyword">if</span> (<span class="built_in">document</span>.all) &#123;</div><div class="line"><span class="built_in">document</span>.body.style.behavior = <span class="string">'url(#default#homepage)'</span>;</div><div class="line"><span class="built_in">document</span>.body.setHomePage(<span class="string">'http://www.feiqueedu.com'</span>)</div><div class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">window</span>.sidebar) &#123;</div><div class="line"><span class="keyword">if</span> (<span class="built_in">window</span>.netscape) &#123;</div><div class="line"><span class="keyword">try</span> &#123;</div><div class="line">netscape.security.PrivilegeManager.enablePrivilege(<span class="string">"UniversalXPConnect"</span>)</div><div class="line">&#125; <span class="keyword">catch</span>(e) &#123;</div><div class="line">alert(<span class="string">"该操作被浏览器拒绝，如果想启用该功能，请在地址栏内输入 about:config,然后将项 signed.applets.codebase_principal_support 值该为true"</span>)</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> prefs = Components.classes[<span class="string">'@mozilla.org/preferences-service;1'</span>].getService(Components.interfaces.nsIPrefBranch);</div><div class="line">prefs.setCharPref(<span class="string">'browser.startup.homepage'</span>, <span class="string">'http://www.feiqueedu.com'</span>)</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>14加载样式文件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">LoadStyle</span>(<span class="params">url</span>) </span>&#123;</div><div class="line"><span class="keyword">try</span> &#123;</div><div class="line"><span class="built_in">document</span>.createStyleSheet(url)</div><div class="line">&#125; <span class="keyword">catch</span>(e) &#123;</div><div class="line"><span class="keyword">var</span> cssLink = <span class="built_in">document</span>.createElement(<span class="string">'link'</span>);</div><div class="line">cssLink.rel = <span class="string">'stylesheet'</span>;</div><div class="line">cssLink.type = <span class="string">'text/css'</span>;</div><div class="line">cssLink.href = url;</div><div class="line"><span class="keyword">var</span> head = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'head'</span>)[<span class="number">0</span>];</div><div class="line">head.appendChild(cssLink)</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>15返回脚本内容：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">function evalscript(s) &#123;</div><div class="line">if(s.indexOf('</div><div class="line">var p = /]*?&gt;([^\x00]*?)&lt;\/script&gt;/ig;</div><div class="line">var arr = [];</div><div class="line">while(arr = p.exec(s)) &#123;</div><div class="line">var p1 = /]*?src=\"([^\&gt;]*?)\"[^\&gt;]*?(reload=\"1\")?(?:charset=\"([\w\-]+?)\")?&gt;&lt;\/script&gt;/i;</div><div class="line">var arr1 = [];</div><div class="line">arr1 = p1.exec(arr[0]);</div><div class="line">if(arr1) &#123;</div><div class="line">appendscript(arr1[1], '', arr1[2], arr1[3]);</div><div class="line">&#125; else &#123;</div><div class="line">p1 = /([^\x00]+?)&lt;\/script&gt;/i;</div><div class="line">arr1 = p1.exec(arr[0]);</div><div class="line">appendscript('', arr1[2], arr1[1].indexOf('reload=') != -1);</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">return s;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>16、清除脚本内容：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">stripscript</span>(<span class="params">s</span>) </span>&#123;</div><div class="line"><span class="keyword">return</span> s.replace(<span class="regexp">/.*?&lt;\/script&gt;/ig</span>, <span class="string">''</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>17、动态加载脚本文件：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">appendscript</span>(<span class="params">src, text, reload, charset</span>) </span>&#123;</div><div class="line"><span class="keyword">var</span> id = hash(src + text);</div><div class="line"><span class="keyword">if</span>(!reload &amp;&amp; in_array(id, evalscripts)) <span class="keyword">return</span>;</div><div class="line"><span class="keyword">if</span>(reload &amp;&amp; $(id)) &#123;</div><div class="line">$(id).parentNode.removeChild($(id));</div><div class="line">&#125;</div><div class="line">evalscripts.push(id);</div><div class="line"><span class="keyword">var</span> scriptNode = <span class="built_in">document</span>.createElement(<span class="string">"script"</span>);</div><div class="line">scriptNode.type = <span class="string">"text/javascript"</span>;</div><div class="line">scriptNode.id = id;</div><div class="line">scriptNode.charset = charset ? charset : (BROWSER.firefox ? <span class="built_in">document</span>.characterSet : <span class="built_in">document</span>.charset);</div><div class="line"><span class="keyword">try</span> &#123;</div><div class="line"><span class="keyword">if</span>(src) &#123;</div><div class="line">scriptNode.src = src;</div><div class="line">scriptNode.onloadDone = <span class="literal">false</span>;</div><div class="line">scriptNode.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">scriptNode.onloadDone = <span class="literal">true</span>;</div><div class="line">JSLOADED[src] = <span class="number">1</span>;</div><div class="line">&#125;;</div><div class="line">scriptNode.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line"><span class="keyword">if</span>((scriptNode.readyState == <span class="string">'loaded'</span> || scriptNode.readyState == <span class="string">'complete'</span>) &amp;&amp; !scriptNode.onloadDone) &#123;</div><div class="line">scriptNode.onloadDone = <span class="literal">true</span>;</div><div class="line">JSLOADED[src] = <span class="number">1</span>;</div><div class="line">&#125;</div><div class="line">&#125;;</div><div class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span>(text)&#123;</div><div class="line">scriptNode.text = text;</div><div class="line">&#125;</div><div class="line"><span class="built_in">document</span>.getElementsByTagName(<span class="string">'head'</span>)[<span class="number">0</span>].appendChild(scriptNode);</div><div class="line">&#125; <span class="keyword">catch</span>(e) &#123;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>18、返回按ID检索的元素对象：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">$</span>(<span class="params">id</span>) </span>&#123;</div><div class="line"><span class="keyword">return</span> !id ? <span class="literal">null</span> : <span class="built_in">document</span>.getElementById(id);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>19、跨浏览器绑定事件：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">addEventSamp</span>(<span class="params">obj,evt,fn</span>)</span>&#123;</div><div class="line"><span class="keyword">if</span>(!oTarget)&#123;<span class="keyword">return</span>;&#125;</div><div class="line"><span class="keyword">if</span> (obj.addEventListener) &#123;</div><div class="line">obj.addEventListener(evt, fn, <span class="literal">false</span>);</div><div class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span>(obj.attachEvent)&#123;</div><div class="line">obj.attachEvent(<span class="string">'on'</span>+evt,fn);</div><div class="line">&#125;<span class="keyword">else</span>&#123;</div><div class="line">oTarget[<span class="string">"on"</span> + sEvtType] = fn;</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ol>
+<li>移动端rem即时改变宽度</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">html</span>)</span>&#123;</div><div class="line">change()</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">change</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	   <span class="keyword">var</span> w =html.clientWidth;</div><div class="line">	   <span class="keyword">var</span> size = <span class="number">100</span>*(w/<span class="number">375</span>).toFixed(<span class="number">2</span>);</div><div class="line">&#125;	</div><div class="line"><span class="built_in">window</span>.addEventListener(<span class="string">"resize"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	change();</div><div class="line">&#125;)</div><div class="line">&#125;)(<span class="built_in">document</span>.documentElement);</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/12/17/利用vue.js的基础知识制作简单的信息表/" itemprop="url">
                   利用vue.js的基础知识制作简单的信息表
                 </a>
@@ -681,132 +796,11 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/09/webpack/" itemprop="url">
-                  Webpack入门指南
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Veröffentlicht am</span>
-            <time itemprop="dateCreated" datetime="2016-12-09T15:49:35+08:00" content="2016-12-09">
-              2016-12-09
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="一、什么是-webpack？"><a href="#一、什么是-webpack？" class="headerlink" title="一、什么是 webpack？"></a>一、什么是 webpack？</h2><p><a href="http://webpack.github.io/" target="_blank" rel="external">webpack</a>是一款模块加载器兼打包工具，它能把各种资源，例如JS（含JSX）、ES6、样式（含less/sass）、图片等都作为模块来使用和处理。</p>
-<p><a href="https://github.com/lengziyu/learn-webpack" target="_blank" rel="external">更多webpack学习内容</a></p>
-<h2 id="二、安装"><a href="#二、安装" class="headerlink" title="二、安装"></a>二、安装</h2><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install webpack -g</div></pre></td></tr></table></figure>
-<h2 id="三-配置"><a href="#三-配置" class="headerlink" title="三. 配置"></a>三. 配置</h2><p>创建 <strong>webpack.config.js</strong> 它的作用和gulpfile.js一样就是一个配置项，设置 webpack 任务功能。</p>
-<ul>
-<li>entry 入口文件 让webpack用哪个文件作为项目的入口</li>
-<li>output 出口 让webpack把处理完成的文件放在哪里</li>
-<li>module 模块 要用什么不同的模块来处理各种类型的文件</li>
-<li>plugins 用于提取多个入口文件的公共脚本部分，然后生成一个 common.js 来方便多页面之间进行复用。</li>
-<li>resolve 用来设置路径指向</li>
-<li>watch 用监听文件有改动后执行打包</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">	<span class="attr">entry</span>:<span class="string">""</span>,<span class="comment">//入口文件</span></div><div class="line">	output:&#123;<span class="comment">//出口</span></div><div class="line">		path:<span class="string">""</span>,</div><div class="line">		<span class="attr">filename</span>:<span class="string">""</span></div><div class="line">	&#125;,</div><div class="line">	<span class="attr">module</span>:&#123;<span class="comment">//模块</span></div><div class="line">		loaders:[</div><div class="line">			&#123;<span class="attr">test</span>:<span class="regexp">/\.js$/</span>,<span class="attr">loader</span>:<span class="string">""</span>&#125;</div><div class="line">		]</div><div class="line">	&#125;,</div><div class="line">	<span class="attr">plugins</span>:&#123;&#125;,</div><div class="line">	<span class="attr">resolve</span>:&#123;&#125;,</div><div class="line">	<span class="attr">wacth</span>:<span class="literal">true</span></div><div class="line">	</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="webpack命令"><a href="#webpack命令" class="headerlink" title="webpack命令"></a>webpack命令</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">//直接运行webpack.config.js来打包</div><div class="line">$ webpack </div><div class="line"></div><div class="line">//使用另一份配置文件来打包</div><div class="line">$ webpack --config XXX.js  </div><div class="line"> </div><div class="line">//监听变动并自动打包</div><div class="line">$ webpack --watch   </div><div class="line"></div><div class="line">//压缩混淆脚本</div><div class="line">$ webpack -p</div></pre></td></tr></table></figure>
-<h2 id="四-开启服务器自动刷新"><a href="#四-开启服务器自动刷新" class="headerlink" title="四.开启服务器自动刷新"></a>四.开启服务器自动刷新</h2><h3 id="安装全局webpack-dev-server模块"><a href="#安装全局webpack-dev-server模块" class="headerlink" title="安装全局webpack-dev-server模块"></a>安装全局webpack-dev-server模块</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">//安装</div><div class="line">$ npm install webpack-dev-server -g</div><div class="line"></div><div class="line">//运行</div><div class="line">$ webpack-dev-server --progress --colors</div></pre></td></tr></table></figure>
-<h3 id="配置设置webpack-config-js"><a href="#配置设置webpack-config-js" class="headerlink" title="配置设置webpack.config.js"></a>配置设置webpack.config.js</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">devServer: &#123;</div><div class="line">    <span class="attr">contentBase</span>: <span class="string">"www/"</span>,</div><div class="line">    <span class="attr">inline</span>:<span class="literal">true</span>,</div><div class="line">    <span class="attr">port</span> : <span class="string">"3000"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="五-例子说明"><a href="#五-例子说明" class="headerlink" title="五.例子说明"></a>五.例子说明</h2><h3 id="1-例子demo01文件"><a href="#1-例子demo01文件" class="headerlink" title="1.例子demo01文件"></a>1.例子demo01文件</h3><p>全局安装webpack就可以运行演示例子</p>
-<h3 id="2-例子demo02文件"><a href="#2-例子demo02文件" class="headerlink" title="2.例子demo02文件"></a>2.例子demo02文件</h3><p>需要引入CommonsChunkPlugin,这个属于webpack内置的一个插件，需要在当前目录安装webpack</p>
-<p>作用是：用于提取多个入口文件的公共脚本部分</p>
-<h3 id="配置设置webpack-config-js-1"><a href="#配置设置webpack-config-js-1" class="headerlink" title="配置设置webpack.config.js"></a>配置设置webpack.config.js</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>);</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">	...</div><div class="line">	plugins:[</div><div class="line">	    <span class="keyword">new</span> webpack.optimize.CommonsChunkPlugin(&#123;</div><div class="line">	        <span class="attr">name</span>: <span class="string">'common'</span>,<span class="comment">//合并公共模块到指定的JS文件  注意不要.js后缀</span></div><div class="line">	        filename: <span class="string">'js/common.js'</span>,<span class="comment">//输出的目录</span></div><div class="line">	        chunks:[<span class="string">'index'</span>,<span class="string">'login'</span>]<span class="comment">//抽取的文件</span></div><div class="line">	    &#125;)</div><div class="line">	]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="3-例子demo03文件"><a href="#3-例子demo03文件" class="headerlink" title="3.例子demo03文件"></a>3.例子demo03文件</h3><h3 id="打包样式和转换less或sass"><a href="#打包样式和转换less或sass" class="headerlink" title="打包样式和转换less或sass"></a>打包样式和转换less或sass</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">//安装出来css模块</div><div class="line">$ npm install style-loader css-loader </div><div class="line">//安装转less模块</div><div class="line">$ npm install less-loader less</div><div class="line">//安装转sass模块</div><div class="line">$ npm install sass-loader node-sass</div></pre></td></tr></table></figure>
-<h3 id="配置设置webpack-config-js-2"><a href="#配置设置webpack-config-js-2" class="headerlink" title="配置设置webpack.config.js"></a>配置设置webpack.config.js</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>);</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">	...</div><div class="line">	module: &#123;</div><div class="line">		<span class="comment">// webpack使用loader的方式来处理各种各样的资源，比如说样式文件，我们需要两种loader，css-loader 和 style－loader，css-loader会遍历css文件</span></div><div class="line">	    loaders:[	   </div><div class="line">	    	<span class="comment">// &#123; test: /\.(css|less)$/, loader: 'style-loader!css-loader!less-loader'&#125;,</span></div><div class="line">	    	</div><div class="line">	    	&#123; <span class="attr">test</span>: <span class="regexp">/\.scss$/</span>, <span class="attr">loader</span>: <span class="string">'style-loader!css-loader!sass-loader'</span>&#125;</div><div class="line">	    ]</div><div class="line">	&#125;,</div><div class="line">	<span class="attr">resolve</span>: &#123;</div><div class="line">        <span class="comment">//require查找module的话从这里开始查找</span></div><div class="line">        root: __dirname+<span class="string">'/module'</span>, <span class="comment">//绝对路径</span></div><div class="line">        <span class="comment">//自动扩展文件后缀名，意味着我们require模块可以省略不写后缀名</span></div><div class="line">        extensions: [<span class="string">''</span>, <span class="string">'.js'</span>, <span class="string">'.css'</span>,<span class="string">".less"</span>],</div><div class="line">        <span class="comment">//模块别名定义，方便后续直接引用别名，无须多写长长的地址</span></div><div class="line">        alias: &#123;</div><div class="line">            <span class="attr">style</span> : <span class="string">'../css/style.scss'</span>,<span class="comment">//后续直接 require('style') 即可</span></div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">watch</span>:<span class="literal">true</span><span class="comment">//监听文件一旦改变重新打包</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="4-例子demo04文件"><a href="#4-例子demo04文件" class="headerlink" title="4.例子demo04文件"></a>4.例子demo04文件</h3><h3 id="打包jsx"><a href="#打包jsx" class="headerlink" title="打包jsx"></a>打包jsx</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">//安装转jsx和ex6模块</div><div class="line">$ npm install babel-loader babel-preset-es2015 babel-preset-react</div><div class="line"></div><div class="line">//或者安装jsx-loader主要打包jsx</div><div class="line">$ npm install jsx-loader</div></pre></td></tr></table></figure>
-<h3 id="配置设置webpack-config-js-3"><a href="#配置设置webpack-config-js-3" class="headerlink" title="配置设置webpack.config.js"></a>配置设置webpack.config.js</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">	...</div><div class="line">	module: &#123;			</div><div class="line">	    <span class="attr">loaders</span>:[		    	</div><div class="line">	    	&#123; </div><div class="line">	    		<span class="attr">test</span>: <span class="regexp">/\.js[x]?$/</span>, </div><div class="line">	    		<span class="attr">exclude</span>: <span class="regexp">/node_modules/</span>, </div><div class="line">	    		<span class="attr">loader</span>: <span class="string">'babel?presets[]=es2015&amp;presets[]=react'</span> </div><div class="line">	    	&#125;,</div><div class="line">	    ]</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="5-例子demo05文件"><a href="#5-例子demo05文件" class="headerlink" title="5.例子demo05文件"></a>5.例子demo05文件</h3><h3 id="加载模块到全局和自动刷新"><a href="#加载模块到全局和自动刷新" class="headerlink" title="加载模块到全局和自动刷新"></a>加载模块到全局和自动刷新</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">//安装全局webpack-dev-server模块</div><div class="line">$ npm install webpack-dev-server -g</div><div class="line"></div><div class="line">//启动服务器</div><div class="line">$ webpack-dev-server --progress --colors</div></pre></td></tr></table></figure>
-<h3 id="配置设置webpack-config-js-4"><a href="#配置设置webpack-config-js-4" class="headerlink" title="配置设置webpack.config.js"></a>配置设置webpack.config.js</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">	...</div><div class="line">	 devServer: &#123;</div><div class="line">      <span class="attr">inline</span>: <span class="literal">true</span>,   </div><div class="line">      <span class="attr">port</span>: <span class="number">8080</span></div><div class="line">    &#125;,</div><div class="line">	 <span class="attr">plugins</span>: [</div><div class="line">    	<span class="keyword">new</span> webpack.ProvidePlugin(&#123;</div><div class="line">        	<span class="attr">React</span>: <span class="string">'react'</span>,</div><div class="line">        	<span class="attr">ReactDOM</span>: <span class="string">'react-dom'</span></div><div class="line">    	&#125;)<span class="comment">//直接加载到全局不需要require()</span></div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="6-例子demo06文件"><a href="#6-例子demo06文件" class="headerlink" title="6.例子demo06文件"></a>6.例子demo06文件</h3><h3 id="gulp-webpack"><a href="#gulp-webpack" class="headerlink" title="gulp+webpack"></a>gulp+webpack</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//安装全局gulp</div><div class="line">$ npm install gulp -g</div><div class="line">//安装gulp-webpack</div><div class="line">$ npm install gulp-webpack</div></pre></td></tr></table></figure>
-<h3 id="gulpfile配置"><a href="#gulpfile配置" class="headerlink" title="gulpfile配置"></a>gulpfile配置</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> gulp = <span class="built_in">require</span>(<span class="string">'gulp'</span>);</div><div class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">'gulp-webpack'</span>);</div><div class="line"></div><div class="line">gulp.task(<span class="string">'default'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> gulp.src(<span class="string">'./module/main.js'</span>)</div><div class="line">    .pipe(webpack(<span class="built_in">require</span>(<span class="string">'./webpack.config.js'</span>)))</div><div class="line">    .pipe(gulp.dest(<span class="string">'js/'</span>));</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -847,7 +841,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">15</span>
+              <span class="site-state-item-count">16</span>
               <span class="site-state-item-name">Artikel</span>
             </a>
           </div>

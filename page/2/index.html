@@ -238,6 +238,127 @@
             
               
                 
+                <a class="post-title-link" href="/2016/12/09/webpack/" itemprop="url">
+                  Webpack入门指南
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <time itemprop="dateCreated" datetime="2016-12-09T15:49:35+08:00" content="2016-12-09">
+              2016-12-09
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一、什么是-webpack？"><a href="#一、什么是-webpack？" class="headerlink" title="一、什么是 webpack？"></a>一、什么是 webpack？</h2><p><a href="http://webpack.github.io/" target="_blank" rel="external">webpack</a>是一款模块加载器兼打包工具，它能把各种资源，例如JS（含JSX）、ES6、样式（含less/sass）、图片等都作为模块来使用和处理。</p>
+<p><a href="https://github.com/lengziyu/learn-webpack" target="_blank" rel="external">更多webpack学习内容</a></p>
+<h2 id="二、安装"><a href="#二、安装" class="headerlink" title="二、安装"></a>二、安装</h2><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install webpack -g</div></pre></td></tr></table></figure>
+<h2 id="三-配置"><a href="#三-配置" class="headerlink" title="三. 配置"></a>三. 配置</h2><p>创建 <strong>webpack.config.js</strong> 它的作用和gulpfile.js一样就是一个配置项，设置 webpack 任务功能。</p>
+<ul>
+<li>entry 入口文件 让webpack用哪个文件作为项目的入口</li>
+<li>output 出口 让webpack把处理完成的文件放在哪里</li>
+<li>module 模块 要用什么不同的模块来处理各种类型的文件</li>
+<li>plugins 用于提取多个入口文件的公共脚本部分，然后生成一个 common.js 来方便多页面之间进行复用。</li>
+<li>resolve 用来设置路径指向</li>
+<li>watch 用监听文件有改动后执行打包</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">	<span class="attr">entry</span>:<span class="string">""</span>,<span class="comment">//入口文件</span></div><div class="line">	output:&#123;<span class="comment">//出口</span></div><div class="line">		path:<span class="string">""</span>,</div><div class="line">		<span class="attr">filename</span>:<span class="string">""</span></div><div class="line">	&#125;,</div><div class="line">	<span class="attr">module</span>:&#123;<span class="comment">//模块</span></div><div class="line">		loaders:[</div><div class="line">			&#123;<span class="attr">test</span>:<span class="regexp">/\.js$/</span>,<span class="attr">loader</span>:<span class="string">""</span>&#125;</div><div class="line">		]</div><div class="line">	&#125;,</div><div class="line">	<span class="attr">plugins</span>:&#123;&#125;,</div><div class="line">	<span class="attr">resolve</span>:&#123;&#125;,</div><div class="line">	<span class="attr">wacth</span>:<span class="literal">true</span></div><div class="line">	</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="webpack命令"><a href="#webpack命令" class="headerlink" title="webpack命令"></a>webpack命令</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">//直接运行webpack.config.js来打包</div><div class="line">$ webpack </div><div class="line"></div><div class="line">//使用另一份配置文件来打包</div><div class="line">$ webpack --config XXX.js  </div><div class="line"> </div><div class="line">//监听变动并自动打包</div><div class="line">$ webpack --watch   </div><div class="line"></div><div class="line">//压缩混淆脚本</div><div class="line">$ webpack -p</div></pre></td></tr></table></figure>
+<h2 id="四-开启服务器自动刷新"><a href="#四-开启服务器自动刷新" class="headerlink" title="四.开启服务器自动刷新"></a>四.开启服务器自动刷新</h2><h3 id="安装全局webpack-dev-server模块"><a href="#安装全局webpack-dev-server模块" class="headerlink" title="安装全局webpack-dev-server模块"></a>安装全局webpack-dev-server模块</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">//安装</div><div class="line">$ npm install webpack-dev-server -g</div><div class="line"></div><div class="line">//运行</div><div class="line">$ webpack-dev-server --progress --colors</div></pre></td></tr></table></figure>
+<h3 id="配置设置webpack-config-js"><a href="#配置设置webpack-config-js" class="headerlink" title="配置设置webpack.config.js"></a>配置设置webpack.config.js</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">devServer: &#123;</div><div class="line">    <span class="attr">contentBase</span>: <span class="string">"www/"</span>,</div><div class="line">    <span class="attr">inline</span>:<span class="literal">true</span>,</div><div class="line">    <span class="attr">port</span> : <span class="string">"3000"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="五-例子说明"><a href="#五-例子说明" class="headerlink" title="五.例子说明"></a>五.例子说明</h2><h3 id="1-例子demo01文件"><a href="#1-例子demo01文件" class="headerlink" title="1.例子demo01文件"></a>1.例子demo01文件</h3><p>全局安装webpack就可以运行演示例子</p>
+<h3 id="2-例子demo02文件"><a href="#2-例子demo02文件" class="headerlink" title="2.例子demo02文件"></a>2.例子demo02文件</h3><p>需要引入CommonsChunkPlugin,这个属于webpack内置的一个插件，需要在当前目录安装webpack</p>
+<p>作用是：用于提取多个入口文件的公共脚本部分</p>
+<h3 id="配置设置webpack-config-js-1"><a href="#配置设置webpack-config-js-1" class="headerlink" title="配置设置webpack.config.js"></a>配置设置webpack.config.js</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>);</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">	...</div><div class="line">	plugins:[</div><div class="line">	    <span class="keyword">new</span> webpack.optimize.CommonsChunkPlugin(&#123;</div><div class="line">	        <span class="attr">name</span>: <span class="string">'common'</span>,<span class="comment">//合并公共模块到指定的JS文件  注意不要.js后缀</span></div><div class="line">	        filename: <span class="string">'js/common.js'</span>,<span class="comment">//输出的目录</span></div><div class="line">	        chunks:[<span class="string">'index'</span>,<span class="string">'login'</span>]<span class="comment">//抽取的文件</span></div><div class="line">	    &#125;)</div><div class="line">	]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="3-例子demo03文件"><a href="#3-例子demo03文件" class="headerlink" title="3.例子demo03文件"></a>3.例子demo03文件</h3><h3 id="打包样式和转换less或sass"><a href="#打包样式和转换less或sass" class="headerlink" title="打包样式和转换less或sass"></a>打包样式和转换less或sass</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">//安装出来css模块</div><div class="line">$ npm install style-loader css-loader </div><div class="line">//安装转less模块</div><div class="line">$ npm install less-loader less</div><div class="line">//安装转sass模块</div><div class="line">$ npm install sass-loader node-sass</div></pre></td></tr></table></figure>
+<h3 id="配置设置webpack-config-js-2"><a href="#配置设置webpack-config-js-2" class="headerlink" title="配置设置webpack.config.js"></a>配置设置webpack.config.js</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>);</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">	...</div><div class="line">	module: &#123;</div><div class="line">		<span class="comment">// webpack使用loader的方式来处理各种各样的资源，比如说样式文件，我们需要两种loader，css-loader 和 style－loader，css-loader会遍历css文件</span></div><div class="line">	    loaders:[	   </div><div class="line">	    	<span class="comment">// &#123; test: /\.(css|less)$/, loader: 'style-loader!css-loader!less-loader'&#125;,</span></div><div class="line">	    	</div><div class="line">	    	&#123; <span class="attr">test</span>: <span class="regexp">/\.scss$/</span>, <span class="attr">loader</span>: <span class="string">'style-loader!css-loader!sass-loader'</span>&#125;</div><div class="line">	    ]</div><div class="line">	&#125;,</div><div class="line">	<span class="attr">resolve</span>: &#123;</div><div class="line">        <span class="comment">//require查找module的话从这里开始查找</span></div><div class="line">        root: __dirname+<span class="string">'/module'</span>, <span class="comment">//绝对路径</span></div><div class="line">        <span class="comment">//自动扩展文件后缀名，意味着我们require模块可以省略不写后缀名</span></div><div class="line">        extensions: [<span class="string">''</span>, <span class="string">'.js'</span>, <span class="string">'.css'</span>,<span class="string">".less"</span>],</div><div class="line">        <span class="comment">//模块别名定义，方便后续直接引用别名，无须多写长长的地址</span></div><div class="line">        alias: &#123;</div><div class="line">            <span class="attr">style</span> : <span class="string">'../css/style.scss'</span>,<span class="comment">//后续直接 require('style') 即可</span></div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">watch</span>:<span class="literal">true</span><span class="comment">//监听文件一旦改变重新打包</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="4-例子demo04文件"><a href="#4-例子demo04文件" class="headerlink" title="4.例子demo04文件"></a>4.例子demo04文件</h3><h3 id="打包jsx"><a href="#打包jsx" class="headerlink" title="打包jsx"></a>打包jsx</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">//安装转jsx和ex6模块</div><div class="line">$ npm install babel-loader babel-preset-es2015 babel-preset-react</div><div class="line"></div><div class="line">//或者安装jsx-loader主要打包jsx</div><div class="line">$ npm install jsx-loader</div></pre></td></tr></table></figure>
+<h3 id="配置设置webpack-config-js-3"><a href="#配置设置webpack-config-js-3" class="headerlink" title="配置设置webpack.config.js"></a>配置设置webpack.config.js</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">	...</div><div class="line">	module: &#123;			</div><div class="line">	    <span class="attr">loaders</span>:[		    	</div><div class="line">	    	&#123; </div><div class="line">	    		<span class="attr">test</span>: <span class="regexp">/\.js[x]?$/</span>, </div><div class="line">	    		<span class="attr">exclude</span>: <span class="regexp">/node_modules/</span>, </div><div class="line">	    		<span class="attr">loader</span>: <span class="string">'babel?presets[]=es2015&amp;presets[]=react'</span> </div><div class="line">	    	&#125;,</div><div class="line">	    ]</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="5-例子demo05文件"><a href="#5-例子demo05文件" class="headerlink" title="5.例子demo05文件"></a>5.例子demo05文件</h3><h3 id="加载模块到全局和自动刷新"><a href="#加载模块到全局和自动刷新" class="headerlink" title="加载模块到全局和自动刷新"></a>加载模块到全局和自动刷新</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">//安装全局webpack-dev-server模块</div><div class="line">$ npm install webpack-dev-server -g</div><div class="line"></div><div class="line">//启动服务器</div><div class="line">$ webpack-dev-server --progress --colors</div></pre></td></tr></table></figure>
+<h3 id="配置设置webpack-config-js-4"><a href="#配置设置webpack-config-js-4" class="headerlink" title="配置设置webpack.config.js"></a>配置设置webpack.config.js</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">	...</div><div class="line">	 devServer: &#123;</div><div class="line">      <span class="attr">inline</span>: <span class="literal">true</span>,   </div><div class="line">      <span class="attr">port</span>: <span class="number">8080</span></div><div class="line">    &#125;,</div><div class="line">	 <span class="attr">plugins</span>: [</div><div class="line">    	<span class="keyword">new</span> webpack.ProvidePlugin(&#123;</div><div class="line">        	<span class="attr">React</span>: <span class="string">'react'</span>,</div><div class="line">        	<span class="attr">ReactDOM</span>: <span class="string">'react-dom'</span></div><div class="line">    	&#125;)<span class="comment">//直接加载到全局不需要require()</span></div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="6-例子demo06文件"><a href="#6-例子demo06文件" class="headerlink" title="6.例子demo06文件"></a>6.例子demo06文件</h3><h3 id="gulp-webpack"><a href="#gulp-webpack" class="headerlink" title="gulp+webpack"></a>gulp+webpack</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//安装全局gulp</div><div class="line">$ npm install gulp -g</div><div class="line">//安装gulp-webpack</div><div class="line">$ npm install gulp-webpack</div></pre></td></tr></table></figure>
+<h3 id="gulpfile配置"><a href="#gulpfile配置" class="headerlink" title="gulpfile配置"></a>gulpfile配置</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> gulp = <span class="built_in">require</span>(<span class="string">'gulp'</span>);</div><div class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">'gulp-webpack'</span>);</div><div class="line"></div><div class="line">gulp.task(<span class="string">'default'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> gulp.src(<span class="string">'./module/main.js'</span>)</div><div class="line">    .pipe(webpack(<span class="built_in">require</span>(<span class="string">'./webpack.config.js'</span>)))</div><div class="line">    .pipe(gulp.dest(<span class="string">'js/'</span>));</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/12/05/基于nodeJs的mongoDB制作注册页面/" itemprop="url">
                   基于nodeJs的mongoDB制作注册页面(ajax版)
                 </a>
@@ -745,189 +866,11 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/05/NodeJs/" itemprop="url">
-                  NodeJS
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Veröffentlicht am</span>
-            <time itemprop="dateCreated" datetime="2016-12-05T17:19:40+08:00" content="2016-12-05">
-              2016-12-05
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="NodeJs"><a href="#NodeJs" class="headerlink" title="NodeJs"></a>NodeJs</h1><p>一.什么是node</p>
-<ol>
-<li>node是js语言的服务器运行环境(类似于php和apache)</li>
-<li>nodejs提供大量的工具库,使得javascript可以调用操作系统级别的api.</li>
-<li>node采用谷歌的v8引擎(javascript语言解释器),速度非常快跟js环境不一样,一个是运行在服务器,一个运行在客户端</li>
-<li>node是一个基于事件驱动和异步io的服务器javascript环境</li>
-<li>回调: 异步编程</li>
-<li>IO：input output程的基本方法，采用后续函数传递的方式，把后续的处理函数作为参数进行执行同步和异步（阻塞非阻塞）：AJAX的时候说过</li>
-<li>IO：input outputer<br>输入 输出，对应的就是下单操作</li>
-<li>单线程和多线程<br>单线程按顺序执行，多线程可以同时执行<h3 id="http模块"><a href="#http模块" class="headerlink" title="http模块"></a>http模块</h3></li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//1.引入一个http的模块</span></div><div class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>);</div><div class="line"><span class="comment">//2.创建一个http服务器</span></div><div class="line">server = http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req,res</span>)</span>&#123;</div><div class="line">   res.write(<span class="string">"响应对象"</span>);</div><div class="line">   res.end(<span class="string">"响应结束"</span>);</div><div class="line">&#125;)</div><div class="line"><span class="comment">//3.server.listen(port,function)监听响应</span></div><div class="line">server.listen(<span class="number">8080</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"开启成功:http://localhost:8080"</span>)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<h3 id="设置请求头"><a href="#设置请求头" class="headerlink" title="设置请求头"></a>设置请求头</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);<span class="comment">//引入一个HTTP的模块</span></div><div class="line"><span class="keyword">var</span> server = http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req,res</span>)</span>&#123;</div><div class="line">    <span class="comment">//设置请求头</span></div><div class="line">    res.writeHead(<span class="number">200</span>,&#123;<span class="string">"Content-Type"</span>:<span class="string">"text/html;charset=utf-8"</span>&#125;);</div><div class="line">    <span class="comment">//判断url是不是首页</span></div><div class="line">    <span class="keyword">if</span>(req.url==<span class="string">"/index"</span>||req.url==<span class="string">"/"</span>)&#123;</div><div class="line">        res.end(<span class="string">"首页"</span>);</div><div class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(req.url==<span class="string">"/login"</span>)&#123;</div><div class="line">        res.end(<span class="string">"登陆页面"</span>);</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        res.end(<span class="string">"404"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;)</div><div class="line">server.listen(<span class="number">8080</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"开启成功:http://localhost:8080"</span>)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<h3 id="url模块"><a href="#url模块" class="headerlink" title="url模块"></a>url模块</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>);</div><div class="line"><span class="keyword">var</span> url = <span class="built_in">require</span>(<span class="string">"url"</span>);</div><div class="line"><span class="keyword">var</span> server = http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req,res</span>)</span>&#123;</div><div class="line"><span class="comment">//如果第二个参数是true返回的是query是一个json格式,否则是字符串</span></div><div class="line">    <span class="keyword">var</span> oUrl = url.parse(req.url,<span class="literal">true</span>);</div><div class="line">    <span class="built_in">console</span>.log(oUrl);</div><div class="line">    res.end(<span class="string">"end"</span>);</div><div class="line">&#125;)</div><div class="line">server.listen(<span class="number">8080</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"开启成功:http://localhost:8080"</span>)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<h3 id="node自定义模块"><a href="#node自定义模块" class="headerlink" title="node自定义模块"></a>node自定义模块</h3><ul>
-<li>在同级创建node_modules,里面放一个test.js文件</li>
-<li>在mod.js文件里</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> abc = <span class="built_in">require</span>(<span class="string">"test"</span>);</div><div class="line">abc.show();</div></pre></td></tr></table></figure>
-<ul>
-<li>test.js文件里面</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">show</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"abc"</span>);</div><div class="line">&#125;</div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">show</span>:show</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>在node_modules里面创建一个package.json文件<br>package.json文件里面</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="string">"name"</span>: <span class="string">"test"</span>,</div><div class="line">  <span class="string">"version"</span>: <span class="string">"0.0.1"</span>,</div><div class="line">  <span class="string">"main"</span>:<span class="string">"../index.js"</span><span class="comment">//默认不写是打开index</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="创建buffer对象的方法"><a href="#创建buffer对象的方法" class="headerlink" title="创建buffer对象的方法"></a>创建buffer对象的方法</h3><p>1.直接创建</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> buf = <span class="keyword">new</span> Buffer(<span class="number">6</span>);</div><div class="line">buf.fill(<span class="number">255</span>);<span class="comment">//默认输出的值是随机的,用fill(255)可以填充数值</span></div><div class="line"><span class="built_in">console</span>.log(buf);</div></pre></td></tr></table></figure>
-<p>2.通过数组</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> buf2 = <span class="keyword">new</span> Buffer([<span class="number">255</span>,<span class="number">110</span>,<span class="number">5</span>,<span class="number">0xcc</span>]);</div><div class="line"><span class="built_in">console</span>.log(buf2);</div></pre></td></tr></table></figure>
-<p>3.通过字符串</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> buf3 = <span class="keyword">new</span> Buffer(<span class="string">"内容"</span>);</div><div class="line"><span class="built_in">console</span>.log(buf3.toString());<span class="comment">//用toString直接输出字体</span></div></pre></td></tr></table></figure>
-<h3 id="nodejs文件读取"><a href="#nodejs文件读取" class="headerlink" title="nodejs文件读取"></a>nodejs文件读取</h3><p>1.文件系统模块 fs<br>2.读取文件方法</p>
-<ul>
-<li>readFile(异步);</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>);</div><div class="line">fs.readFile(<span class="string">"test/abc.txt"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">err,data</span>)</span>&#123;</div><div class="line"><span class="comment">//异步读取文件,都有个回调函数,传两个参数(错误,内容);</span></div><div class="line">    <span class="keyword">if</span>(err)&#123;<span class="built_in">console</span>.log(err);<span class="keyword">return</span>&#125;</div><div class="line">    <span class="built_in">console</span>.log(data.toString())</div><div class="line">&#125;)</div><div class="line"><span class="built_in">console</span>.log(<span class="number">2</span>);</div><div class="line"><span class="comment">//异步下面的代码先执行</span></div></pre></td></tr></table></figure>
-<ul>
-<li>readFileSync(同步);</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> con = fs.readFileSync(<span class="string">"test/abc.txt"</span>);</div><div class="line"><span class="comment">//同步读取文件没有回调函数,所以直接赋值给con,输出这个con就可以了</span></div><div class="line"><span class="built_in">console</span>.log(con.toString());</div><div class="line"><span class="built_in">console</span>.log(<span class="number">2</span>);</div></pre></td></tr></table></figure>
-<p>同步的小demo</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">show</span>(<span class="params">a,b,cb</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(a,b);</div><div class="line">    cb();</div><div class="line">&#125;</div><div class="line">show(<span class="number">2</span>,<span class="number">4</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="number">1</span>);</div><div class="line">&#125;)</div><div class="line"><span class="built_in">console</span>.log(<span class="number">2</span>);</div></pre></td></tr></table></figure>
-<h3 id="nodejs文件操作"><a href="#nodejs文件操作" class="headerlink" title="nodejs文件操作"></a>nodejs文件操作</h3><ul>
-<li>文件操作</li>
-<li>目录操作</li>
-</ul>
-<ol>
-<li>写入内容writeFile(url,data,{flag:w},fn(err))</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</div><div class="line">fs.writeFile(<span class="string">"test/abc.txt"</span>,<span class="string">"内容内容内容内容内容内容"</span>,&#123;<span class="attr">flag</span>:w&#125;,<span class="function"><span class="keyword">function</span>(<span class="params">err</span>)</span>&#123;</div><div class="line">    <span class="keyword">if</span>(err)&#123;<span class="built_in">console</span>.log(<span class="string">"写入失败"</span>,err);<span class="keyword">return</span>&#125;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"写入成功"</span>);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<ul>
-<li>777分别代表所有者,组用户,其他用户所具有的权限<br>1 = 执行 2 = 写  4 = 读  1+2+4=7</li>
-</ul>
-<ol>
-<li>创建文件mkdir(filename,0777,fn(err));</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">fs.mkdir(<span class="string">"test/ben"</span>,<span class="number">0777</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">if</span>(err)&#123;<span class="built_in">console</span>.log(<span class="string">"创建失败"</span>,err);<span class="keyword">return</span>&#125;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"创建成功"</span>);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<ol>
-<li>读取目录所有文件readdir(url,fn(err,files))</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">fs.readdir(<span class="string">"./"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">err,files</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(files);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<ol>
-<li>判断文件是否存在fs.existsSync(urlstr)</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//判断有没有文件</span></div><div class="line"><span class="keyword">var</span> bol = fs.existsSync(<span class="string">"test/frank.txt"</span>);</div><div class="line"><span class="comment">//判断有没有文件夹</span></div><div class="line"><span class="comment">//var bol = fs.existsSync("test");</span></div></pre></td></tr></table></figure>
-<ol>
-<li>获取文件或文件夹的详细信息</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> stat = fs.lstatSync(urlstr);</div><div class="line"><span class="keyword">var</span> stat = fs.lstatSync(<span class="string">"test/abc.txt"</span>);</div><div class="line"><span class="built_in">console</span>.log(stat);</div></pre></td></tr></table></figure>
-<ol>
-<li>如果是文件返回true否则是false<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var isfile = stat.isFile();</div><div class="line">console.log(isfile);</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="node读取并写入大文件-Stream"><a href="#node读取并写入大文件-Stream" class="headerlink" title="node读取并写入大文件(Stream)"></a>node读取并写入大文件(Stream)</h3><ul>
-<li>stream,主要是用在大数据处理.</li>
-<li>var rs = createReadStream创建一个可读流</li>
-<li>var ws = createWriteStream创建一个可写流</li>
-<li>pipe该方法从可读流中拉取所有数据，并写入到所提供的目标。</li>
-<li>rs.on(‘data’,fn(data))每读64K或读完触发的事件</li>
-<li>rs.on(“end”)</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>);</div><div class="line"><span class="keyword">var</span> rs =fs.createReadStream(<span class="string">"Flat-UI-master.zip"</span>);</div><div class="line"><span class="keyword">var</span> ws =fs.createWriteStream(<span class="string">"test/a.zip"</span>);</div><div class="line"><span class="keyword">var</span> i = <span class="number">0</span>;</div><div class="line">re.on(<span class="string">'data'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    i++;</div><div class="line">    <span class="built_in">console</span>.log(i);</div><div class="line">&#125;)</div><div class="line">re.on(<span class="string">"red"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(i);</div><div class="line">&#125;)</div><div class="line">re.pipe(ws);</div></pre></td></tr></table></figure>
-<h3 id="nodeJs-http-post"><a href="#nodeJs-http-post" class="headerlink" title="nodeJs- http_post"></a>nodeJs- http_post</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>);</div><div class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>);</div><div class="line"><span class="keyword">var</span> server = http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req,res</span>)</span>&#123;</div><div class="line">    <span class="comment">//判断是否文件</span></div><div class="line">    <span class="keyword">var</span> isfile = <span class="literal">false</span>;</div><div class="line">    <span class="comment">//判断是否为首页</span></div><div class="line">    <span class="keyword">var</span> url = req.url;</div><div class="line">    <span class="keyword">if</span>(url==<span class="string">"/"</span>)&#123;</div><div class="line">        url = <span class="string">"/index.html"</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//判断文件是否存在</span></div><div class="line">    <span class="keyword">var</span> bol = fs.existsSync(<span class="string">"www"</span>+url);</div><div class="line">    <span class="keyword">if</span>(bol)&#123;</div><div class="line">        <span class="comment">//存在就获取文件或者文件夹的信息</span></div><div class="line">        <span class="keyword">var</span> stat = fs.lstatSync(<span class="string">"www"</span>+url);</div><div class="line">        isfile = stat.isFile();<span class="comment">//查看是否文件</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span>(isfile)&#123;</div><div class="line">        <span class="comment">//创建流式</span></div><div class="line">        <span class="keyword">var</span> rs = fs.createReadStream(<span class="string">"www"</span>+url);</div><div class="line">        rs.pipe(res);</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        res.end(<span class="string">"404"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;)</div><div class="line">server.lisen(<span class="number">8080</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"开启成功:http://localhost:8080"</span>);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -968,7 +911,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">15</span>
+              <span class="site-state-item-count">16</span>
               <span class="site-state-item-name">Artikel</span>
             </a>
           </div>
