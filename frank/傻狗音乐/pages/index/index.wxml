@@ -1,0 +1,13 @@
+<!--index.wxml-->
+<swiper indicator-dots current="2" autoplay interval="3000" duration="1000" circular>
+  <block wx:for="{{imgUrls}}">
+    <swiper-item>
+      <image src="{{item}}" class="slide-image" width="420" height="150"/>
+    </swiper-item>
+  </block>
+</swiper>
+<scroll-view class="warp" scroll-y>
+	<view class="songList" wx:for="{{newSong}}" hover="true" hover-class="hoverName" hover-stay-time="100" >
+	{{item.song_name}}<text class="singer">{{item.singer_name}}</text>
+	</view>		
+</scroll-view>

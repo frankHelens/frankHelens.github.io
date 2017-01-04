@@ -1,0 +1,31 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/logs/logs"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#a883e6",
+    "navigationBarTitleText": "傻狗音乐",
+    "navigationBarTextStyle":"white"
+  },
+  "tabBar": {
+    "color":"#000",
+    "selectedColor":"#a883e6",
+    "borderStyle":"white",
+    "list": [
+      {
+      "pagePath":"pages/index/index",
+      "text": "首页",
+      "iconPath": "img/home.png",
+      "selectedIconPath": "img/home-active.png"
+      },
+      {"pagePath":"pages/logs/logs",
+        "text": "我的",
+        "iconPath": "img/music.png",
+        "selectedIconPath": "img/music-active.png"
+      }
+  ]
+  },
+  "debug":false 
+}

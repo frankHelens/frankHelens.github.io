@@ -1,0 +1,10 @@
+<form bindsubmit="formSubmit">
+<input class="search" name='userName' type="text" placeholder="搜索歌词/歌星"></input>
+<button class="btn" formType="submit">{{so}}</button>
+</form>
+<scroll-view class="warp" scroll-y>
+	<view class="songList" wx:for="{{song}}" hover="true" hover-class="hoverName" hover-stay-time="100" >
+	{{item.song_name}}<text class="singer">{{item.singer_name}}</text>
+	</view>		
+</scroll-view>
+<view ></view>

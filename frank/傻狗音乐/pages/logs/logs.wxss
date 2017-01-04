@@ -1,0 +1,14 @@
+.search{
+	width: 100%;
+	height: 80rpx;
+	text-align: center;
+}
+.btn{
+	width: 100%;
+	height: 80rpx;
+	background: #a883e6;
+	color: #fff;
+}
+.hoverName{
+	background: #eee;
+}
