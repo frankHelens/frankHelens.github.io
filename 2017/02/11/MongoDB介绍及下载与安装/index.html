@@ -1,0 +1,601 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="frank, nice" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="MongoDB介绍及下载与安装MongoDB是一个介于关系数据库和非关系数据库之间的产品，是非关系数据库当中功能最丰富，最像关系数据库的。他支持的数据结构非常松散，是类似json的bjson格式，因此可以存储比较复杂的数据类型。Mongo最大的特点是他支持的查询语言非常强大，其语法有点类似于面向对象的查询语言，几乎可以实现类似关系数据库单表查询的绝大部分功能，而且还支持对数据建立索引。
+它的特点是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MongoDB介绍及下载与安装">
+<meta property="og:url" content="http://yoursite.com/2017/02/11/MongoDB介绍及下载与安装/index.html">
+<meta property="og:site_name" content="Frank的个人博客">
+<meta property="og:description" content="MongoDB介绍及下载与安装MongoDB是一个介于关系数据库和非关系数据库之间的产品，是非关系数据库当中功能最丰富，最像关系数据库的。他支持的数据结构非常松散，是类似json的bjson格式，因此可以存储比较复杂的数据类型。Mongo最大的特点是他支持的查询语言非常强大，其语法有点类似于面向对象的查询语言，几乎可以实现类似关系数据库单表查询的绝大部分功能，而且还支持对数据建立索引。
+它的特点是">
+<meta property="og:image" content="http://note.youdao.com/yws/api/personal/file/WEBb9ba255a6f5c58d584444d3465b4ff82?method=download&shareKey=de04fdb5e007b1c65785aafbfa454af5">
+<meta property="og:image" content="http://note.youdao.com/yws/api/personal/file/WEB60cf2c55c5a267ec56ebc4fa04ef7ee4?method=download&shareKey=09a54e00422200cce554ae3b3cc50b4f">
+<meta property="og:image" content="http://note.youdao.com/yws/api/personal/file/WEBb6c75e60bbdb66405f7731c49806721f?method=download&shareKey=b1e6ea1d2cc0e83757d61f1cc3a68b06">
+<meta property="og:image" content="http://note.youdao.com/yws/api/personal/file/WEBfc589cba31a669d9d557513d22e35701?method=download&shareKey=1ab088c6cee37e3bc78d240b5dc08574o">
+<meta property="og:updated_time" content="2016-12-16T13:28:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MongoDB介绍及下载与安装">
+<meta name="twitter:description" content="MongoDB介绍及下载与安装MongoDB是一个介于关系数据库和非关系数据库之间的产品，是非关系数据库当中功能最丰富，最像关系数据库的。他支持的数据结构非常松散，是类似json的bjson格式，因此可以存储比较复杂的数据类型。Mongo最大的特点是他支持的查询语言非常强大，其语法有点类似于面向对象的查询语言，几乎可以实现类似关系数据库单表查询的绝大部分功能，而且还支持对数据建立索引。
+它的特点是">
+<meta name="twitter:image" content="http://note.youdao.com/yws/api/personal/file/WEBb9ba255a6f5c58d584444d3465b4ff82?method=download&shareKey=de04fdb5e007b1c65785aafbfa454af5">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/02/11/MongoDB介绍及下载与安装/"/>
+
+
+  <title> MongoDB介绍及下载与安装 | Frank的个人博客 </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Frank的个人博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">welcome to Frank's Blog</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            Archiv
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                MongoDB介绍及下载与安装
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <time itemprop="dateCreated" datetime="2017-02-11T21:15:32+08:00" content="2017-02-11">
+              2017-02-11
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="MongoDB介绍及下载与安装"><a href="#MongoDB介绍及下载与安装" class="headerlink" title="MongoDB介绍及下载与安装"></a>MongoDB介绍及下载与安装</h1><p>MongoDB是一个介于关系数据库和非关系数据库之间的产品，是非关系数据库当中功能最丰富，最像关系数据库的。他支持的数据结构非常松散，是类似json的bjson格式，因此可以存储比较复杂的数据类型。Mongo最大的特点是他支持的查询语言非常强大，其语法有点类似于面向对象的查询语言，几乎可以实现类似关系数据库单表查询的绝大部分功能，而且还支持对数据建立索引。</p>
+<p>它的特点是高性能、易部署、易使用，存储数据非常方便。主要功能特性有：</p>
+<ul>
+<li>集合存储，易存储对象类型的数据。</li>
+<li>模式自由。</li>
+<li>支持动态查询。</li>
+<li>支持完全索引，包含内部对象。</li>
+<li>支持查询。</li>
+<li>支持复制和故障恢复。</li>
+<li>使用高效的二进制数据存储，包括大型对象（如视频等）。</li>
+<li>自动处理碎片，以支持云计算层次的扩展性</li>
+<li>支持RUBY，PYTHON，JAVA，C++，PHP,Javascript等多种语言。</li>
+<li>文件存储格式为BSON（一种JSON的扩展）</li>
+<li>可通过网络访问</li>
+</ul>
+<p>所谓“面向集合”（Collenction-Orented），意思是数据被分组存储在数据集中，被称为一个集合（Collenction)。每个 集合在数据库中都有一个唯一的标识名，并且可以包含无限数目的文档。集合的概念类似关系型数据库（RDBMS）里的表（table），不同的是它不需要定 义任何模式（schema)。<br>模式自由（schema-free)，意味着对于存储在mongodb数据库中的文件，我们不需要知道它的任何结构定义。如果需要的话，你完全可以把不同结构的文件存储在同一个数据库里。<br>存储在集合中的文档，被存储为键-值对的形式。键用于唯一标识一个文档，为字符串类型，而值则可以是各中复杂的文件类型。我们称这种存储形式为BSON（Binary Serialized dOcument Format）。</p>
+<p>MongoDB服务端可运行在Linux、Windows或OS X平台，支持32位和64位应用，默认端口为27017。推荐运行在64位平台，因为MongoDB在32位模式运行时支持的最大文件尺寸为2GB。</p>
+<h1 id="一、下载"><a href="#一、下载" class="headerlink" title="一、下载"></a>一、下载</h1><p>MongoDB的官网是：<a href="http://www.mongodb.org/" target="_blank" rel="external">http://www.mongodb.org/</a></p>
+<p>MongoDB最新版本下载在官网的DownLoad菜单下：<a href="http://www.mongodb.org/downloads" target="_blank" rel="external">http://www.mongodb.org/downloads</a></p>
+<h1 id="二、安装"><a href="#二、安装" class="headerlink" title="二、安装"></a>二、安装</h1><p>将下载好的安装包文件解压放到盘符的根目录（如C：或D：），为了方便建议文件夹命名尽量简短如（d:\mongodb）</p>
+<p>解压后的文件<br><img src="http://note.youdao.com/yws/api/personal/file/WEBb9ba255a6f5c58d584444d3465b4ff82?method=download&amp;shareKey=de04fdb5e007b1c65785aafbfa454af5" alt="image"></p>
+<h1 id="三、启动数据库"><a href="#三、启动数据库" class="headerlink" title="三、启动数据库"></a>三、启动数据库</h1><p>1.创建数据库目录（用来存放数据的目录）<br><img src="http://note.youdao.com/yws/api/personal/file/WEB60cf2c55c5a267ec56ebc4fa04ef7ee4?method=download&amp;shareKey=09a54e00422200cce554ae3b3cc50b4f" alt="image"></p>
+<p>2.打开终端<br><img src="http://note.youdao.com/yws/api/personal/file/WEBb6c75e60bbdb66405f7731c49806721f?method=download&amp;shareKey=b1e6ea1d2cc0e83757d61f1cc3a68b06" alt="image"></p>
+<p>3.进入mongodb/bin目录</p>
+<p>我的mongdb文件是放到桌面的</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cd desktop/mongdb/bin</div></pre></td></tr></table></figure>
+<p>4.启动数据库</p>
+<p>执行bin目录里面的<code>mongod</code>命令创建数据库</p>
+<p><code>--dbpath</code>：指定创建数据库的目录</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo ./mongod --dbpath ../data</div></pre></td></tr></table></figure>
+<p>启动成功<br><img src="http://note.youdao.com/yws/api/personal/file/WEBfc589cba31a669d9d557513d22e35701?method=download&amp;shareKey=1ab088c6cee37e3bc78d240b5dc08574o" alt="image"></p>
+<p>mongodb默认连接端口27017，如果出现如图的情况，可以打开<a href="http://localhost:27017查看，发现以下文字连接成功，如果不成功，可以查看端口是否被占用。" target="_blank" rel="external">http://localhost:27017查看，发现以下文字连接成功，如果不成功，可以查看端口是否被占用。</a></p>
+<p>It looks like you are trying to access MongoDB over HTTP on the native driver port.</p>
+<p>启动成功后窗口不能关闭(<strong>关闭就不能连接数据库了</strong>)</p>
+<h1 id="四、操作数据库"><a href="#四、操作数据库" class="headerlink" title="四、操作数据库"></a>四、操作数据库</h1><p>成功启动MongoDB后，再打开一个命令行窗口进入mongodb/bin目录输入mongo，就可以进行数据库的一些操作。</p>
+<p>mac系统需要加上<code>./</code> window系统不需要</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ./mongo</div></pre></td></tr></table></figure>
+<p>mongodb基本命令</p>
+<ul>
+<li>show dbs:显示数据库列表 </li>
+<li>show collections：显示当前数据库中的集合</li>
+<li>db.getName();查看当前使用的数据库</li>
+<li>db.stats();显示当前db状态</li>
+<li>db.version();当前db版本</li>
+<li>use myDB:切换/创建数据库</li>
+<li>db.createCollection(‘test’):创建一个聚集集合（table）</li>
+</ul>
+<h1 id="增删改查"><a href="#增删改查" class="headerlink" title="增删改查"></a>增删改查</h1><h3 id="增加"><a href="#增加" class="headerlink" title="增加"></a>增加</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//mongodb语句</div><div class="line">db.test.insert(&#123;"name":"abc","age":18&#125;)</div><div class="line">//相当于sql语句</div><div class="line">INSERT INTO test (name,age) VALUES("abc","18")</div></pre></td></tr></table></figure>
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//mongodb语句</div><div class="line">db.test.remove(&#123;"age":15&#125;)</div><div class="line">//相当于sql语句</div><div class="line">DELETE FROM test WHERE age = 15</div></pre></td></tr></table></figure>
+<h3 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//mongodb语句</div><div class="line">db.test.update(&#123;"name":"abc"&#125;,&#123;$set:&#123;"name":"updateName"&#125;):修改</div><div class="line">//相当于sql语句</div><div class="line">UPDATE test SET name = "updateName" WHERE  name = "abc"</div></pre></td></tr></table></figure>
+<h3 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//mongodb语句</div><div class="line">db.test.find(&#123;"name","abc"&#125;)</div><div class="line">//相当于sql语句</div><div class="line">SELECT * FROM test WHERE name="abc"</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/11/Angularjs/" rel="next" title="AngularJS">
+                <i class="fa fa-chevron-left"></i> AngularJS
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/02/11/NodeJs/" rel="prev" title="NodeJS">
+                NodeJS <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1481698571&di=c49644c80862eadf4d4c37701e528e63&src=http://a.hiphotos.baidu.com/zhidao/pic/item/6609c93d70cf3bc7672e39b3d600baa1cd112a47.jpg"
+               alt="Frank" />
+          <p class="site-author-name" itemprop="name">Frank</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">18</span>
+              <span class="site-state-item-name">Artikel</span>
+            </a>
+          </div>
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MongoDB介绍及下载与安装"><span class="nav-number">1.</span> <span class="nav-text">MongoDB介绍及下载与安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一、下载"><span class="nav-number">2.</span> <span class="nav-text">一、下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、安装"><span class="nav-number">3.</span> <span class="nav-text">二、安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、启动数据库"><span class="nav-number">4.</span> <span class="nav-text">三、启动数据库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、操作数据库"><span class="nav-number">5.</span> <span class="nav-text">四、操作数据库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#增删改查"><span class="nav-number">6.</span> <span class="nav-text">增删改查</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#增加"><span class="nav-number">6.0.1.</span> <span class="nav-text">增加</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除"><span class="nav-number">6.0.2.</span> <span class="nav-text">删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改"><span class="nav-number">6.0.3.</span> <span class="nav-text">修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查找"><span class="nav-number">6.0.4.</span> <span class="nav-text">查找</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Frank</span>
+</div>
+
+<div class="powered-by">
+  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
