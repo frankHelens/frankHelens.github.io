@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<!-- saved from url=(0195)https://www.h5-share.com/h5/2017/pian/jdsound/index.php?icon=http://wx.qlogo.cn/mmopen/JN8DWYSSibK6icP3HCczD9Ze0Rpp226PL7R1NODuCDfK7ISOl3AgvvD9I9GIFgXRo5qorerP55AOW34kj2wqoAgfPN8boSbgSm/0&focus=0 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/> -->
+  <meta name="viewport" content="width=375, user-scalable=no, target-densitydpi=device-dpi">
+    <meta name="format-detection" content="telephone=no">
+  <title>甜心的情书</title>
+  <link href="./js/style.css" type="text/css" rel="stylesheet">
+  <link id="icon" rel="shortcut icon" href="https://www.h5-share.com/images/icon.ico" media="screen">
+  <script src="./js/jweixin-1.2.0.js"></script>
+  <script type="text/javascript" src="./js/stats.js" name="MTAH5" sid="500393047"></script>
+  <script src="./js/jquery-1.8.3.min.js"></script>
+  <script src="./js/imagesLoader.min.js"></script>
+</head>
+<body> 
+  <!--loading页 loading中的图片，尽量使用<img />标签插入-->
+  <div class="loadpage" id="loadpage" style="display: none; height: 552px; width: 1280px;">
+      <div class="loading bgbolor" style="background: rgb(183, 245, 161);">
+        <div class="loadheart"><img src="./images/loadingheart.png" alt=""></div>
+        <div class="loadimgs">
+              <div class="loadimg1 loadimg" style="display: none;"><img src="./images/loadingimg1.png"></div>
+              <div class="loadimg2 loadimg" style="display: none;"><img src="./images/loadingimg2.png"></div>
+              <div class="loadimg3 loadimg" style="display: block;"><img src="./images/loadingimg3.png"></div>
+              <div class="loadimg4 loadimg" style="display: none;"><img src="./images/loadingimg4.png"></div>
+          </div>
+      </div>
+  </div>
+  <!-- loading end -->
+  <script type="text/javascript">
+    var bgColor = ['#b99fd9','#ee6663','#61b8f0','#f8dc7c','#fd9c54','#f5a1a1','#f5b5a1','#f5cda1','#f5eca1','#d8f5a1','#a1e2f5','#f5a1b3','#f5a1d5','#d3a1f5','#aba1f5','#a1c7f5','#b7f5a1','#6de5b3','#fce96e','#ff6089'];
+    /*loading*/
+    var loadWidth=document.documentElement.clientWidth,
+        loadHeight=document.documentElement.clientHeight;
+    document.getElementById('loadpage').style.width=loadWidth+'px';
+    document.getElementById('loadpage').style.height=loadHeight+'px';
+    $('.loadpage').show();
+    /*loading页循环序列帧动画*/
+      var loadImg = 1;
+      var loadImages = setInterval(function () {
+          loadImg++;
+          if (loadImg >= 5) {
+              loadImg = 1;
+          }
+          $(".loadimg").hide();
+          $(".loadimg" + loadImg).show();
+      }, 500);
+      /*图片预加载*/
+      var loader=new ImagesLoader();
+      loader.loadImages([
+        'loadingimg1.png',
+        'loadingimg2.png',
+        'loadingimg3.png',
+        'loadingimg4.png',
+        'loadingheart.png',
+        'pixels.png',
+        'musicon.png',
+        'p1-arrows1.png',
+        'p1-drop1.png',
+        'p1-drop2.png',
+        'p1-drop3.png',
+        'p2-hand.png',
+        'p1-balloon.png',
+        'p1-cloud.png',
+        'p1-heart.png',
+        'p1-letter.png',
+        'p1-word.png',
+        'p2-arrows1.png',
+        'p2-arrows2.png',
+        'p2-cloud.png',
+        'p2-cupid.png',
+        'p2-heart.png',
+        'p2-letpaper.png',
+        'p3-heart1.png',
+        'p3-heart2.png',
+        'p3-pd.png',
+      //   'qrcode.jpg',
+      //   'toux.jpg',
+        'two-wd1.jpg',
+        'txuser.jpg',
+        'heartmaskg.png',
+        'heartmaskw.png',
+        'thumb.jpg',
+        'text-bg.jpg',
+        'timg.png'
+      ],'./images/'); // 图片地址
+
+      loader.complete(function(){
+      console.log('completed');
+      setTimeout(function(){
+        $('.loadpage').hide();
+        clearInterval(loadImages);
+        $('.inner1').addClass('active');
+        $('.lay1').show();
+        //加载完毕播放音乐
+        $('#musicid')[0].play()
+        // $('#musicId').play();
+      },10);
+      });
+      loader.process(function(){
+      /*console.log('process'+this.processNum);*/
+      });
+      loader.start();
+
+      document.addEventListener('touchmove', function(e){e.preventDefault()}, false);
+  </script><img src="./images/loadingimg1.png" style="visibility: hidden; width: 1px; height: 1px; position: absolute;"><img src="./images/loadingimg2.png" style="visibility: hidden; width: 1px; height: 1px; position: absolute;"><img src="./images/loadingimg3.png" style="visibility: hidden; width: 1px; height: 1px; position: absolute;"><img src="./images/loadingimg4.png" style="visibility: hidden; width: 1px; height: 1px; position: absolute;"><img src="./images/loadingheart.png" style="visibility: hidden; width: 1px; height: 1px; position: absolute;"><img src="./images/pixels.png" style="visibility: hidden; width: 1px; height: 1px; position: absolute;">
+
+  <!-- 主体内容 start -->
+  <div class="wrapbox">
+    <!-- 第二屏 start -->
+    <div class="layout lay1" style="width: 1280px; height: 552px; display: block;">
+      <div class="inner inner1 bgbolor active" style="background: rgb(183, 245, 161);">
+        <div class="cloud cloud1 cloudani1"></div>
+        <div class="cloud cloud2 cloudani2"></div>
+        <div class="cloud cloud3 cloudani3"></div>
+        <div class="balloon bounceant1"></div>
+        <div class="letter" id="letterbtn">
+          <div class="heart pulse"></div>
+        </div>
+        <div class="arrows arrboxani">
+          <div class="arrowsbox arrboxani"></div>
+          <div class="drop1 dropani1"></div>
+          <div class="drop2 dropani2"></div>
+          <div class="drop3 dropani3"></div>
+        </div>
+        <div class="word"></div>
+        <div class="wave1 waveani1"></div>
+        <div class="wave2 waveani2"></div>
+        <div class="wave3 waveani1"></div>
+        <div class="wave4 waveani2"></div>
+        <div class="wave5 waveani1"></div>
+      </div>
+    </div>
+    <!-- 第二屏 end -->
+    <!-- 第二屏 start -->
+    <div class="layout lay2" style="width: 1280px; height: 552px;">
+      <div class="inner inner2 bgbolor" style="background: rgb(183, 245, 161);">
+        <div class="letterbg"></div>
+        <div class="lettercont">
+          <div id="wrapper">
+                <div id="scroller">
+                  <div class="voice twowd1" id="text1">
+                    <p></p>
+                    <div class="user3 pulseani3">
+                      <img src="./images/user3.jpg" alt=""><br>
+                      <span>执子之手与子偕老</span>
+                    </div>
+                  </div>
+              <div class="voice twowd2">
+                <div class="wdani21"></div>
+                <div class="wdani22"></div>
+                <div class="wdani23"></div>
+                <div class="wdani24"></div>
+              </div>
+              <div class="voice twowd3">
+                <div class="wdani31"></div>
+                <div class="wdani32"></div>
+                <div class="wdani33"></div>
+              </div>
+
+             </div>
+          </div>
+        </div>
+        <div class="cloud cloud1 cloudani1"></div>
+        <div class="cloud cloud2 cloudani2"></div>
+        <div class="cloud cloud3 cloudani3"></div>
+        <div class="cloud4 cloudani3"></div>
+        <div class="cloud5 cloudani3"></div>
+        <div class="cupid"></div>
+        <div class="arrows1 arrowsani1"></div>
+        <div class="arrows2 arrowsani2"></div>
+        <div class="heart pulseani1"><img class="usericoon" src="./images/userIcon.jpg" alt=""></div>
+
+        <div class="imgbig" id="imgbig">
+          <img src="https://www.h5-share.com/h5/2017/pian/jdsound/index.php?icon=http://wx.qlogo.cn/mmopen/JN8DWYSSibK6icP3HCczD9Ze0Rpp226PL7R1NODuCDfK7ISOl3AgvvD9I9GIFgXRo5qorerP55AOW34kj2wqoAgfPN8boSbgSm/0&amp;focus=0" alt="">
+        </div>
+      </div>
+    </div>
+    <!-- 第二屏 end -->
+    <!-- 第三屏 start -->
+    <div class="layout lay3">
+      <div class="inner inner3 bgbolor" style="background: rgb(183, 245, 161);">
+        <div class="letterbg"></div>
+        <div class="cloud cloud1 cloudani1"></div>
+        <div class="cloud cloud2 cloudani2"></div>
+        <div class="cloud cloud3 cloudani3"></div>
+        <div class="cloud4 cloudani3"></div>
+        <div class="cloud5 cloudani3"></div>
+        <div class="cupid"></div>
+        <div class="heart1 pulseani1"><img class="usericon" src="./images/userIcon.jpg" alt=""></div>
+        <div class="heart2 pulseani2"></div>
+        <div class="lettercont">
+          <div class="threewd1" id="text">
+            <p></p>
+          </div>
+          <div class="qrcode pulseani3" id="qrcode"><img src="./images/timg.png" alt=""><div class="samllhand samllhand1 pulsehand"></div></div>
+          <!-- <div class="threewd2 fadeInUp"></div> -->
+        </div>
+        <div class="ribbon"></div>
+        <div class="arrows arrowsani3"><img class="arrowsani4" src="./images/p2-arrows1.png" alt=""></div>
+      </div>
+    </div>
+    <!-- 第三屏 end -->
+  </div>
+  <!-- 主体内容 end -->
+
+  <!--旋屏提示-->
+    <div id="orientLayer" class="mod-orient-layer">
+        <div class="mod-orient-layer__content">
+            <i class="icon mod-orient-layer__icon-orient"></i>
+            <div class="mod-orient-layer__desc">为了更好的体验，请使用竖屏浏览</div>
+        </div>
+    </div>
+
+    <!-- 音乐 start-->
+    <!-- <audio id="sound0" class="off" src="Public/mp3/10.mp3" preload="preload">您的浏览器不支持 audio标签。</audio> -->
+    <div class="musicinfo" id="musicinfo">
+        <audio id="musicid" src="./mp3/music.mp3" preload="preload" autoplay="autoplay" loop="loop">您的浏览器不支持 audio标签。</audio>
+    <img class="music on roate" src="./images/musicon.png">
+    </div>
+    <!-- 音乐 end-->
+
+    <canvas id="imgCanvas" width="750" height="1334" style="display:none;"></canvas>
+    <!-- <div id="newimg" style="display:none;"></div> -->
+
+  <script src="./js/iscroll.js"></script>
+  <script type="text/javascript">
+    var bgColorid = bgColor[Math.floor(Math.random() * bgColor.length)];
+    $('.bgbolor').css({'background': bgColorid});
+    /*分享*/
+    var sharethis=function(){
+     var server = 'https://www.h5-share.com/h5share.php/Home/Share/JDOU_shareWx_niu/';
+     var currenturl = window.location.href;
+     var postData={ url:currenturl}
+     //alert(postData);
+            $.ajax({
+                type: "POST",
+                url: server,
+                data: postData,
+                async: true,
+                dataType: "json",
+                success: function (result) {
+                        //分享功能 s
+                        wx.config({
+                            debug: false,
+                            appId: result.appId,
+                            timestamp: result.timestamp,
+                            nonceStr: result.nonceStr,
+                            signature: result.signature,
+                            jsApiList: [
+                                'checkJsApi',
+                                'onMenuShareTimeline',
+                                'onMenuShareAppMessage',
+                                'onMenuShareQQ',
+                                'onMenuShareWeibo'
+                            ]
+                        });
+                        wechatReady();
+                },
+                error: function () {
+                  //window.alert("系统错误，请稍后再试");
+                }
+            });
+
+    }
+
+    function wechatReady() {     
+        wx.ready(function () {
+        var appMessageShareData = {
+        title: '甜心的情书',
+        desc:'',
+        link: 'https://www.h5-share.com/h5/2017/pian/jdsound/index.php?icon='+data1.icon+'&focus=0',
+        imgUrl:'https://www.h5-share.com/h5/2017/pian/jdsound/Public/images/thumb.jpg'
+      };       
+      wx.onMenuShareAppMessage(appMessageShareData);
+            wx.onMenuShareTimeline(appMessageShareData);
+            wx.onMenuShareQQ(appMessageShareData);
+            wx.onMenuShareWeibo(appMessageShareData);
+        })     
+        wx.error(function (res) {
+           //alert(res.errMsg);
+        });
+    }
+    sharethis();
+  </script>
+  <script src="./js/js.js"></script>
+  <script>
+    var typeWriter = {
+      msg: function(msg){
+        return msg;
+      },
+      len: function(){
+        return this.msg.length;
+      },
+      seq: 0,
+      speed: 150,//打字时间(ms),
+      type: function(){
+        var _this = this;
+        $('#text p').html(_this.msg.substring(0, _this.seq))
+        $('#text1 p').html(_this.msg.substring(0, _this.seq))
+      //   document.getElementById("main").innerHTML = _this.msg.substring(0, _this.seq);
+        if (_this.seq == _this.len()) {
+        _this.seq = 0;
+          clearTimeout(t);
+        }
+        else {
+        _this.seq++;
+        var t = setTimeout(function(){_this.type()}, this.speed);
+        }
+      }
+    }
+    var msg = "亲爱的甜心： <br>情人节到了，在百忙之中，我抽出了时间为你制作了这份情书，代表我对你的爱意，快戳下面的我看看吧！！";
+    var msg1 = "亲爱的甜心： <br/>我们从 6.5号开始，已经在一起" + dayTime + "天了，在这" + dayTime + "天里，你陪我哭过，笑过，我们大声歌唱，一起跳舞，你是我生命中闪亮的音符，我的生活因你而精彩！愿美好的乐章谱满我们以后的每一个清晨与黄昏。情人节到了，在此我要和你说一声，情人节快乐~我爱你！";
+    function getMsg(msg){
+      return msg;
+    }
+  </script>
