@@ -165,7 +165,7 @@ a,button,input,textarea,div{-webkit-tap-highlight-color:rgba(0,0,0,0);tap-highli
 .inner3 .threewd1 div:nth-child(2){height:23px;top:19px;background:url(../images/three-wdbg2.jpg);background-size:cover;clip:rect(0px 262px 23px 0)}
 .inner3 .threewd1 div:nth-child(3){height:22.5px;top:42px;background:url(../images/three-wdbg3.jpg);background-size:cover;clip:rect(0px 262px 22.5px 0)}
 .inner3 .threewd1 div:nth-child(4){height:19.5px;top:64.5px;background:url(../images/three-wdbg4.jpg);background-size:cover;clip:rect(0px 262px 19.5px 0)} */
-.inner3 .qrcode{width:100px;height:100px;margin:10px;}
+.inner3 .qrcode{width:100px;height:100px;margin:10px auto;}
 .inner3 .qrcode img{width:100%;height:100%}
 .inner3 .threewd2{width:155px;height:8px;margin:0 auto;background:url(../images/three-wd2.jpg);background-size:100% 100%}
 .inner3 .ribbon{position:absolute;width:135px;height:102px;right:0;bottom:0;background:url(../images/p3-pd.png);background-size:100% 100%}
