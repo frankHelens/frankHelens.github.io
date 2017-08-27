@@ -102,7 +102,7 @@ a,button,input,textarea,div{-webkit-tap-highlight-color:rgba(0,0,0,0);tap-highli
 .inner2 #wrapper{position:relative;overflow:hidden;width:258px;height:355px;margin:0 auto;margin-top:16px}
 .inner2 #scroller{position:absolute;width:258px}
 .inner2 .voice{width:100%;height:65px;margin-top:8px;overflow:hidden;zoom:1;display:none}
-.inner2 .twowd1{position:relative;width:258px;height:350px;margin:0 auto;background:url(../images/two-wd1.jpg);background-size:100%;}
+.inner2 .twowd1{position:relative;width:258px;height:340px;margin:0 auto;background:url(../images/two-wd1.jpg);background-size:100%;}
 .inner2 .twowd1 span{position:absolute;color:#410803;font-size:12px;text-align:center}
 .inner2 #oldyear{width:33px;height:23px;line-height:23px;top:16px;left:187px}
 .inner2 #oldmonth{width:24px;height:23px;line-height:23px;top:16px;left:230px}
